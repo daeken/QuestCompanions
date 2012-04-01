@@ -4,7 +4,23 @@ from sqlalchemy.types import AbstractType, Integer
 from sqlalchemy.orm import scoped_session, sessionmaker
 from sqlalchemy.orm.attributes import QueryableAttribute
 
-session = None
+class SessionProxy(object):
+	def __getattr__(self, name):
+		return getattr(_session, name)
+	
+	def commit(self, dosync=True):
+		while True:
+			try:
+				_session.commit()
+				break
+			except:
+				pass
+	
+	def rollback(self):
+		_session.rollback()
+
+session = SessionProxy()
+_session = None
 metadata = sa.MetaData()
 
 __models = []
@@ -20,18 +36,46 @@ def create(cls, **kwargs):
 	for k, v in kwargs.items():
 		setattr(obj, k, v)
 	session.add(obj)
-	sync.create(cls.__name__, kwargs)
 	return obj
 
 def update(self, **kwargs):
 	for k, v in kwargs.items():
 		setattr(self, k, v)
-	sync.update(self.__class__.__name__, self.id, kwargs)
 	return self
+
+@classmethod
+def all(cls):
+	return session.query(cls).all()
+
+def genFilter(cls, kwargs):
+	if len(kwargs) == 1:
+		k, v = kwargs.items()[0]
+		return getattr(cls, k) == v
+
+	filters = []
+	for k, v in kwargs.items():
+		filters.append(getattr(cls, k) == v)
+	return sa.and_(*filters)
+
+@classmethod
+def some(cls, **kwargs):
+	filter = genFilter(cls, kwargs)
+	return session.query(cls).filter(filter).all()
+
+@classmethod
+def one(cls, **kwargs):
+	filter = genFilter(cls, kwargs)
+	try:
+		return session.query(cls).filter(filter).one()
+	except:
+		return None
 
 def Model(cls):
 	cls.create = create
 	cls.update = update
+	cls.all = all
+	cls.some = some
+	cls.one = one
 	cls.relation = relation
 	__models.append(cls)
 	return cls
@@ -39,15 +83,15 @@ def Model(cls):
 engine = None
 
 def reconfigure():
-	global engine, session
+	global engine, _session
 	new = True
-	if session != None and engine != None:
+	if _session != None and engine != None:
 		engine.dispose()
-		session.close()
+		_session.close()
 		new = False
-	session = scoped_session(sessionmaker())
+	_session = scoped_session(sessionmaker())
 	engine = sa.create_engine('sqlite:///model.db')
-	session.configure(bind=engine)
+	_session.configure(bind=engine)
 	if not new:
 		metadata.create_all(bind=engine)
 

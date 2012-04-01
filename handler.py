@@ -1,4 +1,5 @@
-from flask import request
+from flask import request, session
+from model import User
 
 all = {}
 
@@ -18,25 +19,29 @@ def handler(func):
 		all[module] = {}
 	args = func.__code__.co_varnames[:func.__code__.co_argcount]
 
-	if len(args) > 1 or (len(args) == 1 and args[0] != 'id'):
-		ofunc = func
-		def func(id=None):
-			try:
-				params = request.form if method == 'POST' else request.args
-				kwargs = {}
-				for i, arg in enumerate(args):
-					if i == 0 and arg == 'id':
-						continue
-					if arg in params:
-						kwargs[arg] = params[arg]
+	ofunc = func
+	def func(id=None):
+		try:
+			if 'userId' in session:
+				session.user = User.one(id=int(session['userId']))
+			else:
+				session.user = None
+			params = request.form if method == 'POST' else request.args
+			kwargs = {}
+			for i, arg in enumerate(args):
+				if i == 0 and arg == 'id':
+					continue
+				if arg in params:
+					kwargs[arg] = params[arg]
 
-				if id != None:
-					return ofunc(id, **kwargs)
-				else:
-					return ofunc(**kwargs)
-			except:
-				import traceback
-				traceback.print_exc()
+			if id != None:
+				return ofunc(id, **kwargs)
+			else:
+				return ofunc(**kwargs)
+		except:
+			import traceback
+			traceback.print_exc()
 
+	func.func_name = '__%s__%s__' % (module, name)
 	all[module][name] = method, args, func
 	return func
