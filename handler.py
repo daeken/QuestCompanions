@@ -1,5 +1,6 @@
 from flask import request, session
 from model import User
+from urllib import quote, urlencode
 
 all = {}
 
@@ -18,6 +19,7 @@ def handler(func):
 	if not module in all:
 		all[module] = {}
 	args = func.__code__.co_varnames[:func.__code__.co_argcount]
+	hasId = len(args) > 0 and args[0] == 'id'
 
 	ofunc = func
 	def func(id=None):
@@ -44,4 +46,21 @@ def handler(func):
 
 	func.func_name = '__%s__%s__' % (module, name)
 	all[module][name] = method, args, func
-	return func
+
+	def url(_id=None, **kwargs):
+		if module == 'index':
+			url = '/'
+		else:
+			url = '/%s/' % module
+		if name != 'index':
+			url += '%s/' % name
+		if hasId:
+			assert _id != None
+			url += quote(_id)
+		if len(kwargs):
+			url += '?'
+			url += urlencode(kwargs)
+		return url
+	ofunc.url = url
+
+	return ofunc
