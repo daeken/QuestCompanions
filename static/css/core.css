@@ -10,7 +10,7 @@ src: url(fonts/Museo900.otf);
 
 body {
 background-color: #170017;
-background-image: url('background2.png');
+background-image: url('../img/background2.png');
 background-size: 100%;
 color: white;
 }
@@ -28,7 +28,7 @@ margin-top: 5%;
 }
 
 .name {
-background-image: url('wordmark.png');
+background-image: url('../img/wordmark.png');
 width: 614px;
 height: 99px;
 margin-left: auto;
@@ -42,121 +42,56 @@ text-align: center;
 font-family: "Museo900";
 }
 
-.how-header {
-font-size: 19pt;
-text-align: center;
-font-family: "Museo900";
-margin-top: 20px;
-}
-
-#how {
-font-family: Museo100;
-margin-left: auto;
-margin-right: auto;
-text-align: center;
-width: 720px;
-height: 540px;
-font-size: 16pt;
-margin-top: 20px;
--moz-border-radius: 15px;
-border-radius: 7px;
-  background-color: #170017;
-    border: solid 1px #A400A2;
-
-              margin-bottom: 100px;
-}
-
-.what-header {
-font-size: 19pt;
-text-align: center;
-font-family: "Museo900";
-margin-top: 60px;
-}
-
-.what {
-font-family: Museo100;
-margin-left: auto;
-margin-right: auto;
-text-align: center;
-width: 720px;
-font-size: 16pt;
-margin-top: 20px;
-}
-
 .body {
 margin-left: auto;
 margin-right: auto;
 text-align: center;
 margin-top: 50px;
+width:960px;
 }
 
-.email {
+#uName, #uPass {
 -moz-border-radius: 15px;
 border-radius: 7px;
 background-color: #170017;
 border: solid 1px #A400A2;
-width: 500px;
-margin-left: auto;
-margin-right: auto;
-}
-
-.email td {
-vertical-align: middle;
-}
-
-.email input {
-border: none;
-background-color: #170017;
+margin: 5px auto;
 width: 400px;
 font-size: 18pt;
 color: #7D007C;
 font-family: "Museo100";
 outline: none;
+padding-left: 5px;
+float: left;
 }
 
-.email button {
+#submit {
 width: 79px;
 height: 41px;
 display: inline;
-background: url(start_button.png) no-repeat top left;
-               background-position: 0 0;
-                   border: 0;
-                               cursor: pointer;
+background:  -moz-linear-gradient(#00BF02, #007F01);
+background:  -webkit-linear-gradient(#00BF02, #007F01);
+background:  -moz-linear-gradient(#00BF02, #007F01);
+background:  -ms-linear-gradient(#00BF02, #007F01);
+background:  linear-gradient(#00BF02, #007F01);
+background-position: 0 0;
+border-width: 0;
+border-top: 1px solid #00FF03;
+border-radius: 5px;
+color: #fff;
+text-shadow: 0px -2px 0 #008f01;
+font-size: 16px;
+font-weight: 800;
+cursor: pointer;
 }
 
-.email button:active {
+#submit:active {
+background:  -moz-linear-gradient(#007f01, #005601);
+background:  -webkit-linear-gradient(#007f01, #005601);
+background:  -moz-linear-gradient(#007f01, #005601);
+background:  -ms-linear-gradient(#007f01, #005601);
+background:  linear-gradient(#007f01, #005601);
 background-position: 0 -91px;
-}
-
-.social-twitter {
-position: fixed;
-padding-top: 10px;
-top: 0;
-text-align: right;
- width: 100%;
-}
-
-.social-fb {
-position: fixed;
-padding-top: 10px;
-top: 0;
-text-align: right;
- width: 100%;
-}
-
-.social-twitter {
-right:30px;
-width:60px;
-}
-
-.social-twitter a {
-margin-right: 20px;
-width: 100px;
-}
-
-.social-fb > div {
-margin-right: 80px;
-width: 100px;
 }
 
 .footer {
@@ -165,3 +100,7 @@ font-family: "Museo100";
 font-size: 14pt;
 }
 
+.col {
+width: 450px;
+float: left;
+}
