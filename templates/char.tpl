@@ -1,42 +1,34 @@
-<!DOCTYPE HTML>
-<head>
-<title>{% block title %}{% endblock %} -- QuestCompanions</title>
-<link rel="stylesheet" type="text/css" href="../static/css/core.css"/>
-<link rel="stylesheet" type="text/css" href="../static/css/head.css"/>
-<link rel="stylesheet" type="text/css" href="../static/css/users.css"/>
-</head>
-<body>
-<div class="header">
-  <div class="logo"></div><div class="logotype"></div>
-  <div class="nav">
-    {% block nav %}{% endblock %}
-  </div>
-</div>
-<div class="content">
+{% extends "base.tpl" %}
+{% block title %}{{ char.name }}{% endblock %}
+{% block includes %} <link rel="stylesheet" type="text/css" href="../static/css/users.css"/>
+{% endblock %}
+{% block content %}
 <div class="col narrow">
   <div class="userPic">
-    <img src="{% block avatar %}{% endblock %}">
+    <img src="{{ char.pic }}">
   </div>
   <div class="contact block">
     <h3>Information</h3>
     <ul>
-    <li>Server: {% block server %}{% endblock %}
-    <li>Level: {% block Level %}{% endblock %}
-    <li>Faction: {% block faction %}{% endblock %}
-    <li>Equipment level: {% block eqipLevel %}{% endblock %}
+    <li>Server: {{ char.server }}
+    {% if char.level is defined %}
+    <li>Level: {{ char.level }}
+    {% endif %}
+    {% if char.level is defined %}
+    <li>Faction: { char.faction }}
+    {% endif %}
+    {% if char.level is defined %}
+    <li>Equipment level: {{ char.equipment }}
+    {% endif %}
     </ul>
   </div>
 </div>
 <div class="col wide">
-  <h1>{% block charName %}{% endblock %}</h1>
-  <h2>{% block game %}{% endblock %} </h2>
+  <h1>{{ char.username }}</h1>
+  <h2>{{ char.game }} </h2>
   <div class="about block">
     <h3>Bio</h3>
-    {% block charAbout %}{% endblock %}
+    {{ char.bio }}
   </div>
   </div>
-  </div>
-<div class="footer">
-{% block footer %}{% endblock %}
-</div>
-</body>
+{% endblock %}

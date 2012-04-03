@@ -1,41 +1,34 @@
-<!DOCTYPE HTML>
-<head>
-<title>{% block title %}{% endblock %} -- QuestCompanions</title>
+{% extends base.tpl %}
+{% block title %}{{ user.username }}{% endblock %}
+{% block includes %}
 <link rel="stylesheet" type="text/css" href="../static/css/core.css"/>
 <link rel="stylesheet" type="text/css" href="../static/css/head.css"/>
 <link rel="stylesheet" type="text/css" href="../static/css/users.css"/>
-</head>
-<body>
-<div class="header">
-  <div class="logo"></div><div class="logotype"></div>
-  <div class="nav">
-    {% block nav %}{% endblock %}
-  </div>
-</div>
-<div class="content">
+{% endblock %}
+{% block content %}
 <div class="col narrow">
   <div class="userPic">
-    <img src="{% block userPic %}{% endblock %}">
+    <img src="{{ user.pic }}">
   </div>
   <div class="contact block">
     <h3>contact</h3>
-    {% block contactLinks %}{% endblock %}
+    {% for link in user.contact %}
+      <a class="contact" href="{{ link.href }}i">{{ link.type }}</a>
   </div>
 </div>
 <div class="col wide">
-  <h1>{% block UserName %}{% endblock %}</h1>
+  <h1>{{ user.username }}</h1>
   <div class="about block">
     <h3>About Me</h3>
-    {% block userAbout %}{% endblock %}
+    {{ user.about }}
   </div>
   <div class="chars block">
   <h3>My Characters</h3>
-    {% block userChar %}{% endblock %}
+  {% for char in user.chars %}
+    <a href="{{ char.href }}"><img src="{{ char.pic }}"></a>
+{% endfor %}
   </div>
   </div>
-  </div>
-<div class="footer">
-{% block footer %}{% endblock %}
-</div>
-</body>
+
+{% endblock %}
     

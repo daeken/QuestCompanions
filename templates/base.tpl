@@ -3,19 +3,24 @@
 <title>{% block title %}{% endblock %} -- QuestCompanions</title>
 <link rel="stylesheet" type="text/css" href="../static/css/core.css"/>
 <link rel="stylesheet" type="text/css" href="../static/css/head.css"/>
+{% block includes %}{% endblock %}
 </head>
 <body>
 <div class="header">
   <div class="logo"></div><div class="logotype"></div>
   <div class="nav">
-    {% block nav %}{% endblock %}
+    {% for item in navigation %}
+      <a class="button" href="{{ item.href }}">{{ item.title }}</a>
+    {% endfor %}
   </div>
 </div>
 <div class="content">
 {% block content %}{% endblock %}
 </div>
 <div class="footer">
-{% block footer %}{% endblock %}
+{% for item in footer %}
+  <a href="{{ item.href }}">{{ item.title }}</a>
+{% endfor %}
 </div>
 </body>
     
