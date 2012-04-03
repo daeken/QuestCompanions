@@ -51,3 +51,19 @@ So that means that a handler module named `index.py` is the very root of the web
 
 The `id` argument must be the first to the function if you want to have it.  This is handy for URLs like `/user/55`.  All non-id arguments are *optional*.  Handle their non-existence or perish.
 
+Template Magic
+--------------
+
+One additional way to use handlers is to automatically spit out JSON or put your data into a template.
+
+    @handler(json=True)
+    def get_foo():
+    	return True
+
+This will return 'true' as it's JSON-encoded.
+
+    @handler('login.tpl')
+    def get_login():
+    	return dict(status='Login failed')
+
+This will automatically output your login template with the status variable assigned.
