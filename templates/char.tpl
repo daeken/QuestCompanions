@@ -23,6 +23,7 @@
     <li>Server: {% block server %}{% endblock %}
     <li>Level: {% block Level %}{% endblock %}
     <li>Faction: {% block faction %}{% endblock %}
+    <li>Equipment level: {% block eqipLevel %}{% endblock %}
     </ul>
   </div>
 </div>
@@ -32,9 +33,6 @@
   <div class="about block">
     <h3>Bio</h3>
     {% block charAbout %}{% endblock %}
-  </div>
-  <div class="equip block">
-    {% block equipment %}{% endblock %}
   </div>
   </div>
   </div>
