@@ -1,0 +1,64 @@
+.header{
+  background: #50104f;
+  background: -ms-linear-gradient(#50104f, #2d052d);
+  background: -o-linear-gradient(#50104f, #2d052d);
+  background: -webkit-linear-gradient(#50104f, #2d052d);
+  background: -moz-linear-gradient(#50104f, #2d052d);
+  background: linear-gradient(#50104f, #2d052d);
+  height: 40px;
+  width: -moz-calc(100% - 20px);
+width: -webkit-calc(100% - 20px);
+width: calc(100%-20px);
+  padding-left: 20px;
+}
+
+.logo {
+height: 32px;
+width: 40px;
+background: url("../img/logo.png") no-repeat;
+background-size: auto 32px;
+display: inline-block;
+top: 50%;
+margin-top: -16px;
+position:relative;
+float:left;
+
+}
+.logotype {
+height: 32px;
+width: 200px;
+background: url("../img/wordmark.png") no-repeat;
+background-size: auto 32px;
+display:inline-block;
+top: 50%;
+margin-top: -10px;
+position:relative;
+float: left;
+}
+
+.nav {
+height: 40px;
+padding-top:20px;
+margin-right: 20px;
+}
+
+.nav .button {
+float: right;
+position:relative;
+display: inline-block;
+top: -20px;
+height: 32px;
+padding-top:8px;
+padding-left: 5px;
+padding-right: 5px;
+margin-left: 10px;
+color: #fff;
+font-size: 16px;
+text-align: center center;
+background: #681e67;
+text-decoration: none;
+}
+
+.nav .button:hover {
+background: #2d052d;
+}

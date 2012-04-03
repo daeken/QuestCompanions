@@ -13,6 +13,8 @@ background-color: #170017;
 background-image: url('../img/background2.png');
 background-size: 100%;
 color: white;
+margin: 0;
+padding: 0;
 }
 
 a {
@@ -23,9 +25,32 @@ color: #67CCF2;
 text-align: center;
 font-family: "Museo100";
 font-size: 14pt;
+height: 100px;
+margin-top: 100px;
+background: #681e67;
 }
 
 .col {
 width: 450px;
 float: left;
+}
+
+.content {
+position: relative;
+background: #ccc;
+max-width: 940px;
+min-height: 400px;
+margin: 0 auto;
+padding: 20px;
+color: #444;
+border-bottom-left-radius: 10px;
+border-bottom-right-radius: 10px;
+box-shadow: 0px 5px 30px #000;
+}
+
+.center {
+width: 400px;
+margin: 0 auto;
+display: block; 
+text-align: center;
 }
