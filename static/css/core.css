@@ -35,6 +35,13 @@ width: 450px;
 float: left;
 }
 
+.narrow {
+width: 250px;
+}
+
+.wide {
+width: 650px;
+}
 .content {
 position: relative;
 background: #ccc;
