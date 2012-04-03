@@ -15,20 +15,61 @@ else:
 app.secret_key = key
 
 for module, sub in handler.all.items():
-	for name, (method, args, func) in sub.items():
+	for name, (method, args, func, rpc) in sub.items():
 		if module == 'index':
 			route = '/'
 		else:
 			route = '/%s/' % module
 		if name != 'index':
 			route += '%s/' % name
-		if len(args) and args[0] == 'id':
+		if len(args) and args[0] == 'id' and not rpc:
 			route += '<id>'
 		app.route(route, methods=[method])(func)
 
 @app.route('/favicon.ico')
 def favicon():
 	return file('static/favicon.ico', 'rb').read()
+
+rpcStubTemplate = '''%s: function(%s, callback) {
+	$.ajax(%r, 
+		{
+			success: function(data) {
+				if(callback !== undefined)
+					callback(data)
+			}, 
+			error: function() {
+				if(callback !== undefined)
+					callback()
+			}, 
+			dataType: 'json', 
+			data: {%s}, 
+			type: 'POST'
+		}
+	)
+}'''
+cachedRpc = None
+@app.route('/rpc.js')
+def rpc():
+	global cachedRpc
+	if cachedRpc:
+		return cachedRpc
+
+	modules = []
+	for module, sub in handler.all.items():
+		module = [module]
+		for name, (method, args, func, rpc) in sub.items():
+			if not rpc:
+				continue
+			method = rpcStubTemplate % (
+					name, ', '.join(args), 
+					func.url(), 
+					', '.join('%s: %s' % (arg, arg) for arg in args)
+				)
+			module.append(method)
+		if len(module) > 1:
+			modules.append(module)
+
+	return 'var $rpc = {%s};' % (', '.join('%s: {%s}' % (module[0], ', '.join(module[1:])) for module in modules))
 
 @app.route('/scripts/<fn>')
 def script(fn):

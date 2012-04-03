@@ -8,12 +8,18 @@ all = {}
 def handler(tpl=None, json=False):
 	def sub(func):
 		name = func.func_name
+		rpc = False
 		if name.startswith('get_'):
 			name = name[4:]
 			method = 'GET'
 		elif name.startswith('post_'):
 			name = name[5:]
 			method = 'POST'
+		elif name.startswith('rpc_'):
+			name = name[4:]
+			method = 'POST'
+			rpc = json = True
+			tpl = None
 		else:
 			raise Exception('All handlers must be marked get_ or post_.')
 
@@ -21,7 +27,7 @@ def handler(tpl=None, json=False):
 		if not module in all:
 			all[module] = {}
 		args = func.__code__.co_varnames[:func.__code__.co_argcount]
-		hasId = len(args) > 0 and args[0] == 'id'
+		hasId = len(args) > 0 and args[0] == 'id' and not rpc
 
 		ofunc = func
 		def func(id=None):
@@ -33,12 +39,14 @@ def handler(tpl=None, json=False):
 				params = request.form if method == 'POST' else request.args
 				kwargs = {}
 				for i, arg in enumerate(args):
-					if i == 0 and arg == 'id':
+					if i == 0 and arg == 'id' and not rpc:
 						continue
 					if arg in params:
 						kwargs[arg] = params[arg]
+					else:
+						assert not rpc # RPC requires all arguments.
 
-				if id != None:
+				if hasId and id != None:
 					ret = ofunc(id, **kwargs)
 				else:
 					ret = ofunc(**kwargs)
@@ -53,7 +61,7 @@ def handler(tpl=None, json=False):
 				traceback.print_exc()
 
 		func.func_name = '__%s__%s__' % (module, name)
-		all[module][name] = method, args, func
+		all[module][name] = method, args, func, rpc
 
 		def url(_id=None, **kwargs):
 			if module == 'index':
@@ -70,6 +78,7 @@ def handler(tpl=None, json=False):
 				url += urlencode(kwargs)
 			return url
 		ofunc.url = url
+		func.url = url
 
 		return ofunc
 

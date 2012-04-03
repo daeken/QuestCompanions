@@ -60,10 +60,26 @@ One additional way to use handlers is to automatically spit out JSON or put your
     def get_foo():
     	return True
 
-This will return 'true' as it's JSON-encoded.
+This will return `true` as it's JSON-encoded.
 
     @handler('login.tpl')
     def get_login():
     	return dict(status='Login failed')
 
 This will automatically output your login template with the status variable assigned.
+
+RPC
+---
+
+Handlers can also provide automatic RPC.
+
+    @handler
+    def rpc_foo(blah):
+    	return dict(foo='bar', arg=blah)
+
+This will automatically generate an RPC stub, which can be called from CoffeeScript:
+
+	$rpc.ourhandlermodule.foo 'baz', (data) ->
+		console.log data
+
+This will print out a dict `{foo: 'bar', arg: 'baz'}`.  RPC methods cannot take `id` (they're assumed to just be another parameter), always return JSON, and can't have a template applied to them, obviously.
