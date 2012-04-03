@@ -1,0 +1,31 @@
+@font-face {
+font-family: "Museo100";
+src: url(fonts/Museo100.otf);
+}
+
+@font-face {
+font-family: "Museo900";
+src: url(fonts/Museo900.otf);
+}
+
+body {
+background-color: #170017;
+background-image: url('../img/background2.png');
+background-size: 100%;
+color: white;
+}
+
+a {
+color: #67CCF2;
+}
+
+.footer {
+text-align: center;
+font-family: "Museo100";
+font-size: 14pt;
+}
+
+.col {
+width: 450px;
+float: left;
+}

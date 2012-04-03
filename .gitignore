@@ -1,3 +1,4 @@
 *.pyc
 *.cjs
 model.db
+.DS_Store
