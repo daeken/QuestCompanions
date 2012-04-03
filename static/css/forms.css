@@ -1,0 +1,56 @@
+
+input {
+-moz-border-radius: 15px;
+border-radius: 7px;
+background-color: #170017;
+border: solid 1px #A400A2;
+margin: 5px auto;
+width: 400px;
+font-size: 18pt;
+color: #7D007C;
+font-family: "Museo100";
+outline: none;
+padding-left: 5px;
+}
+
+button {
+width: 79px;
+height: 41px;
+display: inline;
+background: -moz-linear-gradient(#00BF02, #007F01);
+background: -webkit-linear-gradient(#00BF02, #007F01);
+background: -moz-linear-gradient(#00BF02, #007F01);
+background: -ms-linear-gradient(#00BF02, #007F01);
+background: linear-gradient(#00BF02, #007F01);
+background-position: 0 0;
+border-width: 0;
+border-top: 1px solid #00FF03;
+border-radius: 5px;
+color: #fff;
+text-shadow: 0px -2px 0 #008f01;
+font-size: 16px;
+font-weight: 800;
+cursor: pointer;
+margin-top: 10px;
+}
+
+button:active {
+background: -moz-linear-gradient(#007f01, #005601);
+background: -webkit-linear-gradient(#007f01, #005601);
+background: -moz-linear-gradient(#007f01, #005601);
+background: -ms-linear-gradient(#007f01, #005601);
+background: linear-gradient(#007f01, #005601);
+background-position: 0 -91px;
+}
+
+.label {
+font-size: 26px;
+width: 180px;
+margin-right: 10px;
+display: inline-block;
+text-align: right;
+}
+
+.form {
+  max-width: 960px;
+}
