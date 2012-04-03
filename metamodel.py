@@ -19,6 +19,16 @@ class SessionProxy(object):
 	def rollback(self):
 		_session.rollback()
 
+	def __enter__(self):
+		pass
+
+	def __exit__(self, type, value, traceback):
+		if type == None:
+			_session.commit()
+		else:
+			_session.rollback()
+			raise
+
 session = SessionProxy()
 _session = None
 metadata = sa.MetaData()

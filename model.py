@@ -33,13 +33,13 @@ class User(object):
 	def add(username, password, admin):
 		if User.one(enabled=True, username=username):
 			return None
-		user = User.create(
-			enabled=True, 
-			username=username, 
-			password=User.hash(password), 
-			admin=admin
-		)
-		session.commit()
+		with session:
+			user = User.create(
+				enabled=True, 
+				username=username, 
+				password=User.hash(password), 
+				admin=admin
+			)
 		return user
 	
 	@staticmethod
@@ -56,8 +56,8 @@ class User(object):
 			password = self.password
 		else:
 			password = User.hash(password)
-		self.update(username=username, admin=admin, password=password)
-		session.commit()
+		with session:
+			self.update(username=username, admin=admin, password=password)
 
 @Model
 class Config(object):
