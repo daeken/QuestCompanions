@@ -53,7 +53,7 @@ width: 650px;
 }
 .content {
 position: relative;
-background: #ccc;
+background: #fff url("../img/back.png") repeat;
 max-width: 940px;
 min-height: 400px;
 margin: 0 auto;
