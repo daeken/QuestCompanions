@@ -1,6 +1,7 @@
 {% extends "base.tpl" %}
 {% block title %}{{ char.name }}{% endblock %}
-{% block includes %} <link rel="stylesheet" type="text/css" href="../static/css/users.css"/>
+{% block includes %}
+<link rel="stylesheet" type="text/css" href="/static/css/users.css"/>
 {% endblock %}
 {% block content %}
 <div class="col narrow">

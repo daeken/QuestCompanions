@@ -1,9 +1,7 @@
 {% extends base.tpl %}
 {% block title %}{{ user.username }}{% endblock %}
 {% block includes %}
-<link rel="stylesheet" type="text/css" href="../static/css/core.css"/>
-<link rel="stylesheet" type="text/css" href="../static/css/head.css"/>
-<link rel="stylesheet" type="text/css" href="../static/css/users.css"/>
+<link rel="stylesheet" type="text/css" href="/static/css/users.css"/>
 {% endblock %}
 {% block content %}
 <div class="col narrow">

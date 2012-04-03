@@ -1,8 +1,8 @@
 <!DOCTYPE HTML>
 <head>
 <title>{% block title %}{% endblock %} -- QuestCompanions</title>
-<link rel="stylesheet" type="text/css" href="../static/css/core.css"/>
-<link rel="stylesheet" type="text/css" href="../static/css/head.css"/>
+<link rel="stylesheet" type="text/css" href="/static/css/core.css"/>
+<link rel="stylesheet" type="text/css" href="/static/css/head.css"/>
 <script src="/scripts/jquery-1.7.2.js"></script>
 <script src="/rpc.js"></script>
 {% block includes %}{% endblock %}
