@@ -5,10 +5,12 @@ from urllib import quote, urlencode
 
 all = {}
 
-def handler(tpl=None, json=False):
+def handler(_tpl=None, _json=False):
 	def sub(func):
 		name = func.func_name
 		rpc = False
+		tpl = _tpl
+		json = _json
 		if name.startswith('get_'):
 			name = name[4:]
 			method = 'GET'
@@ -53,6 +55,8 @@ def handler(tpl=None, json=False):
 				if json:
 					return dumps(ret)
 				elif tpl != None:
+					if ret == None:
+						ret = {}
 					return render_template(tpl, **ret)
 				else:
 					return ret
@@ -82,8 +86,8 @@ def handler(tpl=None, json=False):
 
 		return ofunc
 
-	if tpl != None and hasattr(tpl, '__call__'):
-		func = tpl
-		tpl = None
+	if _tpl != None and hasattr(_tpl, '__call__'):
+		func = _tpl
+		_tpl = None
 		return sub(func)
 	return sub

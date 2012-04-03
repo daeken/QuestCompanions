@@ -69,36 +69,41 @@ def rpc():
 		if len(module) > 1:
 			modules.append(module)
 
-	return 'var $rpc = {%s};' % (', '.join('%s: {%s}' % (module[0], ', '.join(module[1:])) for module in modules))
+	cachedRpc = 'var $rpc = {%s};' % (', '.join('%s: {%s}' % (module[0], ', '.join(module[1:])) for module in modules))
+	return cachedRpc
 
 @app.route('/scripts/<fn>')
 def script(fn):
-	if not fn.endswith('.js'):
-		return ''
-
-	fn = 'scripts/' + fn[:-3]
-	if os.path.exists(fn + '.js'):
-		return file(fn + '.js,' 'rb').read()
-
 	try:
-		jstat = os.stat(fn + '.cjs').st_mtime
+		if not fn.endswith('.js'):
+			return ''
+
+		fn = 'scripts/' + fn[:-3]
+		if os.path.exists(fn + '.js'):
+			return file(fn + '.js', 'rb').read()
+
+		try:
+			jstat = os.stat(fn + '.cjs').st_mtime
+		except:
+			jstat = None
+		try:
+			cstat = os.stat(fn + '.coffee').st_mtime
+		except:
+			cstat = None
+
+		if jstat == None and cstat == None:
+			return ''
+		elif jstat != None and cstat == None or jstat > cstat:
+			return file(fn + '.cjs', 'rb').read()
+
+		source = file(fn + '.coffee', 'rb').read()
+
+		source = coffeescript.compile(source)
+		file(fn + '.cjs', 'wb').write(source)
+
+		return source
 	except:
-		jstat = None
-	try:
-		cstat = os.stat(fn + '.coffee').st_mtime
-	except:
-		cstat = None
-
-	if jstat == None and cstat == None:
-		return ''
-	elif jstat != None and cstat == None or jstat > cstat:
-		return file(fn + '.cjs', 'rb').read()
-
-	source = file(fn + '.coffee', 'rb').read()
-
-	source = coffeescript.compile(source)
-	file(fn + '.cjs', 'wb').write(source)
-
-	return source
+		import traceback
+		traceback.print_exc()
 
 app.run()
