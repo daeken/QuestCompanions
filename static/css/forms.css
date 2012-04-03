@@ -3,15 +3,25 @@ input {
 -moz-border-radius: 15px;
 border-radius: 7px;
 background-color: #170017;
+background-color: rgba(25, 0, 25, 0.5);
 border: solid 1px #A400A2;
 margin: 5px auto;
 width: 400px;
 font-size: 18pt;
 color: #7D007C;
-font-family: "Museo100";
+font-family: "Museo100", verdana, sans-serif;
 outline: none;
 padding-left: 5px;
 }
+
+::-webkit-input-placeholder {
+      color: rgba(125, 0, 125, 0.5);
+}
+:-moz-placeholder {
+      color: rgba(125, 0, 125, 0.5);
+}
+
+
 
 button {
 width: 79px;
@@ -22,7 +32,6 @@ background: -webkit-linear-gradient(#00BF02, #007F01);
 background: -moz-linear-gradient(#00BF02, #007F01);
 background: -ms-linear-gradient(#00BF02, #007F01);
 background: linear-gradient(#00BF02, #007F01);
-background-position: 0 0;
 border-width: 0;
 border-top: 1px solid #00FF03;
 border-radius: 5px;
@@ -31,7 +40,9 @@ text-shadow: 0px -2px 0 #008f01;
 font-size: 16px;
 font-weight: 800;
 cursor: pointer;
+padding: 5px;
 margin-top: 10px;
+box-shadow: 3px 3px 5px rgba(0,0,0,0.5);
 }
 
 button:active {
@@ -40,8 +51,9 @@ background: -webkit-linear-gradient(#007f01, #005601);
 background: -moz-linear-gradient(#007f01, #005601);
 background: -ms-linear-gradient(#007f01, #005601);
 background: linear-gradient(#007f01, #005601);
-background-position: 0 -91px;
-}
+border-top-color: #00BF02;
+box-shadow: -3px -3px 5px rgba(0,0,0,0.5);
+       }
 
 .label {
 font-size: 26px;

@@ -8,6 +8,10 @@ font-family: "Museo900";
 src: url(fonts/Museo900.otf);
 }
 
+* {
+  font-family: "Museo100", verdana, sans-serif;
+  font-size: 16px;
+}
 body {
 background-color: #170017;
 background-image: url('../img/background2.png');
@@ -18,16 +22,21 @@ padding: 0;
 }
 
 a {
-color: #67CCF2;
+color: #681E67;
 }
 
 .footer {
 text-align: center;
-font-family: "Museo100";
+font-family: "Museo100", verdana, sans-serif;
 font-size: 14pt;
 height: 100px;
 margin-top: 100px;
 background: #681e67;
+}
+
+.footer a
+{
+color: #fff;
 }
 
 .col {
@@ -53,6 +62,7 @@ color: #444;
 border-bottom-left-radius: 10px;
 border-bottom-right-radius: 10px;
 box-shadow: 0px 5px 30px #000;
+font-family: "Museo100", verdana, sans-serif;
 }
 
 .center {

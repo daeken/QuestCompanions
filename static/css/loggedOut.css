@@ -2,10 +2,6 @@
   padding-left: 5px;
 }
 
-.header {
-
-}
-
 .logo {
 width: 197px;
 height: 161px;
@@ -26,7 +22,7 @@ margin-top: 20px;
 .slogan {
 font-size: 24pt;
 text-align: center;
-font-family: "Museo900";
+font-family: "Museo900", verdana, sans-serif;
 }
 
 .body {
@@ -37,3 +33,10 @@ margin-top: 50px;
 max-width:960px;
 }
 
+a {
+color: #fff;
+}
+
+a:hover{
+color: #67CBF1;
+  }
