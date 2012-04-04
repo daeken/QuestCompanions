@@ -119,6 +119,7 @@ def setup():
 				params.append(field)
 		
 		columns = []
+		columns.append(sa.Column('id', Integer, primary_key=True))
 		relations = {}
 		for field in params:
 			value = getattr(model, field)

@@ -6,12 +6,28 @@ from metamodel import *
 import hashlib
 
 @Model
-class User(object):
+class Character(object):
 	id = PrimaryKey(Integer)
+	user_id = ForeignKey(Integer, 'User.id')
+	game_id = ForeignKey(Integer, 'Game.id')
+
+	name = Unicode()
+	server = Nullable(Unicode())
+	attrs = String()
+
+@Model
+class Game(object):
+	name = Unicode()
+	characters = Character.relation(backref='game')
+
+@Model
+class User(object):
 	enabled = Boolean
 	admin = Boolean
 	username = Unicode(255)
 	password = String(40)
+
+	characters = Character.relation(backref='user')
 
 	@staticmethod
 	def hash(password):
@@ -61,7 +77,6 @@ class User(object):
 
 @Model
 class Config(object):
-	id = PrimaryKey(Integer)
 	name = String(20)
 	value = Unicode(255)
 
@@ -82,15 +97,14 @@ class Config(object):
 
 	@staticmethod
 	def set(name, value):
-		try:
-			row = Config.one(name=name)
-			row.update(value=unicode(value))
-		except:
-			Config.create(
-				name=name,
-				value=unicode(value)
-			)
-
-		session.commit()
+		with session:
+			try:
+				row = Config.one(name=name)
+				row.update(value=unicode(value))
+			except:
+				Config.create(
+					name=name,
+					value=unicode(value)
+				)
 
 setup()
