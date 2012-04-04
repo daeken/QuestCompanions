@@ -57,7 +57,7 @@ def handler(_tpl=None, _json=False):
 				elif tpl != None:
 					if ret == None:
 						ret = {}
-					return render_template(tpl, **ret)
+					return render_template(tpl + '.html', **ret)
 				else:
 					return ret
 			except:
