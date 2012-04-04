@@ -8,17 +8,6 @@ class SessionProxy(object):
 	def __getattr__(self, name):
 		return getattr(_session, name)
 	
-	def commit(self, dosync=True):
-		while True:
-			try:
-				_session.commit()
-				break
-			except:
-				pass
-	
-	def rollback(self):
-		_session.rollback()
-
 	def __enter__(self):
 		pass
 
@@ -92,21 +81,14 @@ def Model(cls):
 
 engine = None
 
-def reconfigure():
+def setup(func=None):
 	global engine, _session
-	new = True
-	if _session != None and engine != None:
-		engine.dispose()
-		_session.close()
-		new = False
 	_session = scoped_session(sessionmaker())
 	engine = sa.create_engine('sqlite:///model.db')
 	_session.configure(bind=engine)
-	if not new:
-		metadata.create_all(bind=engine)
+	metadata.bind = engine
 
-def setup():
-	reconfigure()
+	initialized = False
 
 	for model in __models:
 		name = model.__name__
@@ -138,8 +120,12 @@ def setup():
 		
 		table = sa.Table(name, metadata, *columns)
 		orm.mapper(model, table, properties=relations)
+		if table.exists():
+			initialized = True
 	
-	metadata.create_all(bind=engine)
+	metadata.create_all()
+	if not initialized and func:
+		func()
 
 class Modifier(object):
 	pass

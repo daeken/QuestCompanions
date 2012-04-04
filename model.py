@@ -107,4 +107,10 @@ class Config(object):
 					value=unicode(value)
 				)
 
-setup()
+@setup
+def init():
+	with session:
+		Game.create(name=u'World of Warcraft')
+		Game.create(name=u'Star Wars: The Old Republic')
+
+	User.add(u'admin', 'admin', True)
