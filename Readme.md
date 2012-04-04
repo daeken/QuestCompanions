@@ -62,11 +62,11 @@ One additional way to use handlers is to automatically spit out JSON or put your
 
 This will return `true` as it's JSON-encoded.
 
-    @handler('login.tpl')
+    @handler('login')
     def get_login():
     	return dict(status='Login failed')
 
-This will automatically output your login template with the status variable assigned.
+This will automatically output your login template (`templates/login.html`) with the status variable assigned.
 
 RPC
 ---
