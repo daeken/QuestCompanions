@@ -1,5 +1,5 @@
 
-input {
+input,select,textarea {
 -moz-border-radius: 15px;
 border-radius: 7px;
 background-color: #170017;
@@ -12,6 +12,10 @@ color: #7D007C;
 font-family: "Museo100", verdana, sans-serif;
 outline: none;
 padding-left: 5px;
+}
+
+select {
+background-color: #888088;
 }
 
 ::-webkit-input-placeholder {
