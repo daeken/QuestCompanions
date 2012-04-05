@@ -32,6 +32,12 @@ font-size: 14pt;
 height: 100px;
 margin-top: 100px;
 background: #681e67;
+width:100%;
+}
+
+.stuck {
+position: absolute;
+bottom: 0;
 }
 
 .footer a
@@ -71,3 +77,5 @@ margin: 0 auto;
 display: block; 
 text-align: center;
 }
+
+h1, h2, h3, h4 {text-transform: capitalize;}
