@@ -8,13 +8,13 @@
   <h1>Error: Invalid user ID</h1>
 {% else %}
   <div class="col narrow">
-    {#<div class="userPic">
-      <img src="{{ user.pic }}">
-    </div>#}
+    <div class="userPic">
+      <img src="{{ user.pic if user.pic else '/static/img/noFound.png' }}">
+    </div>
     <div class="contact block">
       <h3>contact</h3>
       {#{% for link in user.contact %}
-        <a class="contact" href="{{ link.href }}i">{{ link.type }}</a>
+        <a class="contact" href="{{ link.href }}">{{ link.type }}</a>
       {% endfor %}#}
     </div>
   </div>

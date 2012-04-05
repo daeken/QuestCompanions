@@ -2,4 +2,3 @@
 *.cjs
 model.db
 .DS_Store
-*.psd

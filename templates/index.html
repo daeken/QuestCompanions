@@ -1,0 +1,21 @@
+{% extends "base.html" %}
+{% block title %}Home{% endblock %}
+{% block includes %}
+{% endblock %}
+{% block content %}
+<div class="col wide">
+  <div class="back"> Welcome back,<span class="feature">{{user.username}}</span></div>
+    
+</div>
+<div class="col narrow">
+  <div class="news">
+    {% for item in news %}
+    <div class="item">  
+      <a class="title" href="{{ item.href }}">{{ item.title }}</a>
+      <div class="content">{{ item.preview }}</div>
+    </div>
+{% endfor  %}
+  </div>
+{% endif %}
+
+{% endblock %}
