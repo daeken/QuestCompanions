@@ -1,9 +1,5 @@
-/*
- * TODO We need to register a stripe account and get keys.
- * This currently doesn't do anything (and all stripe calls WILL break)
- */
-
-Stripe.setPublishableKey('YOUR_PUBLISHABLE_KEY');
+Stripe.setPublishableKey('pk_c8kMInhHhfcmjGrhNkm64xI0wpLwG'); // XXX This is a test key
+// Stripe.setPublishableKey('pk_0IeXiL6E6MIyU64Ws1FCCFo4YLJg3'); // XXX This is a live key
 
 $(document).ready(function() {
   $("#payment-form").submit(function(event) {
