@@ -1,6 +1,7 @@
 from json import dumps
-from flask import render_template, request, session
+from flask import abort, render_template, request, session
 from flask import redirect as _redirect
+from werkzeug.exceptions import HTTPException
 from model import User
 from urllib import quote, urlencode
 
@@ -12,7 +13,7 @@ class StrObject(str):
 
 all = {}
 
-def handler(_tpl=None, _json=False, admin=False, authed=False):
+def handler(_tpl=None, _json=False, admin=False, authed=True):
 	def sub(func):
 		name = func.func_name
 		rpc = False
@@ -76,6 +77,8 @@ def handler(_tpl=None, _json=False, admin=False, authed=False):
 					return render_template(tpl + '.html', **ret)
 				else:
 					return ret
+			except HTTPException:
+				raise
 			except:
 				import traceback
 				traceback.print_exc()
@@ -90,10 +93,10 @@ def handler(_tpl=None, _json=False, admin=False, authed=False):
 			if name != 'index':
 				url += '%s/' % name
 			if _id != None:
-				url += quote(_id)
+				url += quote(str(_id))
 			if len(kwargs):
 				url += '?'
-				url += urlencode(kwargs)
+				url += urlencode(dict((k, str(v)) for k, v in kwargs.items()))
 			return url
 
 		ustr = StrObject(url())

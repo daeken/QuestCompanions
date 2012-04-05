@@ -1,11 +1,11 @@
 from handler import *
 from model import User
 
-@handler('login')
+@handler('login', authed=False)
 def get_index():
 	pass
 
-@handler
+@handler(authed=False)
 def post_login(username=None, password=None):
 	user = User.find(username, password)
 	if user == None:
@@ -14,11 +14,11 @@ def post_login(username=None, password=None):
 	session['userId'] = user.id
 	redirect(handler.index.get_index)
 
-@handler('register')
+@handler('register', authed=False)
 def get_register():
 	pass
 
-@handler
+@handler(authed=False)
 def post_register(username=None, password=None):
 	if username == None or password == None:
 		return ''
@@ -31,7 +31,7 @@ def post_register(username=None, password=None):
 		return 'Username taken.'
 	return 'Woot.'
 
-@handler
+@handler(authed=False)
 def get_logout():
 	session['userId'] = None
 

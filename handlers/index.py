@@ -1,6 +1,6 @@
 from handler import *
 
-@handler('index')
+@handler('index', authed=False)
 def get_index():
 	if session.user == None:
 		redirect(handler.auth.get_index)
