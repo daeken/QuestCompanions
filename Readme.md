@@ -87,7 +87,7 @@ This will print out a dict `{foo: 'bar', arg: 'baz'}`.  RPC methods cannot take 
 Authorization
 -------------
 
-Handlers can take care of high-level authentication.
+Handlers can take care of high-level authorization.
 
     @handler(admin=True)
     def get_admin():
@@ -97,4 +97,4 @@ Handlers can take care of high-level authentication.
     def get_user(id):
         ...
 
-Make sure that you handle fine-grained authentication in your own handlers.
+Make sure that you handle fine-grained authorization in your own handlers.
