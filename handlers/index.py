@@ -1,4 +1,5 @@
 from handler import *
+from model import News
 
 @handler('index', authed=False)
 def get_index():
@@ -7,5 +8,5 @@ def get_index():
 
 	return dict(
 		user=session.user,
-		news=[]
+		news=News.getLast(5)
 	)

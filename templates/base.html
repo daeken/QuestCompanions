@@ -17,7 +17,7 @@
     {% endfor %}
   	{% if user %}
   		<a class="button" href="{{ handler.user.get_index.url(user.id) }}">{{ user.username }}</a>
-  		<a class="button" href="{{ handler.auth.logout }}">Log out</a>
+  		<a class="button" href="{{ handler.auth.get_logout }}">Log out</a>
   	{% endif %}
   </div>
 </div>

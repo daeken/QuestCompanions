@@ -10,8 +10,8 @@
   <div class="news">
     {% for item in news %}
     <div class="item">  
-      <a class="title" href="{{ item.href }}">{{ item.title }}</a>
-      <div class="content">{{ item.preview }}</div>
+      <a class="title" href="{{ handler.news.get_index.url(item.id) }}">{{ item.headline }}</a>
+      <div class="content">{{ item.story }}</div>
     </div>
    {% endfor  %}
   </div>

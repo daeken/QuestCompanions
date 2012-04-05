@@ -6,6 +6,16 @@ from metamodel import *
 import hashlib
 
 @Model
+class News(object):
+	creator_id = ForeignKey(Integer, 'User.id')
+	headline = Unicode()
+	story = Unicode()
+
+	@staticmethod
+	def getLast(number=5):
+		return session.query(News).order_by(News.id.desc()).limit(number).all()
+
+@Model
 class Character(object):
 	id = PrimaryKey(Integer)
 	user_id = ForeignKey(Integer, 'User.id')
@@ -28,6 +38,7 @@ class User(object):
 	password = String(40)
 
 	characters = Character.relation(backref='user')
+	news = News.relation(backref='creator')
 
 	@staticmethod
 	def hash(password):
@@ -109,8 +120,19 @@ class Config(object):
 
 @setup
 def init():
+	admin = User.add(u'admin', 'admin', True)
+
 	with session:
 		Game.create(name=u'World of Warcraft')
 		Game.create(name=u'Star Wars: The Old Republic')
 
-	User.add(u'admin', 'admin', True)
+		News.create(
+				creator=admin, 
+				headline=u'This is a news story', 
+				story=u'With a body'
+			)
+		News.create(
+				creator=admin, 
+				headline=u'This is another news story', 
+				story=u'With another body'
+			)
