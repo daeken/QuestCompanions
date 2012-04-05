@@ -16,6 +16,7 @@ body {
 background-color: #170017;
 background-image: url('../img/background2.png');
 background-size: 100%;
+background-repeat: no-repeat;
 color: white;
 margin: 0;
 padding: 0;

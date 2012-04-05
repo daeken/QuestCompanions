@@ -1,8 +1,11 @@
-from handler import handler
-from flask import session
+from handler import *
 
-@handler
+@handler('index')
 def get_index():
-	if session.user:
-		return 'Hi ' + session.user.username
-	return 'Hi'
+	if session.user == None:
+		redirect(handler.auth.get_index)
+
+	return dict(
+		user=session.user,
+		news=[]
+	)

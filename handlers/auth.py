@@ -1,18 +1,25 @@
-from handler import handler
+from handler import *
 from model import User
-from flask import session
+
+@handler('login')
+def get_index():
+	pass
 
 @handler
-def get_login(username=None, password=None):
+def post_login(username=None, password=None):
 	user = User.find(username, password)
 	if user == None:
 		return 'Login failed'
 
 	session['userId'] = user.id
-	return 'Success'
+	redirect(handler.index.get_index)
+
+@handler('register')
+def get_register():
+	pass
 
 @handler
-def get_register(username=None, password=None):
+def post_register(username=None, password=None):
 	if username == None or password == None:
 		return ''
 
@@ -23,3 +30,9 @@ def get_register(username=None, password=None):
 	if user == None:
 		return 'Username taken.'
 	return 'Woot.'
+
+@handler
+def get_logout():
+	session['userId'] = None
+
+	redirect(handler.index.get_index)

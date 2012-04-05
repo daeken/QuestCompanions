@@ -1,7 +1,14 @@
 from json import dumps
 from flask import render_template, request, session
+from flask import redirect as _redirect
 from model import User
 from urllib import quote, urlencode
+
+class DictObject(dict):
+	pass
+
+class StrObject(str):
+	pass
 
 all = {}
 
@@ -27,14 +34,16 @@ def handler(_tpl=None, _json=False):
 
 		module = func.__module__.split('.')[-1]
 		if not module in all:
-			all[module] = {}
+			all[module] = DictObject()
+			setattr(handler, module, all[module])
 		args = func.__code__.co_varnames[:func.__code__.co_argcount]
 		hasId = len(args) > 0 and args[0] == 'id' and not rpc
 
 		ofunc = func
 		def func(id=None):
+			print 'foo', name
 			try:
-				if 'userId' in session:
+				if 'userId' in session and session['userId']:
 					session.user = User.one(id=int(session['userId']))
 				else:
 					session.user = None
@@ -48,15 +57,19 @@ def handler(_tpl=None, _json=False):
 					else:
 						assert not rpc # RPC requires all arguments.
 
-				if hasId and id != None:
-					ret = ofunc(id, **kwargs)
-				else:
-					ret = ofunc(**kwargs)
+				try:
+					if hasId and id != None:
+						ret = ofunc(id, **kwargs)
+					else:
+						ret = ofunc(**kwargs)
+				except RedirectException, r:
+					return _redirect(r.url)
 				if json:
 					return dumps(ret)
 				elif tpl != None:
 					if ret == None:
 						ret = {}
+					ret['handler'] = handler
 					return render_template(tpl + '.html', **ret)
 				else:
 					return ret
@@ -65,7 +78,6 @@ def handler(_tpl=None, _json=False):
 				traceback.print_exc()
 
 		func.func_name = '__%s__%s__' % (module, name)
-		all[module][name] = method, args, func, rpc
 
 		def url(_id=None, **kwargs):
 			if module == 'index':
@@ -74,20 +86,33 @@ def handler(_tpl=None, _json=False):
 				url = '/%s/' % module
 			if name != 'index':
 				url += '%s/' % name
-			if hasId:
-				assert _id != None
+			if _id != None:
 				url += quote(_id)
 			if len(kwargs):
 				url += '?'
 				url += urlencode(kwargs)
 			return url
-		ofunc.url = url
-		func.url = url
 
-		return ofunc
+		ustr = StrObject(url())
+		ustr.__call__ = ofunc
+		ustr.url = url
+		func.url = url
+		all[module][name] = method, args, func, rpc
+		setattr(all[module], ofunc.func_name, ustr)
+		return ustr
 
 	if _tpl != None and hasattr(_tpl, '__call__'):
 		func = _tpl
 		_tpl = None
 		return sub(func)
 	return sub
+
+class RedirectException(Exception):
+	def __init__(self, url):
+		self.url = url
+
+def redirect(url, _id=None, **kwargs):
+	if hasattr(url, '__call__') and hasattr(url, 'url'):
+		url = url.url(_id, **kwargs)
+	print 'Redirecting to', url
+	raise RedirectException(url)

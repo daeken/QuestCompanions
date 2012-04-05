@@ -2,12 +2,14 @@
 {% block title %}Login{% endblock %}
 {% block content %}
     <div id="loginForm" class="col left">
-      <input id="uName" type="text" placeholder="Username">
-      <br/>
-      <input id="uPass" type="password" placeholder="Password">
-      <br/>
-      <button id="submit">Log in</button>
-      <span class="noAcc">Don't have an account? <a href="#">Enlist today!</a></span>
+      <form action="{{ handler.auth.post_login }}" method="POST">
+        <input name="username" type="text" placeholder="Username" value="{{ username }}">
+        <br/>
+        <input name="password" type="password" placeholder="Password">
+        <br/>
+        <button name="submit">Log in</button>
+      </form>
+      <span class="noAcc">Don't have an account? <a href="{{ handler.auth.get_register }}">Enlist today!</a></span>
     </div>
     <div id="loginFB" class="col right">
       <div id="FBBox">

@@ -4,8 +4,7 @@
 {% endblock %}
 {% block content %}
 <div class="col wide">
-  <div class="back"> Welcome back,<span class="feature">{{user.username}}</span></div>
-    
+  <div class="back"> Welcome back, <span class="feature">{{user.username}}</span></div>
 </div>
 <div class="col narrow">
   <div class="news">
@@ -14,8 +13,8 @@
       <a class="title" href="{{ item.href }}">{{ item.title }}</a>
       <div class="content">{{ item.preview }}</div>
     </div>
-{% endfor  %}
+   {% endfor  %}
   </div>
-{% endif %}
+</div>
 
 {% endblock %}

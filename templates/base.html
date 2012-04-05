@@ -12,9 +12,15 @@
 <div class="header">
   <div class="logo"></div><div class="logotype"></div>
   <div class="nav">
+  	{% if not user %}
+  		<a class="button" href="/auth">Log in / Create an account</a>
+  	{% endif %}
     {% for item in navigation %}
       <a class="button" href="{{ item.href }}">{{ item.title }}</a>
     {% endfor %}
+  	{% if user %}
+  		<a class="button" href="/auth/logout">Log out</a>
+  	{% endif %}
   </div>
 </div>
 <div class="content">
