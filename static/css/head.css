@@ -40,10 +40,10 @@ float: left;
 height: 40px;
 padding-top:20px;
 margin-right: 20px;
+float: right;
 }
 
 .nav .button {
-float: right;
 position:relative;
 display: inline-block;
 top: -20px;
