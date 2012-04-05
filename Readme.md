@@ -83,3 +83,18 @@ This will automatically generate an RPC stub, which can be called from CoffeeScr
 		console.log data
 
 This will print out a dict `{foo: 'bar', arg: 'baz'}`.  RPC methods cannot take `id` (they're assumed to just be another parameter), always return JSON, and can't have a template applied to them, obviously.
+
+Authorization
+-------------
+
+Handlers can take care of high-level authentication.
+
+    @handler(admin=True)
+    def get_admin():
+        ...
+
+    @handler(authed=True)
+    def get_user(id):
+        ...
+
+Make sure that you handle fine-grained authentication in your own handlers.

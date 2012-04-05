@@ -12,7 +12,7 @@ class StrObject(str):
 
 all = {}
 
-def handler(_tpl=None, _json=False):
+def handler(_tpl=None, _json=False, admin=False, authed=False):
 	def sub(func):
 		name = func.func_name
 		rpc = False
@@ -41,12 +41,15 @@ def handler(_tpl=None, _json=False):
 
 		ofunc = func
 		def func(id=None):
-			print 'foo', name
 			try:
 				if 'userId' in session and session['userId']:
 					session.user = User.one(id=int(session['userId']))
 				else:
 					session.user = None
+				if (authed or admin) and session.user == None:
+					abort(403)
+				elif admin and not session.user.admin:
+					abort(403)
 				params = request.form if method == 'POST' else request.args
 				kwargs = {}
 				for i, arg in enumerate(args):
