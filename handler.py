@@ -5,7 +5,7 @@ from werkzeug.exceptions import HTTPException
 from model import User
 from urllib import quote, urlencode
 
-class DictObject(dict):
+class ListObject(list):
 	pass
 
 class StrObject(str):
@@ -35,7 +35,7 @@ def handler(_tpl=None, _json=False, admin=False, authed=True):
 
 		module = func.__module__.split('.')[-1]
 		if not module in all:
-			all[module] = DictObject()
+			all[module] = ListObject()
 			setattr(handler, module, all[module])
 		args = func.__code__.co_varnames[:func.__code__.co_argcount]
 		hasId = len(args) > 0 and args[0] == 'id' and not rpc
@@ -103,7 +103,7 @@ def handler(_tpl=None, _json=False, admin=False, authed=True):
 		ustr.__call__ = ofunc
 		ustr.url = url
 		func.url = url
-		all[module][name] = method, args, func, rpc
+		all[module].append((name, method, args, func, rpc))
 		setattr(all[module], ofunc.func_name, ustr)
 		return ustr
 

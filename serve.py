@@ -15,7 +15,7 @@ else:
 app.secret_key = key
 
 for module, sub in handler.all.items():
-	for name, (method, args, func, rpc) in sub.items():
+	for name, method, args, func, rpc in sub:
 		if module == 'index':
 			route = '/'
 		else:
@@ -24,6 +24,7 @@ for module, sub in handler.all.items():
 			route += '%s/' % name
 		if len(args) and args[0] == 'id' and not rpc:
 			route += '<id>'
+		print route, func
 		app.route(route, methods=[method])(func)
 
 @app.route('/favicon.ico')
