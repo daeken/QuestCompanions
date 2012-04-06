@@ -46,6 +46,8 @@ bottom: 0;
 color: #fff;
 }
 
+
+
 .col {
 width: 450px;
 float: left;
@@ -59,6 +61,15 @@ width: 250px;
 .wide {
 width: 650px;
 }
+
+@media screen and (max-width: 980px)
+{
+  .col {
+width: 100%!important;
+  text-align: center;
+  }
+}
+
 .content {
 position: relative;
 background: #fff url("../img/back.png") repeat;
