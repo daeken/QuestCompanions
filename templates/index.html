@@ -1,6 +1,7 @@
 {% extends "base.html" %}
 {% block title %}Home{% endblock %}
 {% block includes %}
+<link rel="stylesheet" type="text/css" href="/static/css/news.css"/>
 {% endblock %}
 {% block content %}
 <div class="col wide">
@@ -11,7 +12,7 @@
     {% for item in news %}
     <div class="item">  
       <a class="title" href="{{ handler.news.get_index.url(item.id) }}">{{ item.headline }}</a>
-      <div class="content">{{ item.story }}</div>
+      <div class="story">{{ item.story|truncate(length=255, killwords=False, end="...") }}</div>
     </div>
    {% endfor  %}
   </div>

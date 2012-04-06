@@ -22,7 +22,7 @@ top: 50%;
 margin-top: -16px;
 position:relative;
 float:left;
-
+cursor: pointer;
 }
 .logotype {
 height: 32px;
@@ -34,6 +34,7 @@ top: 50%;
 margin-top: -10px;
 position:relative;
 float: left;
+cursor: pointer;
 }
 
 .nav {

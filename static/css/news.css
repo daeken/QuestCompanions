@@ -1,0 +1,10 @@
+.title { 
+  font-weight: 900;
+}
+
+.story {
+width: 240px;
+padding-left: 10px;
+padding-bottom: 10px;
+border-bottom: 1px dashed #bbb;
+}
