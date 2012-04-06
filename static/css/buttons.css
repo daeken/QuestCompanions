@@ -1,0 +1,67 @@
+.button, button{
+width: 79px;
+height: 41px;
+display: inline;
+background: -moz-linear-gradient(#00BF02, #007F01);
+background: -webkit-linear-gradient(#00BF02, #007F01);
+background: -moz-linear-gradient(#00BF02, #007F01);
+background: -ms-linear-gradient(#00BF02, #007F01);
+background: linear-gradient(#00BF02, #007F01);
+border-width: 0;
+border-top: 1px solid #00FF03;
+border-radius: 5px;
+color: #fff;
+text-shadow: 0px -2px 0 #008f01;
+font-size: 16px;
+font-weight: 800;
+cursor: pointer;
+box-shadow: 3px 3px 5px rgba(0,0,0,0.5);
+}
+
+.button:active, button:active {
+background: -moz-linear-gradient(#007f01, #005601);
+background: -webkit-linear-gradient(#007f01, #005601);
+background: -moz-linear-gradient(#007f01, #005601);
+background: -ms-linear-gradient(#007f01, #005601);
+background: linear-gradient(#007f01, #005601);
+border-top-color: #00BF02;
+box-shadow: -3px -3px 5px rgba(0,0,0,0.5);
+       }
+
+.bBig {
+padding: 20px;
+top: 30px;
+position: relative;
+}
+.bRed
+{
+background: -moz-linear-gradient(#bf0000, #7f0000);
+background: -webkit-linear-gradient(#bf0000, #7f0000);
+background: -moz-linear-gradient(#bf0000, #7F0000);
+background: -ms-linear-gradient(#bf0000, #7f0000);
+background: linear-gradient(#bf0000, #7f0000);
+border-width: 0;
+border-top: 1px solid #f00;
+text-shadow: 0px -2px 0 #8f0000;
+}
+.bRed:active
+{
+background: -moz-linear-gradient(#7f000, #560000);
+background: -webkit-linear-gradient(#7f0000, #560000);
+background: -moz-linear-gradient(#7f0000, #56000);
+background: -ms-linear-gradient(#7f0000, #560000);
+background: linear-gradient(#7f0000, #560000);
+border-top-color: #F00;
+box-shadow: -3px -3px 5px rgba(0,0,0,0.5);
+}
+.bGrey {
+background: -moz-linear-gradient(#bfbfbf, #7f7f7f);
+background: -webkit-linear-gradient(#bfbfbf, #7f7f7f);
+background: -moz-linear-gradient(#bfbfbf, #7F7f7f);
+background: -ms-linear-gradient(#bfbfbf, #7f7f7f);
+background: linear-gradient(#bfbfbf, #7f7f7f);
+border-width: 0;
+border-top: 1px solid #fff;
+text-shadow: 0px -2Px 0 #8f8f8f;
+cursor: default;
+}

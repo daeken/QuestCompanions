@@ -1,7 +1,6 @@
 var clock = function()
 {
 };
-
 clock.prototype = {
 seconds: 0,
 minutes: 0,
@@ -20,28 +19,28 @@ tick: function() {
            this.minutes = 0;
            this.hours += 1;
          }
-         $('.seconds')[0].innerHTML =
+         $('.seconds').html(
            (this.seconds.toString().length > 1) ?
            this.seconds :
-           '0' + this.seconds;
+           '0' + this.seconds);
 
-         $('.minutes')[0].innerHTML =
+         $('.minutes').html(
            (this.minutes.toString().length > 1) ?
            this.minutes :
-           '0' + this.minutes;
+           '0' + this.minutes);
 
-         $('.hours')[0].innerHTML =
+         $('.hours').html(
            (this.hours.toString().length > 1) ?
            this.hours :
-           '0' + this.hours;
+           '0' + this.hours);
        },
 stop: function() {
          clearInterval(this.ticker);
          $('.quester > i').attr('class', 'red');
-         $('.starter').removeClass('stop');
-         $('.starter').addClass('grey');
+         $('.starter').removeClass('bRed');
+         $('.starter').addClass('bGrey');
          $('.starter').off('click');
-         $('.starter')[0].innerHTML = 'Finished';
+         $('.starter').html('Finished');
        },
 start: function() {
           var t = this;
@@ -49,8 +48,8 @@ start: function() {
           {
             this.started = true;
             this.ticker = setInterval(function() {t.tick();}, 1000);
-            $('.starter').addClass('stop');
-            $('.starter')[0].innerHTML = 'Stop Timer';
+            $('.starter').addClass('bRed');
+            $('.starter').html('Stop Timer');
           } else {
             (this.stop)();
             t.started = false;

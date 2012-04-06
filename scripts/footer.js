@@ -8,7 +8,7 @@ $(window).resize(function() {
 
 function footGlue()
 {
-  if(($('.content').height() + 40) < ($(window).height() - $('.footer').height()))
+  if(($('.content').outerHeight() + 40) < ($(window).outerHeight() - $('.footer').outerHeight()))
   {
     $('.footer').addClass('stuck');
   } else {

@@ -49,15 +49,6 @@ margin-top: 10px;
 box-shadow: 3px 3px 5px rgba(0,0,0,0.5);
 }
 
-button:active {
-background: -moz-linear-gradient(#007f01, #005601);
-background: -webkit-linear-gradient(#007f01, #005601);
-background: -moz-linear-gradient(#007f01, #005601);
-background: -ms-linear-gradient(#007f01, #005601);
-background: linear-gradient(#007f01, #005601);
-border-top-color: #00BF02;
-box-shadow: -3px -3px 5px rgba(0,0,0,0.5);
-       }
 
 .label {
 font-size: 26px;
