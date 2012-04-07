@@ -3,6 +3,7 @@
 {% block includes %}
 {% endblock %}
 {% block content %}
+<h1>News</h1>
 <ul>
   {% for story in news %}
 	  <li><a href="{{ handler.admin.get_news.url(story.id) }}">{{ story.headline }}</a></li>
