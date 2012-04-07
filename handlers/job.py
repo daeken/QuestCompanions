@@ -13,9 +13,7 @@ def get_index(id):
 
 @handler('jobs/create', authed=True)
 def get_create():
-	return dict(
-			chars=session.user.characters
-		)
+	return dict(chars=session.user.characters)
 
 @handler(authed=True)
 def post_job_create(char, desc, time_reqd, max_pay):
