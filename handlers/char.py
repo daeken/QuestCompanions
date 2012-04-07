@@ -2,6 +2,7 @@ from handler import *
 from model import *
 from wow_servers import wow_servers
 import battlenet
+from datetime import date
 
 @handler('char/profile')
 def get_index(id):
@@ -31,7 +32,8 @@ def rpc_add_wow(server, charname):
 				name=wowchar.name, 
 				server=server, 
 				avatar=thumbnail, 
-				attrs=''
+				attrs='',
+				last_update=date.today()
 			)
 
 	return get_index.url(char.id)
