@@ -6,6 +6,7 @@ from handlers import *
 from model import Config, User
 
 app = Flask(__name__)
+app.debug = True
 key = Config.getString('secret_key')
 if key == None:
 	key = os.urandom(24)
@@ -139,4 +140,4 @@ def script(fn):
 		import traceback
 		traceback.print_exc()
 
-app.run()
+app.run(host='')
