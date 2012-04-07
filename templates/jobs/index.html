@@ -1,0 +1,13 @@
+{% extends "base.html" %}
+{% block title %}All jobs{% endblock %}
+{% block includes %}
+<link rel="stylesheet" type="text/css" href="/static/css/news.css"/>
+{% endblock %}
+{% block content %}
+<h2>Jobs</h2>
+<ul>
+	{% for job in jobs %}
+		<li><a href="{{ handler.job.get_index.url(job.id) }}">{{ job.desc }} &ndash; {{ job.gamename() }}</a></li>
+	{% endfor %}
+</ul>
+{% endblock %}

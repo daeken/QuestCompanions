@@ -9,11 +9,12 @@
         <br/>
         <button name="submit">Log in</button>
       </form>
-      <span class="noAcc">Don't have an account? <a href="{{ handler.auth.get_register }}">Enlist today!</a></span>
     </div>
-    <div id="loginFB" class="col right">
-      <div id="FBBox">
-        INSERT FACEBOOK CONNECT STUFF HERE
-      </div>
+    <div id="loginInterest" class="col right">
+      <span>QuestCompanions isn't quite ready yet, but drop us an<br />email address and we'll let you know when it is.</span>
+      <form action="{{ handler.auth.post_interest }}" method="POST">$CSRF$
+        <input name="email" type="text" placeholder="Email Address" value="{{ email }}">
+        <button name="submit">Enlist</button>
+      </form>
     </div>
 {% endblock %}

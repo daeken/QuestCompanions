@@ -1,4 +1,5 @@
-import os
+import json, os
+from datetime import datetime
 import sqlalchemy as sa
 from sqlalchemy.types import *
 
@@ -19,6 +20,45 @@ class News(object):
 WOW = 1
 SWTOR = 2
 
+def gamename(id):
+	if id == WOW:
+		return 'WoW'
+	elif id == SWTOR:
+		return 'SW:TOR'
+
+@Model
+class Job(object):
+	user_id = ForeignKey(Integer, 'User.id')
+	char_id = ForeignKey(Integer, 'Character.id')
+	game = Integer()
+	created_date = DateTime()
+
+	max_pay = Integer()
+	time_reqd = Integer()
+	desc = Unicode(140)
+	reqs = String()
+
+	accepted_date = Nullable(DateTime())
+	#accepted_char_id = ForeignKey(Integer, 'Character.id', nullable=True)
+	accepted_pay = Nullable(Integer)
+
+	@staticmethod
+	def add(char, max_pay, time_reqd, desc, **kwargs):
+		with transact:
+			return Job.create(
+				user=char.user, 
+				char=char, 
+				game=char.game, 
+				created_data=datetime.now(), 
+				max_pay=max_pay, 
+				time_reqd=time_reqd,
+				desc=desc, 
+				reqs=json.dumps(kwargs)
+			)
+
+	def gamename(self):
+		return gamename(self.game)
+
 @Model
 class Character(object):
 	user_id = ForeignKey(Integer, 'User.id')
@@ -30,6 +70,11 @@ class Character(object):
 	attrs = String()
 	last_update = Date()
 
+	jobs = Job.relation(backref='char')
+
+	def gamename(self):
+		return gamename(self.game)
+
 @Model
 class User(object):
 	enabled = Boolean
@@ -39,6 +84,7 @@ class User(object):
 
 	characters = Character.relation(backref='user')
 	news = News.relation(backref='creator')
+	jobs = Job.relation(backref='user')
 
 	@staticmethod
 	def hash(password):

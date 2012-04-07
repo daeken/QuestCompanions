@@ -4,20 +4,20 @@ from wow_servers import wow_servers
 import battlenet
 from datetime import date
 
-@handler('char/profile')
+@handler('char/profile', authed=True)
 def get_index(id):
 	char = Character.one(id=int(id))
 	if not char: abort(404)
 
 	return dict(char=char)
 
-@handler('char/create')
+@handler('char/create', authed=True)
 def get_create():
 	return dict(
 			wow_servers=wow_servers
 		)
 
-@handler
+@handler(authed=True)
 def rpc_add_wow(server, charname):
 	try:
 		wowchar = battlenet.Character(battlenet.UNITED_STATES, server, charname)
