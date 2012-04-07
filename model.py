@@ -28,6 +28,7 @@ class Character(object):
 	server = Nullable(Unicode())
 	avatar = String()
 	attrs = String()
+	last_update = Date()
 
 @Model
 class User(object):
