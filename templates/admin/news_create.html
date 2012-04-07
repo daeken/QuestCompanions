@@ -1,0 +1,15 @@
+{% extends "base.html" %}
+{% block title %}New News{% endblock %}
+{% block includes %}
+<style>
+  label{ float:left;}
+  input, textarea{ margin-bottom: 10px; padding: 5px}
+  </style>
+{% endblock %}
+{% block content %}
+<form action="{{ handler.admin.post_create_news }}" method="POST">$CSRF$
+	<label> Headline:</label> <input type="text" name="headline"><br>
+	<label>Content:</label> <textarea name="story" cols="80" rows="20"></textarea><br>
+	<input type="submit" value="Save">
+</form>
+{% endblock %}

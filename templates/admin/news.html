@@ -4,6 +4,7 @@
 {% endblock %}
 {% block content %}
 <h1>News</h1>
+<a href="{{ handler.admin.get_news_create }}">Create</a>
 <ul>
   {% for story in news %}
 	  <li><a href="{{ handler.admin.get_news.url(story.id) }}">{{ story.headline }}</a></li>

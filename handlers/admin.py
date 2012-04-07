@@ -13,6 +13,19 @@ def get_news():
 def get_news(id):
 	return dict(story=News.one(id=int(id)))
 
+@handler('admin/news_create', admin=True)
+def get_news_create():
+	pass
+
+@handler('admin/news_create', admin=True)
+def post_create_news(headline, story):
+	with transact:
+		News.create(
+				headline=headline, 
+				story=story
+			)
+	redirect(get_news)
+
 @handler('admin/news_story', admin=True)
 def post_save_news(id, headline, story):
 	sobj = News.one(id=int(id))
