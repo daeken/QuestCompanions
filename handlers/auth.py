@@ -1,5 +1,7 @@
 from handler import *
-from model import User
+from model import *
+import battlenet
+from datetime import date
 
 @handler('login', authed=False)
 def get_index():
@@ -10,8 +12,32 @@ def post_login(username=None, password=None):
 	user = User.find(username, password)
 	if user == None:
 		return 'Login failed'
-
+	
 	session['userId'] = user.id
+	
+	#Check for Character updates
+	CurrentDate = date.today()
+	for UserCharacter in user.characters:
+		if UserCharacter.last_update < CurrentDate:
+			if UserCharacter.game==WOW:
+				try:
+					wowchar = battlenet.Character(battlenet.UNITED_STATES,
+							UserCharacter.server,
+							UserCharacter.name)
+				except:
+					continue
+				
+				thumbnail = 'https://us.battle.net/static-render/us/' + wowchar.thumbnail
+				with transact:
+					UserCharacter.update(
+							avatar = thumbnail,
+							last_update = CurrentDate
+					)
+					#Add any other attributes that need to be updated.
+				
+			#if Character.game==SWTOR:
+				#TODO Add SWTOR character info
+
 	redirect(handler.index.get_index)
 
 @handler('register', authed=False)
