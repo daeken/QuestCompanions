@@ -75,7 +75,7 @@ rpcStubTemplate = '''%s: function(%s, callback) {
 					callback()
 			}, 
 			dataType: 'json', 
-			data: {%s}, 
+			data: {csrf: $csrf, %s}, 
 			type: 'POST'
 		}
 	)

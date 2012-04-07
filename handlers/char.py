@@ -33,5 +33,5 @@ def rpc_add_wow(server, charname):
 				avatar=thumbnail, 
 				attrs=''
 			)
-	
+
 	return get_index.url(char.id)

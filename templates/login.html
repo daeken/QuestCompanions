@@ -2,7 +2,7 @@
 {% block title %}Login{% endblock %}
 {% block content %}
     <div id="loginForm" class="col left">
-      <form action="{{ handler.auth.post_login }}" method="POST">
+      <form action="{{ handler.auth.post_login }}" method="POST">$CSRF$
         <input name="username" type="text" placeholder="Username" value="{{ username }}">
         <br/>
         <input name="password" type="password" placeholder="Password">

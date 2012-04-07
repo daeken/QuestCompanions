@@ -1,3 +1,4 @@
+import os
 from json import dumps
 from flask import abort, render_template, request, session
 from flask import redirect as _redirect
@@ -43,6 +44,12 @@ def handler(_tpl=None, _json=False, admin=False, authed=True):
 		ofunc = func
 		def func(id=None):
 			try:
+				if 'csrf' not in session:
+					token = os.urandom(16)
+					session['csrf'] = ''.join('%02x' % ord(c) for c in token)
+				if method == 'POST' and \
+					('csrf' not in request.form or request.form['csrf'] != session['csrf']):
+					abort(403)
 				if 'userId' in session and session['userId']:
 					session.user = User.one(id=int(session['userId']))
 				else:
@@ -75,7 +82,9 @@ def handler(_tpl=None, _json=False, admin=False, authed=True):
 						ret = {}
 					ret['handler'] = handler
 					ret['session'] = session
-					return render_template(tpl + '.html', **ret)
+					ret = render_template(tpl + '.html', **ret)
+					csrf = '<input type="hidden" name="csrf" value="%s">' % session['csrf']
+					return ret.replace('$CSRF$', csrf)
 				else:
 					return ret
 			except HTTPException:
