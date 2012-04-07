@@ -11,19 +11,23 @@
       <div class="form-row">
         <label>Game</label>
         <select id="game" name="game">
-          <option value="wow">World of Warcraft</option>
+        {% for games in games %}
+          <option value="{{ game.id }}">{{ game.name }}</option>
+          {% endfor %}
         </select>
       </div>
       <div class="form-row">
         <label>Server</label>
+        // TODO Populate this list with AJAX.
         <select id="server" name="server">
-          <option value="zuljin">Zul'Jin</option>
+        //  <option value="zuljin">Zul'Jin</option>
         </select>
       </div>
       <div class="form-row">
         <label>Character</label>
-        <select id="character" name="character">
-          <option value="euryn">Euryn</option>
+        //TODO populate this list with AJAX based on previous two selections.
+         <select id="character" name="character">
+          //<option value="euryn">Euryn</option>
         </select>
       </div>
       <div class="form-row">&nbsp;</div>
@@ -42,16 +46,18 @@
       <div class="form-row">&nbsp;</div>
       <div class="form-row">
         <label>Desired faction</label>
+        // TODO populate this list with AJAX
         <select id="faction" name="faction">
-          <option value="horde">Horde</option>
-          <option value="alliance">Alliance</option>
+        //  <option value="horde">Horde</option>
+        //  <option value="alliance">Alliance</option>
         </select>
       </div>
       <div class="form-row">
         <label>Desired race</label>
+        // TODO More ajax for this one.
         <select id="race" name="race">
-          <option value="race">Some Race</option>
-          <option value="something">Some Other Race</option>
+        //  <option value="race">Some Race</option>
+        //  <option value="something">Some Other Race</option>
         </select>
       </div>
       <div class="form-row">
