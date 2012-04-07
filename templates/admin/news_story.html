@@ -1,8 +1,12 @@
 {% extends "base.html" %}
 {% block title %}{{ story.headline }}{% endblock %}
 {% block includes %}
+<style>
+  label{ float:left;}
+  input, textarea{ margin-bottom: 10px; padding: 5px}
+  </style>
 {% endblock %}
 {% block content %}
-Headline: <input type="text" value="{{ story.headline }}"><br>
-Content: <textarea cols="80" rows="20">{{ story.story }}</textarea>
+<label> Headline:</label> <input type="text" value="{{ story.headline }}"><br>
+<label>Content:</label> <textarea cols="80" rows="20">{{ story.story }}</textarea>
 {% endblock %}
