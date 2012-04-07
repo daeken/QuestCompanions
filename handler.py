@@ -121,11 +121,11 @@ def handler(_tpl=None, _json=False, admin=False, authed=True):
 		ustr.url = url
 		func.url = url
 		if not name in all[module]:
-			all[module][(method, name)] = args, rpc, [None, None]
+			all[module][name] = method, args, rpc, [None, None]
 		if hasId and not rpc:
-			all[module][(method, name)][2][1] = func
+			all[module][name][3][1] = func
 		else:
-			all[module][(method, name)][2][0] = func
+			all[module][name][3][0] = func
 		setattr(all[module], ofunc.func_name, ustr)
 		return ustr
 

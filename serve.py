@@ -29,7 +29,7 @@ def reroute(noId, withId):
 	return sub
 
 for module, sub in handler.all.items():
-	for (method, name), (args, rpc, (noId, withId)) in sub.items():
+	for name, (method, args, rpc, (noId, withId)) in sub.items():
 		if module == 'index':
 			route = '/'
 			trailing = True
@@ -90,7 +90,7 @@ def rpc():
 	modules = []
 	for module, sub in handler.all.items():
 		module = [module]
-		for (method, name), (args, rpc, funcs) in sub.items():
+		for name, (method, args, rpc, funcs) in sub.items():
 			if not rpc:
 				continue
 			func = funcs[0] if funcs[0] else funcs[1]

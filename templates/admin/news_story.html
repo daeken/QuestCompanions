@@ -7,6 +7,9 @@
   </style>
 {% endblock %}
 {% block content %}
-<label> Headline:</label> <input type="text" value="{{ story.headline }}"><br>
-<label>Content:</label> <textarea cols="80" rows="20">{{ story.story }}</textarea>
+<form action="{{ handler.admin.post_save_news.url(story.id) }}" method="POST">$CSRF$
+	<label> Headline:</label> <input type="text" name="headline" value="{{ story.headline }}"><br>
+	<label>Content:</label> <textarea name="story" cols="80" rows="20">{{ story.story }}</textarea><br>
+	<input type="submit" value="Save">
+</form>
 {% endblock %}

@@ -1,5 +1,5 @@
 from handler import *
-from model import News, User
+from model import *
 
 @handler('admin/index', admin=True)
 def get_index():
@@ -12,6 +12,13 @@ def get_news():
 @handler('admin/news_story', admin=True)
 def get_news(id):
 	return dict(story=News.one(id=int(id)))
+
+@handler('admin/news_story', admin=True)
+def post_save_news(id, headline, story):
+	sobj = News.one(id=int(id))
+	with transact:
+		sobj.update(headline=headline, story=story)
+	redirect(get_news)
 
 @handler('admin/users', admin=True)
 def get_user():
