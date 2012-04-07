@@ -18,7 +18,7 @@ class SessionProxy(object):
 			_session.rollback()
 			raise
 
-session = SessionProxy()
+transact = SessionProxy()
 _session = None
 metadata = sa.MetaData()
 
@@ -34,7 +34,7 @@ def create(cls, **kwargs):
 	obj = cls()
 	for k, v in kwargs.items():
 		setattr(obj, k, v)
-	session.add(obj)
+	transact.add(obj)
 	return obj
 
 def update(self, **kwargs):
@@ -44,7 +44,7 @@ def update(self, **kwargs):
 
 @classmethod
 def all(cls):
-	return session.query(cls).all()
+	return transact.query(cls).all()
 
 def genFilter(cls, kwargs):
 	if len(kwargs) == 1:
@@ -59,13 +59,13 @@ def genFilter(cls, kwargs):
 @classmethod
 def some(cls, **kwargs):
 	filter = genFilter(cls, kwargs)
-	return session.query(cls).filter(filter).all()
+	return transact.query(cls).filter(filter).all()
 
 @classmethod
 def one(cls, **kwargs):
 	filter = genFilter(cls, kwargs)
 	try:
-		return session.query(cls).filter(filter).one()
+		return transact.query(cls).filter(filter).one()
 	except:
 		return None
 

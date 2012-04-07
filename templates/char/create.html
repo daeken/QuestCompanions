@@ -1,0 +1,25 @@
+{% extends "base.html" %}
+{% block title %}Character creation{% endblock %}
+{% block includes %}
+<link rel="stylesheet" type="text/css" href="/static/css/char_create.css"/>
+<script src="/scripts/char_create.js"></script>
+{% endblock %}
+{% block content %}
+Game: <select id="game">
+  <option disabled selected>---</option>
+  <option value="0">World of Warcraft</option>
+  <option value="1">Star Wars: The Old Republic</option>
+</select>
+<div id="game-0" class="game-pane">
+  Server: <select id="server">
+    {% for name in wow_servers %}
+      <option>{{ name }}</option>
+    {% endfor %}
+  </select><br>
+  Character name: <input type="text" id="charname"><br>
+  <button id="wow-add">Add</button>
+</div>
+<div id="game-1" class="game-pane">
+  SWTOR
+</div>
+{% endblock %}

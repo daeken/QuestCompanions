@@ -13,22 +13,21 @@ class News(object):
 
 	@staticmethod
 	def getLast(number=5):
-		return session.query(News).order_by(News.id.desc()).limit(number).all()
+		return transact.query(News).order_by(News.id.desc()).limit(number).all()
+
+# Games
+WOW = 1
+SWTOR = 2
 
 @Model
 class Character(object):
-	id = PrimaryKey(Integer)
 	user_id = ForeignKey(Integer, 'User.id')
-	game_id = ForeignKey(Integer, 'Game.id')
+	game = Integer
 
 	name = Unicode()
 	server = Nullable(Unicode())
+	avatar = String()
 	attrs = String()
-
-@Model
-class Game(object):
-	name = Unicode()
-	characters = Character.relation(backref='game')
 
 @Model
 class User(object):
@@ -60,7 +59,7 @@ class User(object):
 	def add(username, password, admin):
 		if User.one(enabled=True, username=username):
 			return None
-		with session:
+		with transact:
 			user = User.create(
 				enabled=True, 
 				username=username, 
@@ -83,7 +82,7 @@ class User(object):
 			password = self.password
 		else:
 			password = User.hash(password)
-		with session:
+		with transact:
 			self.update(username=username, admin=admin, password=password)
 
 @Model
@@ -108,7 +107,7 @@ class Config(object):
 
 	@staticmethod
 	def set(name, value):
-		with session:
+		with transact:
 			try:
 				row = Config.one(name=name)
 				row.update(value=unicode(value))
@@ -122,10 +121,7 @@ class Config(object):
 def init():
 	admin = User.add(u'admin', 'admin', True)
 
-	with session:
-		Game.create(name=u'World of Warcraft')
-		Game.create(name=u'Star Wars: The Old Republic')
-
+	with transact:
 		News.create(
 				creator=admin, 
 				headline=u'This is a news story', 

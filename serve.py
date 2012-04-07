@@ -89,9 +89,10 @@ def rpc():
 	modules = []
 	for module, sub in handler.all.items():
 		module = [module]
-		for name, (method, args, func, rpc) in sub.items():
+		for name, (method, args, rpc, funcs) in sub.items():
 			if not rpc:
 				continue
+			func = funcs[0] if funcs[0] else funcs[1]
 			method = rpcStubTemplate % (
 					name, ', '.join(args), 
 					func.url(), 
