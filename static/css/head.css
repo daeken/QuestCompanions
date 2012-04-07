@@ -44,7 +44,7 @@ margin-right: 20px;
 float: right;
 }
 
-.nav .button {
+.nav .tab {
 position:relative;
 display: inline-block;
 top: -20px;
@@ -58,6 +58,7 @@ font-size: 16px;
 text-align: center center;
 background: #681e67;
 text-decoration: none;
+
 }
 
 .nav .button:hover {
