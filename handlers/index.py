@@ -9,3 +9,11 @@ def get_index():
 	return dict(
 		news=News.getLast(5)
 	)
+
+@handler('support', authed=True)
+def get_support():
+	pass
+
+@handler('support_complete', authed=True)
+def post_support_create(message):
+	pass

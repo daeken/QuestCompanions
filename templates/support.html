@@ -1,0 +1,10 @@
+{% extends "base.html" %}
+{% block title %}Support{% endblock %}
+{% block includes %}
+{% endblock %}
+{% block content %}
+<form action="{{ handler.index.post_support_create }}" method="POST">$CSRF$
+  Message: <textarea name="message" cols="40" rows="10"></textarea><br>
+  <input type="submit" value="Send">
+</form>
+{% endblock %}
