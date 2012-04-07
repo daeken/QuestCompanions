@@ -7,6 +7,5 @@ def get_index():
 		redirect(handler.auth.get_index)
 
 	return dict(
-		user=session.user,
 		news=News.getLast(5)
 	)

@@ -5,7 +5,7 @@
 {% endblock %}
 {% block content %}
 <div class="col wide">
-  <div class="back"> Welcome back, <span class="feature">{{user.username}}</span></div>
+  <div class="back"> Welcome back, <span class="feature">{{ session.user.username }}</span></div>
 </div>
 <div class="col narrow">
   <div class="news">

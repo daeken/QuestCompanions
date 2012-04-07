@@ -15,9 +15,9 @@
     {% for item in navigation %}
       <a class="button" href="{{ item.href }}">{{ item.title }}</a>
     {% endfor %}
-  	{% if user %}
-  		<a class="button" href="{{ handler.user.get_index.url(user.id) }}">{{ user.username }}</a>
-  		{% if user.admin %}
+  	{% if session.user %}
+  		<a class="button" href="{{ handler.user.get_index.url(session.user.id) }}">{{ session.user.username }}</a>
+  		{% if session.user.admin %}
 	  		<a class="button" href="{{ handler.admin.get_index }}">Admin</a>
 	  	{% endif %}
   		<a class="button" href="{{ handler.auth.get_logout }}">Log out</a>

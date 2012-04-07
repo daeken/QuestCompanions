@@ -1,0 +1,9 @@
+{% extends "base.html" %}
+{% block title %}{{ story.headline }}{% endblock %}
+{% block includes %}
+<link rel="stylesheet" type="text/css" href="/static/css/news.css"/>
+{% endblock %}
+{% block content %}
+<h2>{{ story.headline }}</h2>
+{{ story.story }}
+{% endblock %}
