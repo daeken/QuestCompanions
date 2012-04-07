@@ -25,6 +25,11 @@ background-color: #888088;
       color: rgba(125, 0, 125, 0.5);
 }
 
+textarea {
+width: 100%;
+  max-width: 930px;
+}
+
 .label, label {
 font-size: 26px;
 width: 180px;
