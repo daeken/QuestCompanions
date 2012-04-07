@@ -43,55 +43,49 @@ def handler(_tpl=None, _json=False, admin=False, authed=True):
 
 		ofunc = func
 		def func(id=None):
-			try:
-				if 'csrf' not in session:
-					token = os.urandom(16)
-					session['csrf'] = ''.join('%02x' % ord(c) for c in token)
-				if method == 'POST' and \
-					('csrf' not in request.form or request.form['csrf'] != session['csrf']):
-					abort(403)
-				if 'userId' in session and session['userId']:
-					session.user = User.one(id=int(session['userId']))
+			if 'csrf' not in session:
+				token = os.urandom(16)
+				session['csrf'] = ''.join('%02x' % ord(c) for c in token)
+			if method == 'POST' and \
+				('csrf' not in request.form or request.form['csrf'] != session['csrf']):
+				abort(403)
+			if 'userId' in session and session['userId']:
+				session.user = User.one(id=int(session['userId']))
+			else:
+				session.user = None
+			if (authed or admin) and session.user == None:
+				abort(403)
+			elif admin and not session.user.admin:
+				abort(403)
+			params = request.form if method == 'POST' else request.args
+			kwargs = {}
+			for i, arg in enumerate(args):
+				if i == 0 and arg == 'id' and not rpc:
+					continue
+				if arg in params:
+					kwargs[arg] = params[arg]
 				else:
-					session.user = None
-				if (authed or admin) and session.user == None:
-					abort(403)
-				elif admin and not session.user.admin:
-					abort(403)
-				params = request.form if method == 'POST' else request.args
-				kwargs = {}
-				for i, arg in enumerate(args):
-					if i == 0 and arg == 'id' and not rpc:
-						continue
-					if arg in params:
-						kwargs[arg] = params[arg]
-					else:
-						assert not rpc # RPC requires all arguments.
+					assert not rpc # RPC requires all arguments.
 
-				try:
-					if hasId and id != None:
-						ret = ofunc(id, **kwargs)
-					else:
-						ret = ofunc(**kwargs)
-				except RedirectException, r:
-					return _redirect(r.url)
-				if json:
-					return dumps(ret)
-				elif tpl != None:
-					if ret == None:
-						ret = {}
-					ret['handler'] = handler
-					ret['session'] = session
-					ret = render_template(tpl + '.html', **ret)
-					csrf = '<input type="hidden" name="csrf" value="%s">' % session['csrf']
-					return ret.replace('$CSRF$', csrf)
+			try:
+				if hasId and id != None:
+					ret = ofunc(id, **kwargs)
 				else:
-					return ret
-			except HTTPException:
-				raise
-			except:
-				import traceback
-				traceback.print_exc()
+					ret = ofunc(**kwargs)
+			except RedirectException, r:
+				return _redirect(r.url)
+			if json:
+				return dumps(ret)
+			elif tpl != None:
+				if ret == None:
+					ret = {}
+				ret['handler'] = handler
+				ret['session'] = session
+				ret = render_template(tpl + '.html', **ret)
+				csrf = '<input type="hidden" name="csrf" value="%s">' % session['csrf']
+				return ret.replace('$CSRF$', csrf)
+			else:
+				return ret
 
 		func.func_name = '__%s__%s__' % (module, name)
 

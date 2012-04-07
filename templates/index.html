@@ -6,6 +6,7 @@
 {% block content %}
 <div class="col wide">
   <div class="back"> Welcome back, <span class="feature">{{ session.user.username }}</span></div>
+  <a href="{{ handler.job.get_create }}">Post a job</a>
 </div>
 <div class="col narrow">
   <div class="news">

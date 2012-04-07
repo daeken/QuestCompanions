@@ -1,0 +1,10 @@
+{% extends "base.html" %}
+{% block title %}{{ job.desc }}{% endblock %}
+{% block includes %}
+<link rel="stylesheet" type="text/css" href="/static/css/news.css"/>
+{% endblock %}
+{% block content %}
+<h2>{{ job.desc }}</h2>
+Posted by: <a href="{{ handler.char.get_index.url(job.char.id) }}">{{ job.char.name }}</a><br>
+Game: {{ job.gamename() }}
+{% endblock %}

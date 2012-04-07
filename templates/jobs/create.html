@@ -6,65 +6,38 @@
 {% endblock %}
 {% block content %}
   <h1>Post a New Job</h1>
+  {% if chars == [] %}
+  You have no characters.  <a href="{{ handler.char.get_create }}">Add one</a> to get started.
+  {% else %}
   <div class="form">
-    <form action="" method="POST" id="job-form">
-      <div class="form-row">
-        <label>Game</label>
-        <select id="game" name="game">
-        {% for games in games %}
-          <option value="{{ game.id }}">{{ game.name }}</option>
-          {% endfor %}
-        </select>
-      </div>
-      <div class="form-row">
-        <label>Server</label>
-        // TODO Populate this list with AJAX.
-        <select id="server" name="server">
-        //  <option value="zuljin">Zul'Jin</option>
-        </select>
-      </div>
+    <form action="{{ handler.job.post_job_create }}" method="POST" id="job-form">$CSRF$
       <div class="form-row">
         <label>Character</label>
-        //TODO populate this list with AJAX based on previous two selections.
-         <select id="character" name="character">
-          //<option value="euryn">Euryn</option>
+        <select id="char" name="char">
+          {% for char in chars %}
+            <option value="{{ char.id }}">{{ char.name }} -- {{ char.gamename() }}</option>
+          {% endfor %}
         </select>
       </div>
       <div class="form-row">&nbsp;</div>
       <div class="form-row">
         <label>Description</label>
-        <input type="text" id="description" name="description" maxlength="140" autocomplete="off" />
+        <input type="text" id="desc" name="desc" maxlength="140" autocomplete="off" />
       </div>
       <div class="form-row">
         <label>Time Allotment</label>
-        <input type="time" id="time-required" name="time-required" />
+        <input type="time" id="time-required" name="time_reqd" />
       </div>
       <div class="form-row">
-        <label>Hourly Rate</label>
-        <input type="text" id="hourly-rate" name="hourly-rate" />
-      </div>
-      <div class="form-row">&nbsp;</div>
-      <div class="form-row">
-        <label>Desired faction</label>
-        // TODO populate this list with AJAX
-        <select id="faction" name="faction">
-        //  <option value="horde">Horde</option>
-        //  <option value="alliance">Alliance</option>
-        </select>
-      </div>
-      <div class="form-row">
-        <label>Desired race</label>
-        // TODO More ajax for this one.
-        <select id="race" name="race">
-        //  <option value="race">Some Race</option>
-        //  <option value="something">Some Other Race</option>
-        </select>
+        <label>Max Payment</label>
+        <input type="text" id="max-pay" name="max_pay" />
       </div>
       <div class="form-row">
         <label>Other details</label>
-	<textarea name="details" id="details" maxlength="400"></textarea>
+        <textarea name="details" id="details" maxlength="400"></textarea>
       </div>
       <button type="submit" class="submit-button">Post job!</button>
     </form>
   </div>
+  {% endif %}
 {% endblock %}
