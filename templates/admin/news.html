@@ -1,0 +1,11 @@
+{% extends "base.html" %}
+{% block title %}News Admin{% endblock %}
+{% block includes %}
+{% endblock %}
+{% block content %}
+<ul>
+  {% for story in news %}
+	  <li><a href="{{ handler.admin.get_news.url(story.id) }}">{{ story.headline }}</a></li>
+  {% endfor %}
+</ul>
+{% endblock %}

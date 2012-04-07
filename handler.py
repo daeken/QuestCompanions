@@ -5,7 +5,7 @@ from werkzeug.exceptions import HTTPException
 from model import User
 from urllib import quote, urlencode
 
-class ListObject(list):
+class DictObject(dict):
 	pass
 
 class StrObject(str):
@@ -35,7 +35,7 @@ def handler(_tpl=None, _json=False, admin=False, authed=True):
 
 		module = func.__module__.split('.')[-1]
 		if not module in all:
-			all[module] = ListObject()
+			all[module] = DictObject()
 			setattr(handler, module, all[module])
 		args = func.__code__.co_varnames[:func.__code__.co_argcount]
 		hasId = len(args) > 0 and args[0] == 'id' and not rpc
@@ -88,11 +88,18 @@ def handler(_tpl=None, _json=False, admin=False, authed=True):
 		def url(_id=None, **kwargs):
 			if module == 'index':
 				url = '/'
+				trailing = True
 			else:
-				url = '/%s/' % module
+				url = '/%s' % module
+				trailing = False
 			if name != 'index':
-				url += '%s/' % name
+				if not trailing:
+					url += '/'
+				url += '%s' % name
+				trailing = False
 			if _id != None:
+				if not trailing:
+					url += '/'
 				url += quote(str(_id))
 			if len(kwargs):
 				url += '?'
@@ -103,7 +110,12 @@ def handler(_tpl=None, _json=False, admin=False, authed=True):
 		ustr.__call__ = ofunc
 		ustr.url = url
 		func.url = url
-		all[module].append((name, method, args, func, rpc))
+		if not name in all[module]:
+			all[module][name] = method, args, rpc, [None, None]
+		if hasId and not rpc:
+			all[module][name][3][1] = func
+		else:
+			all[module][name][3][0] = func
 		setattr(all[module], ofunc.func_name, ustr)
 		return ustr
 

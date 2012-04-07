@@ -14,18 +14,49 @@ else:
 	key = ''.join(chr(int(key[i:i+2], 16)) for i in xrange(0, 48, 2))
 app.secret_key = key
 
+def reroute(noId, withId):
+	def sub(id=None, *args, **kwargs):
+		try:
+			if id == None:
+				return noId(*args, **kwargs)
+			else:
+				return withId(id, *args, **kwargs)
+		except:
+			import traceback
+			traceback.print_exc()
+	sub.func_name = '__reroute_' + noId.func_name
+	return sub
+
 for module, sub in handler.all.items():
-	for name, method, args, func, rpc in sub:
+	for name, (method, args, rpc, (noId, withId)) in sub.items():
 		if module == 'index':
 			route = '/'
+			trailing = True
 		else:
-			route = '/%s/' % module
+			route = '/%s' % module
+			trailing = False
 		if name != 'index':
-			route += '%s/' % name
-		if len(args) and args[0] == 'id' and not rpc:
-			route += '<id>'
-		print route, func
-		app.route(route, methods=[method])(func)
+			if not trailing:
+				route += '/'
+			route += '%s' % name
+			trailing = False
+
+		if noId != None and withId != None:
+			func = reroute(noId, withId)
+		elif noId != None:
+			func = noId
+		else:
+			func = withId
+
+		if withId != None:
+			iroute = route
+			if not trailing:
+				iroute += '/'
+			iroute += '<int:id>'
+			app.route(iroute, methods=[method])(func)
+
+		if noId != None:
+			app.route(route, methods=[method])(func)
 
 @app.route('/favicon.ico')
 def favicon():

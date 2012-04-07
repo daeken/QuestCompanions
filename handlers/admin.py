@@ -11,4 +11,4 @@ def get_news():
 
 @handler('admin/news_story', admin=True)
 def get_news(id):
-	return id
+	return dict(story=News.one(id=int(id)))
