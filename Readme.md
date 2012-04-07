@@ -98,3 +98,8 @@ Handlers can take care of high-level authorization.
         ...
 
 Make sure that you handle fine-grained authorization in your own handlers.
+
+CSRF
+----
+
+CSRF tokens are taken care of on RPC calls and are required for all POSTs.  Inside your forms, place `$CSRF$` at the beginning and it'll be dealt with.
