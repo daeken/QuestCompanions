@@ -26,8 +26,9 @@ def rpc_add_wow(server, charname):
 	thumbnail = 'https://us.battle.net/static-render/us/' + wowchar.thumbnail
 	with transact:
 		char = Character.create(
-				user=session.user, 
+				user=session.user,  
 				game=WOW, 
+				name=wowchar.name, 
 				server=server, 
 				avatar=thumbnail, 
 				attrs=''

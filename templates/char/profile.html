@@ -8,9 +8,10 @@
   <div class="userPic">
     <img src="{{ char.avatar }}">
   </div>
-  <div class="contact block">
-    <h3>Information</h3>
-    <ul>
+</div>
+<div class="col wide">
+  <h3>{{ char.name }}</h3>
+  <ul>
     <li>Server: {{ char.server }}
     {% if char.level is defined %}
     <li>Level: {{ char.level }}
@@ -21,15 +22,6 @@
     {% if char.level is defined %}
     <li>Equipment level: {{ char.equipment }}
     {% endif %}
-    </ul>
-  </div>
+  </ul>
 </div>
-<div class="col wide">
-  <h1>{{ char.username }}</h1>
-  <h2>{{ char.game }} </h2>
-  <div class="about block">
-    <h3>Bio</h3>
-    {{ char.bio }}
-  </div>
-  </div>
 {% endblock %}
