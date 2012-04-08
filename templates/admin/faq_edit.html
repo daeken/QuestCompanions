@@ -7,7 +7,7 @@
   </style>
 {% endblock %}
 {% block content %}
-<form action="{{ handler.admin.post_edit_faq }}" method="POST">$CSRF$
+<form action="{{ handler.admin.post_faq_edit }}" method="POST">$CSRF$
 	<input type="hidden" name="_id" value="{{ faq.id }}"
 	<label>Question:</label> <input type="text" name="question" value="{{ faq.question }}"><br>
 	<label>Answer:</label> <textarea name="answer" cols="80" rows="20">{{ faq.answer }}</textarea><br>
