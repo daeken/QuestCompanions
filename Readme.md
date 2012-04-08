@@ -4,6 +4,7 @@ Requirements
 Install Python 2.7 and then run:
  
 	easy_install flask sqlalchemy coffeescript
+	easy_install --index-url https://code.stripe.com --upgrade stripe
 	git clone https://github.com/trentm/python-markdown2.git
 	cd python-markdown2
 	sudo python setup.py install
