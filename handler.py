@@ -24,10 +24,8 @@ def handler(_tpl=None, _json=False, admin=False, authed=True):
 			name = name[4:]
 			method = 'GET'
 		elif name.startswith('post_'):
-			name = name[5:]
 			method = 'POST'
 		elif name.startswith('rpc_'):
-			name = name[4:]
 			method = 'POST'
 			rpc = json = True
 			tpl = None

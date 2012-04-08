@@ -19,7 +19,7 @@ def get_news_create():
 	pass
 
 @handler('admin/news_create', admin=True)
-def post_create_news(headline, story):
+def post_news_create(headline, story):
 	with transact:
 		News.create(
 				headline=headline, 
@@ -45,7 +45,7 @@ def get_user_create():
 	pass
 
 @handler(admin=True)
-def post_create_user(username, password, admin=False):
+def post_user_create(username, password, admin=False):
 	user = User.add(username, password, admin == u'on')
 	if user == None:
 		redirect(get_user_create)
@@ -65,7 +65,7 @@ def get_faq_create():
 
 #Edit and create
 @handler(admin=True)
-def post_edit_faq(_id, question, answer):
+def post_faq_edit(_id, question, answer):
 	with transact:
 		if _id == u'':
 			FAQ.create(
