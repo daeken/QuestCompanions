@@ -7,7 +7,7 @@
 {% block content %}
 <form action="{{ handler.index.post_support_create }}" method="POST">$CSRF$
  <h2> Message:</h2>
- <textarea name="message" cols="40" rows="10"></textarea><br>
+ <textarea name="message" cols="40" rows="10" placeholder="Enter your message here"></textarea><br>
   <input type="submit" class="button" value="Send">
 </form>
 {% endblock %}

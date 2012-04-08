@@ -63,3 +63,16 @@ text-align: right;
 .form {
   max-width: 960px;
 }
+
+.error, input:invalid, textarea:invalid
+{
+  border-color: #a40000;
+  color: #a40000;
+  box-shadow: 0 0 5px #a40000;
+}
+
+
+
+.errMessage {
+color: #a40000;
+}
