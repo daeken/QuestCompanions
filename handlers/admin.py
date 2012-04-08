@@ -1,5 +1,6 @@
 from handler import *
 from model import *
+import markdown2
 
 @handler('admin/index', admin=True)
 def get_index():
@@ -22,7 +23,8 @@ def post_create_news(headline, story):
 	with transact:
 		News.create(
 				headline=headline, 
-				story=story
+				story=story,
+				story_markdown=markdown2.markdown(story)
 			)
 	redirect(get_news)
 
@@ -30,7 +32,8 @@ def post_create_news(headline, story):
 def post_save_news(id, headline, story):
 	sobj = News.one(id=int(id))
 	with transact:
-		sobj.update(headline=headline, story=story)
+		sobj.update(headline=headline, story=story,
+				story_markdown=markdown2.markdown(story))
 	redirect(get_news)
 
 @handler('admin/users', admin=True)
