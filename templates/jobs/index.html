@@ -8,7 +8,7 @@
 <h2>Jobs</h2>
 <ul>
 	{% for job in jobs %}
-		<a href="{{ handler.job.get_index.url(job.id) }}"><li>{{ job.desc }} &ndash; {{ job.gamename() }}</li></a>
+		<a href="{{ handler.job.get_index.url(job.id) }}"><li><img class="avatar" href="{{ job.img }}"/> {{ job.desc }} &ndash; {{ job.gamename() }}{% if job.details %}: {{ job.details|truncate(length=100, killwords=False, end="...") }}{% endif %}</li></a>
 	{% endfor %}
 </ul>
 {% endblock %}

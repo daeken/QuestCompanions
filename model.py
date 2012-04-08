@@ -5,18 +5,21 @@ from sqlalchemy.types import *
 
 from metamodel import *
 import hashlib
+import markdown2
 
 @Model
 class FAQ(object):
 	creator_id = ForeignKey(Integer, 'User.id')
 	question = Unicode()
 	answer = Unicode()
+	answer_markdown = Unicode()
 
 @Model
 class News(object):
 	creator_id = ForeignKey(Integer, 'User.id')
 	headline = Unicode()
 	story = Unicode()
+	story_markdown = Unicode()
 
 	@staticmethod
 	def getLast(number=5):
@@ -180,15 +183,18 @@ def init():
 		News.create(
 				creator=admin, 
 				headline=u'This is a news story', 
-				story=u'With a body'
+				story=u'With a body',
+				story_markdown=markdown2.markdown(u'With a body')
 			)
 		News.create(
 				creator=admin, 
 				headline=u'This is another news story', 
-				story=u'With another body'
+				story=u'With another body',
+				story_markdown=markdown2.markdown(u'with a body')
 			)
 		FAQ.create(
 				creator=admin, 
 				question=u'Do you have anything without spam in it?', 
-				answer=u'Why would you want that?!'
+				answer=u'Why would you want that?!',
+				answer_markdown=markdown2.markdown(u'Why would you want that?!')
 			)
