@@ -1,0 +1,29 @@
+{% extends "base.html" %}
+{% block title %}Privacy Policy{% endblock %}
+{% block includes %}
+<link rel="stylesheet" type="text/css" href="/static/css/legal.css"/>
+{% endblock %}
+{% block content %}
+<div class="legal">
+  <h1>QuestCompanions Privacy Policy</h1>
+  <p>This Privacy Policy describes our policies and procedures on the collection, use and disclosure of your information. QuestCompanions receives your information through our website and through third-party services. For example, when you use the QuestCompanions service, you send us information in order to link your QuestCompanions account to any game accounts that you wish to use with QuestCompanions. Irrespective of which country that you reside in or create information from, your information may be used by QuestCompanions in the United States or any other country where QuestCompanions operates.</p>
+  <h2>Information Collection and Usage</h2>
+  <p><em>Information collected upon registration:</em> When you create a QuestCompanions account, you provide personal information, such as username, password, and email address. Some of this information, for example your username, will be publically listed on parts of the site, such as your profile, or on jobs posted by yourself.</p>
+  <p><em>Game-related information:</em> In order to make use of the services provided by QuestCompanions, you will need to provide the identity of in-game characters you intend to use in conjunction with the services.  QuestCompanions will use this information to access publicly-accessible information on the character(s), and enable you to post and bid on jobs.</p>
+  <p><em>Optional collected information:</em> You may provide QuestCompanions with additional information such as short profile biography, location, or a picture to serve as your avatar within the QuestCompanion site.  Providing this information is entirely optional.</p>
+  <p><em>Logging:</em> Our servers automatically record information ("Logging Data") created by your use of the QuestCompanion services. Log Data may include information such as your IP address, browser type, the referring domain, pages visited, your mobile carrier, device and application IDs, and search terms. Other actions, such as interactions with our website, may also be included in Log Data. If we haven’t already deleted the Log Data earlier, we will either delete it or remove any common account identifiers, such as your username, full IP address, or email address, after 18 months.</p>
+  <p><em>Cookies:</em> Like many websites, we use "cookie" technology to collect additional website usage data and to improve our services. A cookie is a small data file that is transferred to your computer's hard disk. QuestCompanions may use both session cookies and persistent cookies to better understand how you interact with our services, to monitor aggregate usage by our users and web traffic routing on our services, and to improve our services. Most Internet browsers automatically accept cookies. You can instruct your browser, by editing its options, to stop accepting cookies or to prompt you before accepting a cookie from the websites you visit. Refusing to accept session cookies will prevent you from being able to login to the site, or make use of authenticated services such as job posting or bidding.</p>
+  <p><em>Third-party Services:</em> QuestCompanions uses other services to help provide the QuestCompanions service, such as Google Analytics. These services may collect information sent by your browser as part of a web page request, such as cookies or your IP address.</p>
+  <h2>Information Sharing and Disclosure</h2>
+  <p><em>Consent:</em> We may share or disclose your information <em>with your consent</em>.</p>
+  <p><em>Legal:</em> We may preserve or disclose your information if we believe that it is reasonably necessary to comply with a law, regulation or legal request; to protect the safety of any person; to address fraud, security or technical issues; or to protect QuestCompanion's rights or property.</p>
+  <p><em>Business Transfers</em> In the event that QuestCompanions is involved in a bankruptcy, merger, acquisition, reorganization or sale of assets, your information may be sold or transferred as part of that transaction. The promises in this privacy policy will apply to your information as transferred to the new entity.</p>
+  <p><em>Non-Private or Non-Personal Information:</em> We may share or disclose your non-private, aggregated or otherwise non-personal information.</p>
+  <h2>Modifying your Information</h2>
+  <p>If you are a registered user of the services, we provide you with tools to access or modify the personal information you have provided to us.</p>
+  <h2>Changes to this Privacy Policy</h2>
+  <p>QuestCompanions may revise this policy from time to time.  The most current version of this policy will govern our use of your information, and will always be available at <a href="{{ handler.legal.get_privacy }}">http://questcompanions.com{{ handler.legal.get_privacy }}</a>.  If we make any change to the policy that, in our sole discretion, is material, we will notify you via an email sent to the address associated with your account.  By continuing to access or use the QuestCompanion services after those changes become effective, you agree to be bound by the revised Privacy Policy.</p>
+  <br />
+  <h3>Effective: April 08, 2012</h3>
+</div>
+{% endblock %}
