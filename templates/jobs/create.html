@@ -3,6 +3,7 @@
 {% block includes %}
 <link rel="stylesheet" type="text/css" href="/static/css/forms.css"/>
 <link rel="stylesheet" type="text/css" href="/static/css/buttons.css">
+<script src="/scripts/validate.js"></script>
 {% endblock %}
 {% block content %}
   <h1>Post a New Job</h1>
@@ -23,19 +24,19 @@
       </div>
       <div class="form-row">
         <label>Description</label>
-        <input type="text" id="desc" name="desc" maxlength="140" autocomplete="off" />
+        <input type="text" id="desc" name="desc" maxlength="140" autocomplete="off" required=true />
       </div>
       <div class="form-row">
         <label>Time Allotment</label>
-        <input type="time" id="time-required" name="time_reqd" />
+        <input type="time" id="time-required" name="time_reqd" required=true />
       </div>
       <div class="form-row">
         <label>Max Payment</label>
-        <input type="text" id="max-pay" name="max_pay" />
+        <input type="number" id="max-pay" name="max_pay" required=true />
       </div>
       <div class="form-row">
         <label>Other details</label>
-        <textarea name="details" id="details" maxlength="400"></textarea>
+        <textarea name="details" id="details" maxlength="400" required=true ></textarea>
       </div>
       <button type="submit" class="bWide">Post job!</button>
     </form>

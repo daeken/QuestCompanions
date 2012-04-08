@@ -22,9 +22,7 @@ function errorClear()
 $(window).load(
     function() {
     $('button').click(
-      function() { 
-        createCover();
-      }    
-    )
-    }
-  );
+      function() {
+          createCover();
+      })
+    });
