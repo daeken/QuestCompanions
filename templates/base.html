@@ -21,6 +21,7 @@
   		{% if session.user.admin %}
 	  		<a class="tab" href="{{ handler.admin.get_index }}">Admin</a>
 	  	{% endif %}
+      <a class="tab" href="{{ handler.gold.get_index }}">Gold</a>
       <a class="tab" href="{{ handler.index.get_faq }}">FAQ</a>
       <a class="tab" href="{{ handler.index.get_support }}">Support</a>
   		<a class="tab" href="{{ handler.auth.get_logout }}">Log out</a>
