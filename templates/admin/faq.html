@@ -1,0 +1,13 @@
+{% extends "base.html" %}
+{% block title %}FAQ Admin{% endblock %}
+{% block includes %}
+{% endblock %}
+{% block content %}
+<h1>FAQ</h1>
+<a href="{{ handler.admin.get_faq_create }}">Create</a>
+<ul>
+  {% for faq in faqs %}
+	  <li><a href="{{ handler.admin.get_faq.url(faq.id) }}">{{ faq.question }}</a></li>
+  {% endfor %}
+</ul>
+{% endblock %}

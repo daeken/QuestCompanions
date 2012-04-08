@@ -7,6 +7,12 @@ from metamodel import *
 import hashlib
 
 @Model
+class FAQ(object):
+	creator_id = ForeignKey(Integer, 'User.id')
+	question = Unicode()
+	answer = Unicode()
+
+@Model
 class News(object):
 	creator_id = ForeignKey(Integer, 'User.id')
 	headline = Unicode()
@@ -81,6 +87,7 @@ class User(object):
 	admin = Boolean
 	username = Unicode(255)
 	password = String(40)
+	money = Integer
 
 	characters = Character.relation(backref='user')
 	news = News.relation(backref='creator')
@@ -111,7 +118,8 @@ class User(object):
 				enabled=True, 
 				username=username, 
 				password=User.hash(password), 
-				admin=admin
+				admin=admin, 
+				money=0
 			)
 		return user
 	
@@ -178,4 +186,9 @@ def init():
 				creator=admin, 
 				headline=u'This is another news story', 
 				story=u'With another body'
+			)
+		FAQ.create(
+				creator=admin, 
+				question=u'Do you have anything without spam in it?', 
+				answer=u'Why would you want that?!'
 			)
