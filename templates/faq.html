@@ -6,6 +6,6 @@
 {% block content %}
   {% for faq in faqs %}
     <h2>{{ faq.question }}</h2>
-    {{ faq.answer }}
+    {{ faq.answer_markdown|safe }}
   {% endfor %}
 {% endblock %}

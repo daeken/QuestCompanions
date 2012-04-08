@@ -63,18 +63,21 @@ def get_faq(id):
 def get_faq_create():
 	return dict(faq=None)
 
+#Edit and create
 @handler(admin=True)
 def post_edit_faq(_id, question, answer):
 	with transact:
 		if _id == u'':
 			FAQ.create(
 					question=question, 
-					answer=answer
+					answer=answer,
+					answer_markdown=markdown2.markdown(answer)
 				)
 		else:
 			faq = FAQ.one(id=int(_id))
 			faq.update(
 					question=question, 
-					answer=answer
+					answer=answer,
+					answer_markdown=markdown2.markdown(answer)
 				)
 	redirect(get_faq)

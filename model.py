@@ -195,5 +195,6 @@ def init():
 		FAQ.create(
 				creator=admin, 
 				question=u'Do you have anything without spam in it?', 
-				answer=u'Why would you want that?!'
+				answer=u'Why would you want that?!',
+				answer_markdown=markdown2.markdown(u'Why would you want that?!')
 			)
