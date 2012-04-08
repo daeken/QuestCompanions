@@ -1,0 +1,16 @@
+{% extends "base.html" %}
+{% block title %}New FAQ{% endblock %}
+{% block includes %}
+<style>
+  label{ float:left;}
+  input, textarea{ margin-bottom: 10px; padding: 5px}
+  </style>
+{% endblock %}
+{% block content %}
+<form action="{{ handler.admin.post_edit_faq }}" method="POST">$CSRF$
+	<input type="hidden" name="_id" value="{{ faq.id }}"
+	<label>Question:</label> <input type="text" name="question" value="{{ faq.question }}"><br>
+	<label>Answer:</label> <textarea name="answer" cols="80" rows="20">{{ faq.answer }}</textarea><br>
+	<input type="submit" value="Save">
+</form>
+{% endblock %}

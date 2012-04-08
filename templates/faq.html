@@ -1,0 +1,11 @@
+{% extends "base.html" %}
+{% block title %}FAQ{% endblock %}
+{% block includes %}
+<link rel="stylesheet" type="text/css" href="/static/css/news.css"/>
+{% endblock %}
+{% block content %}
+  {% for faq in faqs %}
+    <h2>{{ faq.question }}</h2>
+    {{ faq.answer }}
+  {% endfor %}
+{% endblock %}
