@@ -13,13 +13,14 @@
     <form action="{{ handler.job.post_job_create }}" method="POST" id="job-form">$CSRF$
       <div class="form-row">
         <label>Character</label>
+        <span class="selector">
         <select id="char" name="char">
           {% for char in chars %}
             <option value="{{ char.id }}">{{ char.name }} -- {{ char.gamename() }}</option>
           {% endfor %}
         </select>
+        </span>
       </div>
-      <div class="form-row">&nbsp;</div>
       <div class="form-row">
         <label>Description</label>
         <input type="text" id="desc" name="desc" maxlength="140" autocomplete="off" />
@@ -36,7 +37,7 @@
         <label>Other details</label>
         <textarea name="details" id="details" maxlength="400"></textarea>
       </div>
-      <button type="submit" class="submit-button">Post job!</button>
+      <button type="submit" class="bWide">Post job!</button>
     </form>
   </div>
   {% endif %}

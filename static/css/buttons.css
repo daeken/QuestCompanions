@@ -28,11 +28,21 @@ border-top-color: #00BF02;
 box-shadow: -3px -3px 5px rgba(0,0,0,0.5);
        }
 
+button[class="center"] {
+width: 79px;
+margin: 0 auto;
+}
+
 .bBig {
 padding: 20px;
 top: 30px;
 position: relative;
 }
+
+.bWide {
+width: 150px;
+}
+
 .bRed
 {
 background: -moz-linear-gradient(#bf0000, #7f0000);
