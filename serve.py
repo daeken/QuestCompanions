@@ -94,6 +94,7 @@ def rpc():
 			if not rpc:
 				continue
 			func = funcs[0] if funcs[0] else funcs[1]
+			name = name[4:]
 			method = rpcStubTemplate % (
 					name, ', '.join(args), 
 					func.url(), 
