@@ -1,5 +1,5 @@
 
-input,select,textarea {
+input,textarea {
 -moz-border-radius: 15px;
 border-radius: 7px;
 background-color: #170017;
@@ -14,8 +14,25 @@ outline: none;
 padding-left: 5px;
 }
 
-select {
-background-color: #888088;
+.selector {
+width: 400px;
+padding-left: 5px;
+overflow: hidden;
+display:inline-block;
+background-color: #170017;
+border-radius: 7px;
+border: 1px solid #A400A2;
+background: url("/static/img/arrow.png") center right no-repeat rgba(25, 0, 25, 0.5);
+}
+
+.selector select {
+
+width:430px;
+height: 30px;
+background: transparent none;
+border-width: 0;
+font-size: 18pt;
+color: #7d007C;
 }
 
 ::-webkit-input-placeholder {
@@ -25,9 +42,14 @@ background-color: #888088;
       color: rgba(125, 0, 125, 0.5);
 }
 
+textarea {
+width: 100%;
+  max-width: 930px;
+}
+
 .label, label {
 font-size: 26px;
-width: 180px;
+width: 200px;
 margin-right: 10px;
 display: inline-block;
 text-align: right;

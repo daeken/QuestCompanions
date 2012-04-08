@@ -1,10 +1,13 @@
 {% extends "base.html" %}
 {% block title %}Support{% endblock %}
 {% block includes %}
+<link rel="stylesheet" type="text/css" href="/static/css/forms.css"/>
+<link rel="stylesheet" type="text/css" href="/static/css/buttons.css"/>
 {% endblock %}
 {% block content %}
 <form action="{{ handler.index.post_support_create }}" method="POST">$CSRF$
-  Message: <textarea name="message" cols="40" rows="10"></textarea><br>
-  <input type="submit" value="Send">
+ <h2> Message:</h2>
+ <textarea name="message" cols="40" rows="10"></textarea><br>
+  <input type="submit" class="button" value="Send">
 </form>
 {% endblock %}

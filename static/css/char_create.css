@@ -1,3 +1,9 @@
 .game-pane {
 	display: none;
 }
+
+.content .container{
+width: 650px;
+margin: 10px auto;
+}
+
