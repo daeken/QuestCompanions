@@ -4,7 +4,7 @@ Requirements
 Install Python 2.7 and then run:
  
 	easy_install flask sqlalchemy coffeescript
-	git pull https://github.com/trentm/python-markdown2.git
+	git clone https://github.com/trentm/python-markdown2.git
 	cd python-markdown2
 	sudo python setup.py install
 
