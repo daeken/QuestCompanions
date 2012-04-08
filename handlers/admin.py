@@ -47,3 +47,31 @@ def post_create_user(username, password, admin=False):
 	if user == None:
 		redirect(get_user_create)
 	redirect(get_user)
+
+@handler('admin/faq', admin=True)
+def get_faq():
+	return dict(faqs=FAQ.all())
+
+@handler('admin/faq_edit', admin=True)
+def get_faq(id):
+	return dict(faq=FAQ.one(id=int(id)))
+
+@handler('admin/faq_edit', admin=True)
+def get_faq_create():
+	return dict(faq=None)
+
+@handler(admin=True)
+def post_edit_faq(_id, question, answer):
+	with transact:
+		if _id == u'':
+			FAQ.create(
+					question=question, 
+					answer=answer
+				)
+		else:
+			faq = FAQ.one(id=int(_id))
+			faq.update(
+					question=question, 
+					answer=answer
+				)
+	redirect(get_faq)

@@ -1,5 +1,5 @@
 from handler import *
-from model import News
+from model import *
 
 @handler('index', authed=False)
 def get_index():
@@ -17,3 +17,8 @@ def get_support():
 @handler('support_complete', authed=True)
 def post_support_create(message):
 	pass
+
+@handler('faq', authed=False)
+def get_faq():
+	faqs = FAQ.all()
+	return dict(faqs=faqs)

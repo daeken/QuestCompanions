@@ -1,1 +1,1 @@
-import admin, auth, char, index, job, news, user
+import admin, auth, char, faq, index, job, news, user
