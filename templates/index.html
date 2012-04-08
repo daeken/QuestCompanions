@@ -13,7 +13,7 @@
     {% for item in news %}
     <div class="item">  
       <a class="title" href="{{ handler.news.get_index.url(item.id) }}">{{ item.headline }}</a>
-      <div class="story">{{ item.story|truncate(length=255, killwords=False, end="...") }}</div>
+      <div class="story">{{ item.story_markdown|truncate(length=255, killwords=False, end="...")|safe }}</div>
     </div>
    {% endfor  %}
   </div>
