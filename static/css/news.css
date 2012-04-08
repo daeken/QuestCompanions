@@ -8,3 +8,7 @@ padding-left: 10px;
 padding-bottom: 10px;
 border-bottom: 1px dashed #bbb;
 }
+
+img { 
+  float: left;
+}

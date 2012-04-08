@@ -16,7 +16,6 @@ padding-left: 5px;
 
 .selector {
 width: 400px;
-padding-left: 5px;
 overflow: hidden;
 display:inline-block;
 background-color: #170017;
@@ -26,7 +25,7 @@ background: url("/static/img/arrow.png") center right no-repeat rgba(25, 0, 25, 
 }
 
 .selector select {
-
+padding-left: 5px;
 width:430px;
 height: 30px;
 background: transparent none;

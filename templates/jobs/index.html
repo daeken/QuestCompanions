@@ -2,12 +2,13 @@
 {% block title %}All jobs{% endblock %}
 {% block includes %}
 <link rel="stylesheet" type="text/css" href="/static/css/news.css"/>
+<link rel="stylesheet" type="text/css" href="/static/css/jobs.css"/>
 {% endblock %}
 {% block content %}
 <h2>Jobs</h2>
 <ul>
 	{% for job in jobs %}
-		<li><a href="{{ handler.job.get_index.url(job.id) }}">{{ job.desc }} &ndash; {{ job.gamename() }}</a></li>
+		<a href="{{ handler.job.get_index.url(job.id) }}"><li><img class="avatar" href="{{ job.img }}"/> {{ job.desc }} &ndash; {{ job.gamename() }}{% if job.details %}: {{ job.details|truncate(length=100, killwords=False, end="...") }}{% endif %}</li></a>
 	{% endfor %}
 </ul>
 {% endblock %}
