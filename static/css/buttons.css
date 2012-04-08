@@ -30,8 +30,11 @@ box-shadow: -3px -3px 5px rgba(0,0,0,0.5);
 
 button[class="center"] {
 width: 79px;
-margin: 0 auto;
+left: 50%;
+position:relative;
+margin-left: -10px;
 }
+
 
 .bBig {
 padding: 20px;

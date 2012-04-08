@@ -6,5 +6,8 @@
 {% block content %}
 <h2>{{ job.desc }}</h2>
 Posted by: <a href="{{ handler.char.get_index.url(job.char.id) }}">{{ job.char.name }}</a><br>
-Game: {{ job.gamename() }}
+Game: {{ job.gamename() }}<br>
+{% if job.longDesc %}
+Description: {{ job.longDesc }}
+{% endif %}
 {% endblock %}

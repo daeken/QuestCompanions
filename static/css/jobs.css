@@ -1,0 +1,30 @@
+ul {
+width: 840px;
+}
+
+ul a li{
+padding: 10px;
+border: 1px solid #999;
+margin-left: -20px;
+margin-top: -1px;
+background: -moz-linear-gradient(rgba(255,255,255, 0.2), rgba(100,100,100, 0.2));
+width: 100%;
+list-style: none;
+}
+
+ul :hover {
+background: -moz-linear-gradient(rgba(255,255,255,0.2), rgba(190,120,190,0.2) );
+}
+
+ul :active {
+background: -moz-linear-gradient(rgba(100,100,100,0.4), rgba(140, 80, 140, 0.2));
+    }
+
+ul a:nth-of-type(1) li {
+  border-top-left-radius: 5px;
+  border-top-right-radius: 5px;
+}
+ul a:nth-last-of-type(1) li {
+  border-bottom-left-radius: 5px;
+  border-bottom-right-radius: 5px;
+}
