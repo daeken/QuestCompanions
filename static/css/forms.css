@@ -34,6 +34,10 @@ font-size: 18pt;
 color: #7d007C;
 }
 
+.selector select option {
+background: transparent none!important;
+}
+
 ::-webkit-input-placeholder {
       color: rgba(125, 0, 125, 0.5);
 }
