@@ -4,25 +4,28 @@
 <link rel="stylesheet" type="text/css" href="/static/css/char_create.css"/>
 <link rel="stylesheet" type="text/css" href="/static/css/buttons.css"/>
 <link rel="stylesheet" type="text/css" href="/static/css/cover.css"/>
+<link rel="stylesheet" type="text/css" href="/static/css/forms.css"/>
 <script src="/scripts/loading.js"></script>
 <script src="/scripts/char_create.js"></script>
 {% endblock %}
 {% block content %}
-Game: <select id="game">
+<div class="container">
+<label>Game:</label><span class="selector"> <select id="game">
   <option disabled selected>---</option>
   <option value="0">World of Warcraft</option>
   <option value="1">Star Wars: The Old Republic</option>
-</select>
+</select></span>
 <div id="game-0" class="game-pane">
-  Server: <select id="server">
+  <label>Server:</label><span class="selector"> <select id="server">
     {% for name in wow_servers %}
       <option>{{ name }}</option>
     {% endfor %}
-  </select><br>
-  Character name: <input type="text" id="charname"><br>
-  <button id="wow-add">Add</button>
+  </select></span><br>
+  <label>Character name:</label> <input type="text" id="charname"><br>
+  <button id="wow-add" class="center">Add</button>
 </div>
 <div id="game-1" class="game-pane">
   SWTOR
+</div>
 </div>
 {% endblock %}
