@@ -27,7 +27,7 @@ background: url("/static/img/arrow.png") center right no-repeat rgba(25, 0, 25, 
 
 .selector select {
 -webkit-appearance: button;
-  padding-left: 5px;
+padding-left: 5px;
 width:430px;
 height: 30px;
 background: transparent none;
@@ -35,6 +35,7 @@ border-width: 0;
 font-size: 18pt;
 color: #7d007C;
 }
+
 
 .selector select option {
 background: transparent none!important;
@@ -49,7 +50,11 @@ background: transparent none!important;
 
 textarea {
 width: 100%;
-  max-width: 930px;
+  max-width: 400px;
+}
+
+.support {
+max-width: 930px;
 }
 
 .label, label {
@@ -58,20 +63,19 @@ width: 200px;
 margin-right: 10px;
 display: inline-block;
 text-align: right;
+float:left;
 }
 
 .form {
   max-width: 960px;
 }
 
-.error, input:invalid, textarea:invalid
+.error
 {
   border-color: #a40000;
   color: #a40000;
   box-shadow: 0 0 5px #a40000;
 }
-
-
 
 .errMessage {
 color: #a40000;

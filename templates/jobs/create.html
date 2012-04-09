@@ -13,7 +13,7 @@
   <div class="form">
     <form action="{{ handler.job.post_job_create }}" method="POST" id="job-form">$CSRF$
       <div class="form-row">
-        <label>Character</label>
+        <label class="charLabel">Character</label>
         <span class="selector">
         <select id="char" name="char">
           {% for char in chars %}
@@ -36,7 +36,7 @@
       </div>
       <div class="form-row">
         <label>Other details</label>
-        <textarea name="details" id="details" maxlength="400" required=true ></textarea>
+        <textarea name="details" id="details" maxlength="400"  ></textarea>
       </div>
       <button type="submit" class="bWide">Post job!</button>
     </form>
