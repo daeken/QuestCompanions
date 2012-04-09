@@ -90,7 +90,7 @@ class User(object):
 	admin = Boolean
 	username = Unicode(255)
 	password = String(40)
-	money = Integer
+	gold = Integer
 
 	characters = Character.relation(backref='user')
 	news = News.relation(backref='creator')
@@ -122,7 +122,7 @@ class User(object):
 				username=username, 
 				password=User.hash(password), 
 				admin=admin, 
-				money=0
+				gold=0
 			)
 		return user
 	
