@@ -36,6 +36,15 @@ def gamename(id):
 		return 'SW:TOR'
 
 @Model
+class GoldHistory(object):
+	user_id = ForeignKey(Integer, 'User.id')
+	date = DateTime
+	amount = Integer
+	balance = Integer
+	job_id = ForeignKey(Integer, 'Job.id', nullable=True)
+	desc = Unicode
+
+@Model
 class Job(object):
 	user_id = ForeignKey(Integer, 'User.id')
 	char_id = ForeignKey(Integer, 'Character.id')
@@ -50,6 +59,8 @@ class Job(object):
 	accepted_date = Nullable(DateTime())
 	#accepted_char_id = ForeignKey(Integer, 'Character.id', nullable=True)
 	accepted_pay = Nullable(Integer)
+
+	gold_history = GoldHistory.relation(backref='job')
 
 	@staticmethod
 	def add(char, max_pay, time_reqd, desc, **kwargs):
@@ -95,6 +106,7 @@ class User(object):
 	characters = Character.relation(backref='user')
 	news = News.relation(backref='creator')
 	jobs = Job.relation(backref='user')
+	gold_history = GoldHistory.relation(backref='user')
 
 	@staticmethod
 	def hash(password):
@@ -142,6 +154,18 @@ class User(object):
 			password = User.hash(password)
 		with transact:
 			self.update(username=username, admin=admin, password=password)
+
+	def addGold(self, amount, price):
+		with transact:
+			self.update(gold=self.gold+amount)
+			GoldHistory.create(
+					user=self, 
+					date=datetime.now(), 
+					amount=amount, 
+					balance=self.gold, 
+					job=None, 
+					desc=u'Bought %i gold for $%i' % (amount, price)
+				)
 
 @Model
 class Config(object):

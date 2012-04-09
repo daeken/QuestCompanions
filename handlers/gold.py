@@ -34,7 +34,12 @@ def rpc_buy(token, gold):
 	except e:
 		return e.message, -1
 	
-	with transact:
-		session.user.update(gold=session.user.gold+gold)
+	session.user.addGold(gold, gold_map[gold])
 
 	return None, session.user.gold
+
+@handler('gold/history')
+def get_history():
+	history = session.user.gold_history
+	history.reverse()
+	return dict(history=history)

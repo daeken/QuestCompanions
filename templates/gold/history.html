@@ -1,0 +1,22 @@
+{% extends "base.html" %}
+{% block title %}Gold History{% endblock %}
+{% block includes %}
+{% endblock %}
+{% block content %}
+<h1>Gold History</h1>
+<table>
+	<tr><th>Date</th><th>Description</th><th>Amount</th><th>Balance</th></tr>
+	{% for elem in history %}
+		<tr>
+			<td>{{ elem.date }}</td>
+			<td>{{ elem.desc }}</td>
+			{% if elem.amount > 0 %}
+				<td style="color: green">+{{ elem.amount }}</td>
+			{% else %}
+				<td style="color: red">{{ elem.amount }}</td>
+			{% endif %}
+			<td>{{ elem.balance }}</td>
+		</tr>
+	{% endfor %}
+</table>
+{% endblock %}
