@@ -28,11 +28,11 @@ border-top-color: #00BF02;
 box-shadow: -3px -3px 5px rgba(0,0,0,0.5);
        }
 
-button[class="center"] {
+button[class~="center"] {
 width: 79px;
 left: 50%;
 position:relative;
-margin-left: -10px;
+margin-left: -40px;
 }
 
 
@@ -43,7 +43,7 @@ position: relative;
 }
 
 .bWide {
-width: 150px;
+width: 150px!important;
 }
 
 .bRed

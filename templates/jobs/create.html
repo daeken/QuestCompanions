@@ -4,6 +4,11 @@
 <link rel="stylesheet" type="text/css" href="/static/css/forms.css"/>
 <link rel="stylesheet" type="text/css" href="/static/css/buttons.css">
 <script src="/scripts/validate.js"></script>
+<style>
+label {
+width: 300px;
+}
+</style>
 {% endblock %}
 {% block content %}
   <h1>Post a New Job</h1>
@@ -38,7 +43,7 @@
         <label>Other details</label>
         <textarea name="details" id="details" maxlength="400"  ></textarea>
       </div>
-      <button type="submit" class="bWide">Post job!</button>
+      <button type="submit" class="bWide center">Post job!</button>
     </form>
   </div>
   {% endif %}
