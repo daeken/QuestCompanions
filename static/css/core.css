@@ -25,25 +25,44 @@ padding: 0;
 a {
 color: #681E67;
 }
+a:hover {
+color: #d827d6;
+  }
 
 .footer {
 text-align: center;
 font-family: "Museo100", verdana, sans-serif;
 font-size: 14pt;
-height: 100px;
+height: 30px;
+padding-top: 10px;
 margin-top: 100px;
-background: #681e67;
-width:100%;
+background: -ms-linear-gradient(#50104f, #2d052d);
+background: -o-linear-gradient(#50104f, #2d052d);
+background: -webkit-linear-gradient(#50104f, #2d052d);
+background: -moz-linear-gradient(#50104f, #2d052d);
+background: linear-gradient(#50104f, #2d052d);
+width:300px;
+padding-right: 20px;
+left: 50%;
+position: relative;
+      margin-left: -150px;
+      border-top-left-radius: 5px;
+      border-top-right-radius: 5px;
 }
 
 .stuck {
+left: 50%;
 position: absolute;
 bottom: 0;
 }
 
-.footer a
-{
-color: #fff;
+.footer a {
+color: #a400a2;
+padding-left: 20px;
+}
+
+.footer a:hover {
+color: #d827d6;
 }
 
 
