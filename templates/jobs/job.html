@@ -25,7 +25,7 @@ Description: {{ job.details }}<br>
 	{% endif %}<br><br>
 	{% if job.user != session.user %}
 		<h3>Bid</h3>
-		<form id="bid-form" action="{{ handler.job.post_bid.url(job.id) }}" method="POST" data-maxpay="{{ job.max_pay }}">$CSRF$
+		<form id="bid-form" class="center"  action="{{ handler.job.post_bid.url(job.id) }}" method="POST" data-maxpay="{{ job.max_pay }}">$CSRF$
 			<label>Character:</label><span class="selector"> <select name="char">
 				{% for char in session.user.characters %}
 					<option value="{{ char.id }}">{{ char.name }}</option>
