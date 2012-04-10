@@ -1,4 +1,7 @@
 $(document).ready ->
+	if $('#job-title').data('accepted') == 'no'
+		setTimeout (-> location.reload()), 30000
+
 	$('#bid-form').submit ->
 		max_pay = ~~$('#bid-form').data 'maxpay'
 		amount = ~~$('input[name="amount"]').val()

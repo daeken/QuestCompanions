@@ -12,7 +12,7 @@ def get_index(id):
 	bids = accepted = None
 	if job.accepted_date != None:
 		accepted = [bid for bid in job.bids if bid.accepted][0]
-	elif job.user == session.user:
+	else:
 		bids = []
 		users = []
 		all = job.bids
@@ -23,13 +23,11 @@ def get_index(id):
 			users.append(bid.char.user.id)
 			bids.append(bid)
 		bids.sort(lambda a, b: cmp(a.amount, b.amount))
-	else:
-		bids = job.bids
 	return dict(
 		job=job, 
 		accepted=accepted, 
 		bids=bids, 
-		min_bid=min([bid.amount for bid in job.bids]) if len(job.bids) else job.max_pay
+		min_bid=bids[0].amount if len(bids) else job.max_pay
 	)
 
 @handler('jobs/create', authed=True)

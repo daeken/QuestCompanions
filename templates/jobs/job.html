@@ -6,7 +6,7 @@
 {% endblock %}
 {% block content %}
 <img class="avatar" href="{{ job.char.img }}"/>
-<h2>{{ job.desc }}</h2>
+<h2 id="job-title" data-accepted="{{ 'yes' if accepted else 'no' }}">{{ job.desc }}</h2>
 Posted by: <a href="{{ handler.char.get_index.url(job.char.id) }}">{{ job.char.name }}</a><br>
 Game: {{ job.gamename() }}<br>
 {% if job.details %}
