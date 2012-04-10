@@ -27,7 +27,7 @@ def get_index(id):
 		job=job, 
 		accepted=accepted, 
 		bids=bids, 
-		min_bid=bids[0].amount if len(bids) else job.max_pay
+		min_bid=bids[0].amount if bids and len(bids) else job.max_pay
 	)
 
 @handler('jobs/create', authed=True)
