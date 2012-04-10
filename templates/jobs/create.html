@@ -8,7 +8,7 @@
 {% block content %}
   <h1>Post a New Job</h1>
   {% if chars == [] %}
-  You have no characters.  <a href="{{ handler.char.get_create }}">Add one</a> to get started.
+  You have no characters.  <a href="{{ handler.char.get_create.url(return_to=handler.job.get_create) }}">Add one</a> to get started.
   {% else %}
   <div class="form">
     <form action="{{ handler.job.post_job_create }}" method="POST" id="job-form">$CSRF$

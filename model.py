@@ -62,19 +62,20 @@ class Bid(object):
 class Job(object):
 	user_id = ForeignKey(Integer, 'User.id')
 	char_id = ForeignKey(Integer, 'Character.id')
-	game = Integer()
-	created_date = DateTime()
+	game = Integer
+	created_date = DateTime
 
-	max_pay = Integer()
-	time_reqd = Integer()
+	max_pay = Integer
+	time_reqd = Integer
 	desc = Unicode(140)
-	reqs = String()
+	reqs = String
 
 	bids = Bid.relation(backref='job')
 
 	accepted_date = Nullable(DateTime())
-	#accepted_bid_id = ForeignKey(Integer, 'Bid.id', nullable=True)
-	#accepted_bid = relationship('Bid')
+	timer_flags = Integer
+	timer_started = Nullable(DateTime())
+	completed = Boolean
 
 	gold_history = GoldHistory.relation(backref='job')
 
@@ -89,7 +90,9 @@ class Job(object):
 				max_pay=max_pay, 
 				time_reqd=time_reqd,
 				desc=desc, 
-				reqs=json.dumps(kwargs)
+				reqs=json.dumps(kwargs), 
+				timer_flags=0, 
+				completed=False
 			)
 
 	def gamename(self):

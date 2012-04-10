@@ -3,7 +3,12 @@ from model import *
 
 @handler('jobs/index', authed=True)
 def get_index():
-	jobs = Job.some(accepted_date=None)
+	alljobs = Job.some(completed=False)
+	jobs = []
+	for job in alljobs:
+		if job.accepted_date == None or job.user == session.user or \
+			len([bid for bid in job.bids if bid.accepted and bid.char.user == session.user]) == 1:
+			jobs.append(job)
 	return dict(jobs=jobs)
 
 @handler('jobs/job', authed=True)
@@ -68,3 +73,40 @@ def rpc_accept_bid(id):
 
 	bid.accept()
 	return True
+
+@handler('jobs/timer')
+def get_timer(id):
+	job = Job.one(id=id)
+	#with transact:
+	#	job.update(timer_flags=0)
+	if job.user != session.user and \
+		len([bid for bid in job.bids if bid.accepted and bid.char.user == session.user]) == 0:
+		abort(403)
+
+	return dict(job=job)
+
+@handler
+def rpc_check_active(id):
+	job = Job.one(id=int(id))
+	
+	creator = job.user == session.user
+	if (creator and job.timer_flags == 1) or (not creator and job.timer_flags == 2):
+		return 1
+	elif job.timer_flags == 3:
+		return 2
+	else:
+		return 0
+
+@handler
+def rpc_set_active(id):
+	job = Job.one(id=int(id))
+	
+	creator = job.user == session.user
+	with transact:
+		flags = job.timer_flags | (1 if creator else 2)
+		job.update(
+			timer_flags=flags, 
+			timer_started=datetime.now() if flags == 3 else None
+		)
+
+	return job.timer_flags

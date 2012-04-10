@@ -12,9 +12,12 @@ def get_index(id):
 	return dict(char=char)
 
 @handler('char/create', authed=True)
-def get_create():
+def get_create(return_to=None):
+	if return_to != None and return_to[0] != '/':
+		abort(403)
 	return dict(
-			wow_servers=wow_servers
+			wow_servers=wow_servers, 
+			return_to=return_to
 		)
 
 @handler(authed=True)

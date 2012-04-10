@@ -9,6 +9,9 @@
 <script src="/scripts/char_create.js"></script>
 {% endblock %}
 {% block content %}
+{% if return_to %}
+  <input type="hidden" id="return-to" value="{{ return_to }}">
+{% endif %}
 <div class="container">
 <label>Game:</label><span class="selector"> <select id="game">
   <option disabled selected>---</option>

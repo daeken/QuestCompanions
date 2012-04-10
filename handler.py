@@ -78,6 +78,7 @@ def handler(_tpl=None, _json=False, admin=False, authed=True):
 				if ret == None:
 					ret = {}
 				ret['handler'] = handler
+				ret['request'] = request
 				ret['session'] = session
 				ret['len'] = len
 				ret = render_template(tpl + '.html', **ret)
