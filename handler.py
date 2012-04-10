@@ -52,7 +52,7 @@ def handler(_tpl=None, _json=False, admin=False, authed=True):
 			else:
 				session.user = None
 			if (authed or admin) and session.user == None:
-				abort(403)
+				return _redirect('/')
 			elif admin and not session.user.admin:
 				abort(403)
 			params = request.form if method == 'POST' else request.args
