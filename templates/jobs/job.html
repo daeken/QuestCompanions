@@ -2,6 +2,8 @@
 {% block title %}{{ job.desc }}{% endblock %}
 {% block includes %}
 <link rel="stylesheet" type="text/css" href="/static/css/news.css"/>
+<link rel="stylesheet" type="text/css" href="/static/css/buttons.css"/>
+<link rel="stylesheet" type="text/css" href="/static/css/forms.css"/>
 <script src="/scripts/job.js"></script>
 {% endblock %}
 {% block content %}
@@ -24,13 +26,13 @@ Description: {{ job.details }}<br>
 	{% if job.user != session.user %}
 		<h3>Bid</h3>
 		<form id="bid-form" action="{{ handler.job.post_bid.url(job.id) }}" method="POST" data-maxpay="{{ job.max_pay }}">$CSRF$
-			Character: <select name="char">
+			<label>Character:</label><span class="selector"> <select name="char">
 				{% for char in session.user.characters %}
 					<option value="{{ char.id }}">{{ char.name }}</option>
 				{% endfor %}
-			</select><br>
-			Amount: <input type="text" name="amount" value="{% if min_bid == job.max_pay or min_bid - 1 < 5 %}{{ min_bid }}{% else %}{{ min_bid - 1 }}{% endif %}"><br>
-			<button type="submit" class="bWide">Bid</button>
+			</select></span><br>
+			<label>Amount:</label> <input type="text" name="amount" value="{% if min_bid == job.max_pay or min_bid - 1 < 5 %}{{ min_bid }}{% else %}{{ min_bid - 1 }}{% endif %}"><br>
+			<button type="submit" class="center bWide">Bid</button>
 		</form>
 	{% elif len(bids) %}
 		<h3>Bids</h3>
