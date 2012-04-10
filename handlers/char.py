@@ -6,7 +6,7 @@ from datetime import date
 
 @handler('char/profile', authed=True)
 def get_index(id):
-	char = Character.one(id=int(id))
+	char = Character.one(id=id)
 	if not char: abort(404)
 
 	return dict(char=char)

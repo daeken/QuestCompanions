@@ -1,6 +1,7 @@
 import json, os
 from datetime import datetime
 import sqlalchemy as sa
+from sqlalchemy.orm import relationship
 from sqlalchemy.types import *
 
 from metamodel import *
@@ -45,6 +46,19 @@ class GoldHistory(object):
 	desc = Unicode
 
 @Model
+class Bid(object):
+	job_id = ForeignKey(Integer, 'Job.id')
+	char_id = ForeignKey(Integer, 'Character.id')
+	amount = Integer
+	date = DateTime
+	accepted = Boolean
+
+	def accept(self):
+		with transact:
+			self.update(accepted=True)
+			self.job.update(accepted_date=datetime.now())
+
+@Model
 class Job(object):
 	user_id = ForeignKey(Integer, 'User.id')
 	char_id = ForeignKey(Integer, 'Character.id')
@@ -56,9 +70,11 @@ class Job(object):
 	desc = Unicode(140)
 	reqs = String()
 
+	bids = Bid.relation(backref='job')
+
 	accepted_date = Nullable(DateTime())
-	#accepted_char_id = ForeignKey(Integer, 'Character.id', nullable=True)
-	accepted_pay = Nullable(Integer)
+	#accepted_bid_id = ForeignKey(Integer, 'Bid.id', nullable=True)
+	#accepted_bid = relationship('Bid')
 
 	gold_history = GoldHistory.relation(backref='job')
 
@@ -79,6 +95,15 @@ class Job(object):
 	def gamename(self):
 		return gamename(self.game)
 
+	def bid(self, char, amount):
+		with transact:
+			return Bid.create(
+					job=self, 
+					char=char, 
+					amount=amount, 
+					date=datetime.now()
+				)
+
 @Model
 class Character(object):
 	user_id = ForeignKey(Integer, 'User.id')
@@ -91,6 +116,7 @@ class Character(object):
 	last_update = Date()
 
 	jobs = Job.relation(backref='char')
+	bids = Bid.relation(backref='char')
 
 	def gamename(self):
 		return gamename(self.game)
@@ -129,14 +155,13 @@ class User(object):
 		if User.one(enabled=True, username=username):
 			return None
 		with transact:
-			user = User.create(
+			return User.create(
 				enabled=True, 
 				username=username, 
 				password=User.hash(password), 
 				admin=admin, 
 				gold=0
 			)
-		return user
 	
 	@staticmethod
 	def find(username, password):
@@ -202,6 +227,8 @@ class Config(object):
 @setup
 def init():
 	admin = User.add(u'admin', 'admin', True)
+	print User.add(u'foo', 'password', False)
+	print User.add(u'bar', 'password', False)
 
 	with transact:
 		News.create(

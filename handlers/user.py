@@ -3,7 +3,7 @@ from model import User
 
 @handler('user', authed=True)
 def get_index(id):
-	user = User.one(id=int(id))
+	user = User.one(id=id)
 	if not user: abort(404)
 
 	return dict(user=user)

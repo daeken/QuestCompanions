@@ -67,7 +67,7 @@ def handler(_tpl=None, _json=False, admin=False, authed=True):
 
 			try:
 				if hasId and id != None:
-					ret = ofunc(id, **kwargs)
+					ret = ofunc(int(id), **kwargs)
 				else:
 					ret = ofunc(**kwargs)
 			except RedirectException, r:
@@ -79,6 +79,7 @@ def handler(_tpl=None, _json=False, admin=False, authed=True):
 					ret = {}
 				ret['handler'] = handler
 				ret['session'] = session
+				ret['len'] = len
 				ret = render_template(tpl + '.html', **ret)
 				csrf = '<input type="hidden" name="csrf" value="%s">' % session['csrf']
 				return ret.replace('$CSRF$', csrf)

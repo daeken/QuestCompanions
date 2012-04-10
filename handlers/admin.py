@@ -12,7 +12,7 @@ def get_news():
 
 @handler('admin/news_story', admin=True)
 def get_news(id):
-	return dict(story=News.one(id=int(id)))
+	return dict(story=News.one(id=id))
 
 @handler('admin/news_create', admin=True)
 def get_news_create():
@@ -30,7 +30,7 @@ def post_news_create(headline, story):
 
 @handler('admin/news_story', admin=True)
 def post_save_news(id, headline, story):
-	sobj = News.one(id=int(id))
+	sobj = News.one(id=id)
 	with transact:
 		sobj.update(headline=headline, story=story,
 				story_markdown=markdown2.markdown(story))
@@ -57,7 +57,7 @@ def get_faq():
 
 @handler('admin/faq_edit', admin=True)
 def get_faq(id):
-	return dict(faq=FAQ.one(id=int(id)))
+	return dict(faq=FAQ.one(id=id))
 
 @handler('admin/faq_edit', admin=True)
 def get_faq_create():
