@@ -42,6 +42,7 @@ class GoldHistory(object):
 	date = DateTime
 	amount = Integer
 	balance = Integer
+	dollars = Integer
 	job_id = ForeignKey(Integer, 'Job.id', nullable=True)
 	desc = Unicode
 
@@ -224,6 +225,7 @@ class User(object):
 					date=datetime.now(), 
 					amount=amount, 
 					balance=self.gold, 
+					dollars=price, 
 					job=None, 
 					desc=u'Bought %i gold for $%i' % (amount, price)
 				)

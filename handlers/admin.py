@@ -81,3 +81,50 @@ def post_faq_edit(_id, question, answer):
 					answer_markdown=markdown2.markdown(answer)
 				)
 	redirect(get_faq)
+
+def goldusd(gold):
+	return gold / 10.0
+
+@handler('admin/stats', admin=True)
+def get_stats():
+	user_count = len(User.all())
+	jobs_completed = len(Job.some(completed=True))
+	jobs_total = len(Job.all())
+	fees = sum(job.fee_paid for job in Job.some(completed=True))
+
+	history = GoldHistory.all()
+	deposits = 0
+	deposit_gold = 0
+	deposit_dollars = 0
+	withdrawals = 0
+	withdrawal_gold = 0
+	withdrawal_dollars = 0
+	for elem in history:
+		if elem.job != None:
+			continue
+		if elem.amount < 0:
+			withdrawals += 1
+			withdrawal_gold -= elem.amount
+			withdrawal_dollars -= elem.dollars
+		else:
+			deposits += 1
+			deposit_gold += elem.amount
+			deposit_dollars += elem.dollars
+
+	total_gold = sum(user.gold for user in User.all())
+
+	return dict(
+			user_count=user_count, 
+			jobs_completed=jobs_completed, 
+			jobs_total=jobs_total, 
+			fees=fees, 
+			fees_usd=goldusd(fees), 
+			deposits=deposits, 
+			withdrawals=withdrawals, 
+			deposit_gold=deposit_gold, 
+			withdrawal_gold=withdrawal_gold, 
+			deposit_dollars=deposit_dollars, 
+			withdrawal_dollars=withdrawal_dollars, 
+			total_gold=total_gold, 
+			total_dollars=goldusd(total_gold), 
+		)
