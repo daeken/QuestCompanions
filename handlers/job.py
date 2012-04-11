@@ -1,5 +1,6 @@
 from handler import *
 from model import *
+import time
 
 @handler('jobs/index', authed=True)
 def get_index():
@@ -37,14 +38,14 @@ def get_index(id):
 
 @handler('jobs/create', authed=True)
 def get_create():
-	return dict(chars=session.user.characters)
+	return dict(chars=session.user.characters, gold=session.user.gold)
 
 @handler
 def post_job_create(char, desc, time_reqd, max_pay):
 	char = Character.one(id=char)
 	time_reqd = int(time_reqd)
 	max_pay = int(max_pay)
-	if char == None or char.user != session.user or len(desc) > 140 or time_reqd < 1 or max_pay < 10:
+	if char == None or char.user != session.user or len(desc) > 140 or time_reqd < 1 or max_pay < 10 or max_pay > session.user.gold:
 		abort(403)
 
 	job = Job.add(char, max_pay, time_reqd, desc)
@@ -77,13 +78,20 @@ def rpc_accept_bid(id):
 @handler('jobs/timer')
 def get_timer(id):
 	job = Job.one(id=id)
-	#with transact:
-	#	job.update(timer_flags=0)
+	with transact:
+		job.update(timer_flags=0, completed=False)
 	if job.user != session.user and \
 		len([bid for bid in job.bids if bid.accepted and bid.char.user == session.user]) == 0:
 		abort(403)
 
 	return dict(job=job)
+
+def epoch(dt):
+	return time.mktime(dt.utctimetuple()) + dt.microsecond/1000000.
+
+def time_offset(dt):
+	now = epoch(datetime.utcnow())
+	return epoch(dt) - now
 
 @handler
 def rpc_check_active(id):
@@ -91,11 +99,11 @@ def rpc_check_active(id):
 	
 	creator = job.user == session.user
 	if (creator and job.timer_flags == 1) or (not creator and job.timer_flags == 2):
-		return 1
+		return (1, 0)
 	elif job.timer_flags == 3:
-		return 2
+		return (2, time_offset(job.timer_started))
 	else:
-		return 0
+		return (0, 0)
 
 @handler
 def rpc_set_active(id):
@@ -106,7 +114,19 @@ def rpc_set_active(id):
 		flags = job.timer_flags | (1 if creator else 2)
 		job.update(
 			timer_flags=flags, 
-			timer_started=datetime.now() if flags == 3 else None
+			timer_started=datetime.utcnow() if flags == 3 else None
 		)
 
-	return job.timer_flags
+	return (2 if flags == 3 else 1, time_offset(job.timer_started) if flags == 3 else 0)
+
+@handler
+def rpc_complete(id):
+	job = Job.one(id=int(id))
+	if job.completed:
+		return
+	job.complete()
+
+@handler
+def rpc_check_complete(id):
+	job = Job.one(id=int(id))
+	return job.completed

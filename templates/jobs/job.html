@@ -26,32 +26,20 @@ Description: {{ job.details }}<br>
 	{% endif %}<br><br>
 	{% if job.user != session.user %}
 		<h3>Bid</h3>
-<<<<<<< HEAD
 		{% if len(session.user.characters) == 0 %}
 			Before you can bid, you have to 
 			<a href="{{ handler.char.get_create.url(return_to=handler.job.get_index.url(job.id)) }}">add an eligible character.</a>
 		{% else %}
-			<form id="bid-form" action="{{ handler.job.post_bid.url(job.id) }}" method="POST" data-maxpay="{{ job.max_pay }}">$CSRF$
-				Character: <select name="char">
+			<form id="bid-form" class="center" action="{{ handler.job.post_bid.url(job.id) }}" method="POST" data-maxpay="{{ job.max_pay }}">$CSRF$
+				Character: <span class="selector"> <select name="char">
 					{% for char in session.user.characters %}
 						<option value="{{ char.id }}">{{ char.name }}</option>
 					{% endfor %}
-				</select><br>
+				</select></span><br>
 				Amount: <input type="text" name="amount" value="{% if min_bid == job.max_pay or min_bid - 1 < 5 %}{{ min_bid }}{% else %}{{ min_bid - 1 }}{% endif %}"><br>
-				<button type="submit" class="bWide">Bid</button>
+				<button type="submit" class="center bWide">Bid</button>
 			</form>
 		{% endif %}
-=======
-		<form id="bid-form" class="center"  action="{{ handler.job.post_bid.url(job.id) }}" method="POST" data-maxpay="{{ job.max_pay }}">$CSRF$
-			<label>Character:</label><span class="selector"> <select name="char">
-				{% for char in session.user.characters %}
-					<option value="{{ char.id }}">{{ char.name }}</option>
-				{% endfor %}
-			</select></span><br>
-			<label>Amount:</label> <input type="text" name="amount" value="{% if min_bid == job.max_pay or min_bid - 1 < 5 %}{{ min_bid }}{% else %}{{ min_bid - 1 }}{% endif %}"><br>
-			<button type="submit" class="center bWide">Bid</button>
-		</form>
->>>>>>> 6ee3920c8a5e9511a7d1ce017ddcb4799b064df5
 	{% elif len(bids) %}
 		<h3>Bids</h3>
 		<table>

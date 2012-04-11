@@ -37,7 +37,7 @@ width: 300px;
       </div>
       <div class="form-row">
         <label>Max Payment</label>
-        <input type="number" id="max-pay" name="max_pay" required=true />
+        <input type="number" id="max-pay" name="max_pay" required=true data-gold="{{ gold }}" /> (You have {{ gold }} gold in your account. <a href="{{ handler.gold.get_buy }}">Add more here</a>)
       </div>
       <div class="form-row">
         <label>Other details</label>

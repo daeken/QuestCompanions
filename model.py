@@ -1,4 +1,4 @@
-import json, os
+import math, json, os
 from datetime import datetime
 import sqlalchemy as sa
 from sqlalchemy.orm import relationship
@@ -76,6 +76,7 @@ class Job(object):
 	timer_flags = Integer
 	timer_started = Nullable(DateTime())
 	completed = Boolean
+	fee_paid = Integer
 
 	gold_history = GoldHistory.relation(backref='job')
 
@@ -92,7 +93,8 @@ class Job(object):
 				desc=desc, 
 				reqs=json.dumps(kwargs), 
 				timer_flags=0, 
-				completed=False
+				completed=False, 
+				fee_paid=0
 			)
 
 	def gamename(self):
@@ -105,6 +107,37 @@ class Job(object):
 					char=char, 
 					amount=amount, 
 					date=datetime.now()
+				)
+
+	def complete(self):
+		accepted = None
+		for bid in self.bids:
+			if bid.accepted:
+				accepted = bid
+				break
+		assert accepted
+		accepted_user = accepted.char.user
+		with transact:
+			fee = int(math.ceil(float(accepted.amount) * 0.3))
+			earned = accepted.amount-fee
+			self.update(completed=True, fee_paid=fee)
+			self.user.update(gold=self.user.gold-accepted.amount)
+			GoldHistory.create(
+					user=self.user, 
+					date=datetime.now(), 
+					amount=-accepted.amount, 
+					balance=self.user.gold, 
+					job=self, 
+					desc=u'Paid %i gold for a job' % accepted.amount
+				)
+			accepted_user.update(gold=accepted_user.gold+earned)
+			GoldHistory.create(
+					user=accepted_user, 
+					date=datetime.now(), 
+					amount=earned, 
+					balance=accepted_user.gold, 
+					job=self,
+					desc=u'Earned %i gold for a job' % (earned)
 				)
 
 @Model
