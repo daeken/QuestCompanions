@@ -25,14 +25,14 @@ def rpc_add_wow(server, charname):
 	try:
 		wowchar = battlenet.Character(battlenet.UNITED_STATES, server, charname)
 	except:
-		pass#return False
+		return False
 
-	thumbnail = 'https://www.google.com/images/srpr/logo3w.png'#'https://us.battle.net/static-render/us/' + wowchar.thumbnail
+	thumbnail = 'https://us.battle.net/static-render/us/' + wowchar.thumbnail
 	with transact:
 		char = Character.create(
 				user=session.user,  
 				game=WOW, 
-				name=charname, #wowchar.name.decode('utf-8'), 
+				name=wowchar.name.decode('utf-8'), 
 				server=server, 
 				avatar=thumbnail, 
 				attrs='',
