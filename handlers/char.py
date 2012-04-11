@@ -32,7 +32,7 @@ def rpc_add_wow(server, charname):
 		char = Character.create(
 				user=session.user,  
 				game=WOW, 
-				name=wowchar.name, 
+				name=wowchar.name.decode('utf-8'), 
 				server=server, 
 				avatar=thumbnail, 
 				attrs='',
