@@ -21,6 +21,7 @@ display:inline-block;
 background-color: #170017;
 border-radius: 7px;
 border: 1px solid #A400A2;
+margin: 5px auto;
 background: url("/static/img/arrow.png") center right no-repeat rgba(25, 0, 25, 0.5);
 -webkit-margin-bottom: 10px;
 }
@@ -60,7 +61,7 @@ max-width: 930px;
 .label, label {
 font-size: 26px;
 width: 200px;
-margin-right: 10px;
+margin: 5px 10px 5px auto;
 display: inline-block;
 text-align: right;
 float:left;

@@ -23,11 +23,17 @@ $(document).ready(function() {
   {
     var hasErrors = false;
     $('input').each(function() {
-    var type = $(this).attr('type');
+      var type = $(this).attr('type');
       if((type === 'number' || type === 'time') &&
       !$.isNumeric($(this).val()))
       {
         $('.'+$(this).attr('type')+'post')[0].innerHTML = 'Please enter a valid ' + type + ' to continue';
+        $(this).addClass('error');
+        hasErrors = true;
+      }
+      if(!!$(this).attr('data-gold') && $(this).val() > $(this).attr('data-gold'))
+      {
+        $('.'+$(this).attr('type')+'post')[0].innerHTML = 'Please enter a value no higher than ' + $(this).attr('data-gold');
         $(this).addClass('error');
         hasErrors = true;
       }
