@@ -165,6 +165,7 @@ class User(object):
 	username = Unicode(255)
 	password = String(40)
 	gold = Integer
+	phone_number = String
 
 	characters = Character.relation(backref='user')
 	news = News.relation(backref='creator')
