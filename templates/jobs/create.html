@@ -4,6 +4,7 @@
 <link rel="stylesheet" type="text/css" href="/static/css/forms.css"/>
 <link rel="stylesheet" type="text/css" href="/static/css/buttons.css">
 <script src="/scripts/validate.js"></script>
+<script src="/scripts/tooltip.js"></script>
 <style>
 label {
 width: 300px;
@@ -29,15 +30,15 @@ width: 300px;
       </div>
       <div class="form-row">
         <label>Description</label>
-        <input type="text" id="desc" name="desc" maxlength="140" autocomplete="off" required=true />
+        <input type="text" id="desc" name="desc" data-hint="Enter a short description of the job you want help with"  maxlength="140" autocomplete="off" required=true />
       </div>
       <div class="form-row">
         <label>Time Required (minutes)</label>
-        <input type="time" id="time-required" name="time_reqd" required=true />
+        <input type="time" id="time-required" name="time_reqd" data-hint="Enter a length of time you expect the job to take, in minutes" required=true />
       </div>
       <div class="form-row">
         <label>Max Payment</label>
-        <input type="number" id="max-pay" name="max_pay" required=true data-gold="{{ gold }}" /> 
+        <input type="number" id="max-pay" name="max_pay" minPay=5 required=true data-gold="{{ gold }}" data-hint="Enter the maximum amount you want to pay your companion"/> 
       </div>
       <div class="form-row">
         <label></label>
@@ -45,7 +46,7 @@ width: 300px;
       </div>
       <div class="form-row">
         <label>Other details</label>
-        <textarea name="details" id="details" maxlength="400"  ></textarea>
+        <textarea name="details" id="details" maxlength="400"  data-hint="Enter any other information about the job you need."></textarea>
       </div>
       <button type="submit" class="bWide center">Post job!</button>
     </form>
