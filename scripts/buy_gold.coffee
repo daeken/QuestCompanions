@@ -44,6 +44,7 @@ $(document).ready ->
       $rpc.gold.buy response.id, gold, (ret) ->
         [error, gold] = ret
         if not error?
+          errorClear()
           $('#gold-total').text gold
           $('#confirmation').hide 'fast'
           $('#completion').show 'fast'

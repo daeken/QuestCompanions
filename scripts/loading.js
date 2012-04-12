@@ -23,6 +23,9 @@ $(window).load(
     function() {
     $('button').click(
       function() {
+      if($(this).attr('cover'))
+      {
           createCover();
+      }
       })
     });
