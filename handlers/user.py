@@ -30,20 +30,47 @@ def post_index(id, phone_number=None):
 
 	redirect(get_index.url(id))
 
-@handler('user/verify')
-def get_verify():
-	if not session.user.phone_verified:
+def generateVerification():
 		with transact:
 			session.user.update(
-					verification_code=random.randrange(1000000), 
+					verification_code=random.randrange(1, 1000000), 
 					verification_tries=0
 				)
 		sms(session.user.phone_number, 'Quest Companions verification code: %06i' % session.user.verification_code)
 
 @handler('user/verify')
+def get_verify():
+	if session.user.phone_verified:
+		redirect(get_index.url(session.user.id))
+
+	new = False
+	if session.user.verification_code == 0:
+		generateVerification()
+		new=True
+	return dict(new=new)
+
+@handler('user/verify')
 def post_verify(code):
+	if session.user.phone_verified:
+		redirect(get_index.url(session.user.id))
+
 	if session.user.verification_code == int(code):
 		with transact:
 			session.user.update(phone_verified=True)
 		redirect(get_index.url(session.user.id))
-	return dict(success=False, code=code)
+	elif session.user.verification_tries < 9:
+		with transact:
+			session.user.update(verification_tries=session.user.verification_tries+1)
+		new = False
+	else:
+		generateVerification()
+		new = True
+	return dict(code=code, new=new)
+
+@handler('user/verify')
+def get_resend_code():
+	if session.user.phone_verified:
+		redirect(get_index.url(session.user.id))
+
+
+	sms(session.user.phone_number, 'Quest Companions verification code: %06i' % session.user.verification_code)
