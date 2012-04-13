@@ -10,9 +10,19 @@
     </div>
     <div class="contact block">
       <h3>Contact</h3>
-      {#{% for link in user.contact %}
-        <a class="contact" href="{{ link.href }}">{{ link.type }}</a>
-      {% endfor %}#}
+      {% if user == session.user %}
+        <form action="{{ handler.user.post_index.url(user.id) }}" method="POST">$CSRF$
+          Phone number: <input type="text" name="phone_number" value="{{ user.phone_number if user.phone_number else '' }}">
+          {% if user.phone_number %}
+            {% if user.phone_verified %}
+              <span style="color: green">Verified</span>
+            {% else %}
+              <span style="color: red">Unverified</span> &ndash; <a href="{{ handler.user.get_verify }}">Verify here to receive notifications and enable two-factor auth.</a>
+            {% endif %}
+          {% endif %}<br>
+          <button type="submit">Save</button>
+        </form>
+      {% endif %}
     </div>
   </div>
   <div class="col wide">

@@ -166,6 +166,9 @@ class User(object):
 	password = String(40)
 	gold = Integer
 	phone_number = String
+	phone_verified = Boolean
+	verification_code = Integer
+	verification_tries = Integer
 
 	characters = Character.relation(backref='user')
 	news = News.relation(backref='creator')
@@ -198,7 +201,9 @@ class User(object):
 				username=username, 
 				password=User.hash(password), 
 				admin=admin, 
-				gold=0
+				gold=0, 
+				phone_number='', 
+				phone_verified=False, 
 			)
 	
 	@staticmethod
