@@ -9,6 +9,9 @@
       <img src="{{ user.pic if user.pic else '/static/img/notFound.png' }}">
     </div>
     <div class="contact block">
+      {% if error %}
+        <h1 style="color: red">{{ error }}</h1>
+      {% endif %}
       <h3>Contact</h3>
       {% if user == session.user %}
         <form action="{{ handler.user.post_index.url(user.id) }}" method="POST">$CSRF$

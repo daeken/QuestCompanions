@@ -4,23 +4,28 @@ from handler import *
 from model import *
 
 @handler('user/index')
-def get_index(id):
+def get_index(id, error=None):
 	user = User.one(id=id)
 	if not user: abort(404)
 
-	return dict(user=user)
+	return dict(user=user, error=error)
 
 @handler
 def post_index(id, phone_number=None):
 	def normalize(phone_number):
 		if phone_number == None:
 			return user.phone_number
-		return re.sub(r'[^0-9]', '', phone_number)
+		phone_number = re.sub(r'[^0-9]', '', phone_number)
+		if len(phone_number) == 11 and phone_number[0] == '1':
+			return phone_number[1:]
+		return phone_number
 
 	user = User.one(id=id)
 	if not user or user != session.user: abort(403)
 
 	phone_number = normalize(phone_number)
+	if len(phone_number) != 10:
+		redirect(get_index.url(id, error='Invalid phone number'))
 	if phone_number != user.phone_number:
 		with transact:
 			user.update(
