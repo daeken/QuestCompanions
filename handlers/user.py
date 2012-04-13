@@ -36,12 +36,12 @@ def post_index(id, phone_number=None):
 	redirect(get_index.url(id))
 
 def generateVerification():
-		with transact:
-			session.user.update(
-					verification_code=random.randrange(1, 1000000), 
-					verification_tries=0
-				)
-		sms(session.user.phone_number, 'Quest Companions verification code: %06i' % session.user.verification_code)
+	with transact:
+		session.user.update(
+				verification_code=random.randrange(1, 1000000), 
+				verification_tries=0
+			)
+	sms(session.user.phone_number, 'Quest Companions verification code: %06i' % session.user.verification_code)
 
 @handler('user/verify')
 def get_verify():
