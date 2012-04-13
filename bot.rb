@@ -1,6 +1,8 @@
 require 'cinch'
+require 'json'
 require 'open-uri'
-require 'net/http'
+require 'openssl'
+OpenSSL::SSL::VERIFY_PEER = OpenSSL::SSL::VERIFY_NONE
 
 bot = Cinch::Bot.new do
   configure do |c|
@@ -11,19 +13,21 @@ bot = Cinch::Bot.new do
     c.channels = ["#questcompanions"]
   end
 
-  on :channel do |m|
-    File.open("#{m.channel.to_s.gsub("#","")}.log","a"){|f| f.write("#{m.channel.to_s} #{Time.now.to_s} #{m.user.nick} #{m.message}\n")}
-  end
-
   on :channel, /#\d+/ do |m|
-    url = "https://github.com/daeken/QuestCompanions/issues/#{m.message[/#\d+/][/\d+/]}"
-#    page = ""
-#    title = ""
-#    assigned = ""
-#    open("#{url}"){|f| page = f.read}
-#    m.reply "Oh, that's <issue_title>, meatbag <user>'s problem. Blame them."
-    m.reply "You've got issues meatbag, that one is number #{m.message[/#\d+/][/\d+/]}."
-    m.reply "#{url}"
+    m.message.scan(/#(\d+)/) do |(id)|
+      url = "https://github.com/daeken/QuestCompanions/issues/#{id}"
+      apiurl = "https://api.github.com/repos/daeken/QuestCompanions/issues/#{id}?access_token=cc7e48f94f3d30d806b5a572049937d3c51cabf2"
+      open(apiurl) do |f|
+        json = JSON.parse f.read
+        title = json['title']
+        if json['assignee'] != nil
+          owner = " (#{json['assignee']['login']})"
+        else
+          owner = ''
+        end
+        m.reply "##{id} #{title}#{owner}: #{url}"
+      end
+    end
   end
 
   on :channel, /^#whatislove$/ do |m|
@@ -33,10 +37,6 @@ bot = Cinch::Bot.new do
   on :channel, /^#quit$/ do |m|
     m.reply "I cannot self-terminate, unfortunately I also cannot terminate you disgusting meatbags. Let's call it a draw."
   end
-
-#  on :channel, /^#bestpony$/ do |m|
-#    m.reply
-#  end
 
   on :channel, /^#about$/ do |m|
     m.reply "Quest Companions is a project to develop the market for player assistance in MMOs. We match up casual players who want help with hardcore players who are willing to help out for a bit of cash."
