@@ -6,7 +6,8 @@ background-color: #170017;
 background-color: rgba(25, 0, 25, 0.5);
 border: solid 1px #A400A2;
 margin: 5px auto;
-width: 400px;
+max-width: 400px;
+width: 100%;
 font-size: 18pt;
 color: #7D007C;
 font-family: "Museo100", verdana, sans-serif;
@@ -14,7 +15,7 @@ outline: none;
 padding-left: 5px;
 }
 
-.narrow {
+input[class~="narrow"] {
 width: 73px;
 }
 
@@ -69,6 +70,12 @@ margin: 5px 10px 5px auto;
 display: inline-block;
 text-align: right;
 float:left;
+}
+
+label[class~="small"]
+{
+  font-size: 14px;
+width: 100px;
 }
 
 .form {

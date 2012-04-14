@@ -2,6 +2,8 @@
 {% block title %}{{ user.username if user else 'Error' }}{% endblock %}
 {% block includes %}
 <link rel="stylesheet" type="text/css" href="/static/css/users.css"/>
+<link rel="stylesheet" type="text/css" href="/static/css/forms.css"/>
+<link rel="stylesheet" type="text/css" href="/static/css/buttons.css"/>
 {% endblock %}
 {% block content %}
   <div class="col narrow">
@@ -15,7 +17,7 @@
       <h3>Contact</h3>
       {% if user == session.user %}
         <form action="{{ handler.user.post_index.url(user.id) }}" method="POST">$CSRF$
-          Phone number: <input type="text" name="phone_number" value="{{ user.phone_number if user.phone_number else '' }}">
+          <label class="small">Phone number:</label> <input type="tel" pattern="[\+]?[\(]?\d{1,5}[\)]?[\s|\-]?\d{1,3}[\s|\-]?\d{3}[\s|\-]?\d{3,4}" name="phone_number" value="{{ user.phone_number if user.phone_number else '' }}">
           {% if user.phone_number %}
             {% if user.phone_verified %}
               <span style="color: green">Verified</span>
