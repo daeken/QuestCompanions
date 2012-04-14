@@ -3,8 +3,9 @@ Requirements
 
 Install Python 2.7 and then run:
  
-	easy_install flask sqlalchemy coffeescript
-	git pull https://github.com/trentm/python-markdown2.git
+	easy_install flask sqlalchemy coffeescript alembic twilio
+	easy_install --index-url https://code.stripe.com --upgrade stripe
+	git clone https://github.com/trentm/python-markdown2.git
 	cd python-markdown2
 	sudo python setup.py install
 
@@ -106,3 +107,10 @@ CSRF
 ----
 
 CSRF tokens are taken care of on RPC calls and are required for all POSTs.  Inside your forms, place `$CSRF$` at the beginning and it'll be dealt with.
+
+Migrations
+==========
+
+We're using Alembic for migrations, and they live in `migrations/`.  Read [this](http://readthedocs.org/docs/alembic/en/latest/tutorial.html) for more info.
+
+After you pull, make sure you do `alembic upgrade head` to migrate the DB if anything needs to be done.  Auto-migrating will be added Real Soon Now (TM).

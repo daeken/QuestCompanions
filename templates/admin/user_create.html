@@ -4,7 +4,7 @@
 {% endblock %}
 {% block content %}
 <h1>Create user</h1>
-<form action="{{ handler.admin.post_create_user }}" method="POST">$CSRF$
+<form action="{{ handler.admin.post_user_create }}" method="POST">$CSRF$
 	Username: <input type="text" name="username"><br>
 	Password: <input type="password" name="password"><br>
 	Admin: <input type="checkbox" name="admin"><br>

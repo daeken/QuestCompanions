@@ -9,6 +9,9 @@
 <script src="/scripts/char_create.js"></script>
 {% endblock %}
 {% block content %}
+{% if return_to %}
+  <input type="hidden" id="return-to" value="{{ return_to }}">
+{% endif %}
 <div class="container">
 <label>Game:</label><span class="selector"> <select id="game">
   <option disabled selected>---</option>
@@ -22,7 +25,7 @@
     {% endfor %}
   </select></span><br>
   <label>Character name:</label> <input type="text" id="charname"><br>
-  <button id="wow-add" class="center">Add</button>
+  <button id="wow-add" class="center" cover=true>Add</button>
 </div>
 <div id="game-1" class="game-pane">
   SWTOR

@@ -2,13 +2,54 @@
 {% block title %}{{ job.desc }}{% endblock %}
 {% block includes %}
 <link rel="stylesheet" type="text/css" href="/static/css/news.css"/>
+<link rel="stylesheet" type="text/css" href="/static/css/buttons.css"/>
+<link rel="stylesheet" type="text/css" href="/static/css/forms.css"/>
+<script src="/scripts/job.js"></script>
 {% endblock %}
 {% block content %}
 <img class="avatar" href="{{ job.char.img }}"/>
-<h2>{{ job.desc }}</h2>
+<h2 id="job-title" data-accepted="{{ 'yes' if accepted else 'no' }}">{{ job.desc }}</h2>
 Posted by: <a href="{{ handler.char.get_index.url(job.char.id) }}">{{ job.char.name }}</a><br>
 Game: {{ job.gamename() }}<br>
 {% if job.details %}
-Description: {{ job.details }}
+Description: {{ job.details }}<br>
+{% endif %}
+{% if accepted %}
+	Job auction has completed.<br>
+	<a href="{{ handler.job.get_timer.url(job.id) }}">Open timer to continue</a>
+{% else %}
+	Maximum pay: {{ job.max_pay }}<br>
+	{% if len(bids) == 0 %}
+		No bids.
+	{% else %}
+		Current lowest bid is {{ min_bid }} gold.
+	{% endif %}<br><br>
+	{% if job.user != session.user %}
+		<h3>Bid</h3>
+		{% if len(session.user.characters) == 0 %}
+			Before you can bid, you have to 
+			<a href="{{ handler.char.get_create.url(return_to=handler.job.get_index.url(job.id)) }}">add an eligible character.</a>
+		{% else %}
+			<form id="bid-form" class="center" action="{{ handler.job.post_bid.url(job.id) }}" method="POST" data-maxpay="{{ job.max_pay }}">$CSRF$
+				Character: <span class="selector"> <select name="char">
+					{% for char in session.user.characters %}
+						<option value="{{ char.id }}">{{ char.name }}</option>
+					{% endfor %}
+				</select></span><br>
+				Amount: <input type="text" name="amount" value="{% if min_bid == job.max_pay or min_bid - 1 < 5 %}{{ min_bid }}{% else %}{{ min_bid - 1 }}{% endif %}"><br>
+				<button type="submit" class="center bWide">Bid</button>
+			</form>
+		{% endif %}
+	{% elif len(bids) %}
+		<h3>Bids</h3>
+		<table>
+			<tr><th>Character</th><th>Bid</th><th>&nbsp;</th></tr>
+			{% for bid in bids %}
+				<tr><td><a href="{{ handler.char.get_index.url(bid.char.id) }}"><img src="{{ bid.char.avatar }}"> {{ bid.char.name }}</a></td><td>{{ bid.amount }}</td><td>
+					<a class="bid-accept" data-id="{{ bid.id }}" data-gold="{{ bid.amount }}" data-char="{{ bid.char.name }}">Accept bid</a>
+				</tr>
+			{% endfor %}
+		</table>
+	{% endif %}
 {% endif %}
 {% endblock %}

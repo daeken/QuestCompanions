@@ -24,10 +24,8 @@ def handler(_tpl=None, _json=False, admin=False, authed=True):
 			name = name[4:]
 			method = 'GET'
 		elif name.startswith('post_'):
-			name = name[5:]
 			method = 'POST'
 		elif name.startswith('rpc_'):
-			name = name[4:]
 			method = 'POST'
 			rpc = json = True
 			tpl = None
@@ -54,7 +52,7 @@ def handler(_tpl=None, _json=False, admin=False, authed=True):
 			else:
 				session.user = None
 			if (authed or admin) and session.user == None:
-				abort(403)
+				return _redirect('/')
 			elif admin and not session.user.admin:
 				abort(403)
 			params = request.form if method == 'POST' else request.args
@@ -69,7 +67,7 @@ def handler(_tpl=None, _json=False, admin=False, authed=True):
 
 			try:
 				if hasId and id != None:
-					ret = ofunc(id, **kwargs)
+					ret = ofunc(int(id), **kwargs)
 				else:
 					ret = ofunc(**kwargs)
 			except RedirectException, r:
@@ -80,7 +78,9 @@ def handler(_tpl=None, _json=False, admin=False, authed=True):
 				if ret == None:
 					ret = {}
 				ret['handler'] = handler
+				ret['request'] = request
 				ret['session'] = session
+				ret['len'] = len
 				ret = render_template(tpl + '.html', **ret)
 				csrf = '<input type="hidden" name="csrf" value="%s">' % session['csrf']
 				return ret.replace('$CSRF$', csrf)

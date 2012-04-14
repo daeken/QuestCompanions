@@ -1,0 +1,31 @@
+.payment-section {
+}
+
+.box {
+width: 200px;
+border: 1px solid #999;
+float: left;
+height: 200px;
+margin-right: 20px;
+}
+
+.boxes {
+width: 890px;
+margin: 0 auto;
+}
+
+.box button {
+top: 40px;
+position: relative;
+left: 50%;
+      margin-left: -75px;
+}
+
+.box .details {
+padding: 5px;
+background: #4F104E;
+color: #fff;
+margin-bottom: 10px;
+min-height: 45px;
+text-align: center;
+}

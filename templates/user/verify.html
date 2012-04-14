@@ -1,0 +1,17 @@
+{% extends "base.html" %}
+{% block title %}Verify phone number{% endblock %}
+{% block includes %}
+<link rel="stylesheet" type="text/css" href="/static/css/users.css"/>
+{% endblock %}
+{% block content %}
+  <h1>Verify phone number</h1>
+  We {% if new %}just sent a new{% else %}sent a{% endif %} text message to {{ phone_number }} containing your verification code.  Enter it below to verify.{% if not new %}  If for some reason you need the code again, <a href="{{ handler.user.get_resend_code }}">click here.</a>{% endif %}<br>
+  <br>
+  <form action="{{ handler.user.post_verify }}" method="POST">$CSRF$
+    Verification code: <input type="text" name="code" value="{{ code }}">
+    {% if code %}
+      <span style="color: red">Incorrect</span>
+    {% endif %}<br>
+    <button type="submit">Verify</button>
+  </form>
+{% endblock %}

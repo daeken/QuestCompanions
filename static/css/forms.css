@@ -14,6 +14,10 @@ outline: none;
 padding-left: 5px;
 }
 
+.narrow {
+width: 73px;
+}
+
 .selector {
 width: 400px;
 overflow: hidden;
@@ -21,10 +25,13 @@ display:inline-block;
 background-color: #170017;
 border-radius: 7px;
 border: 1px solid #A400A2;
+margin: 5px auto;
 background: url("/static/img/arrow.png") center right no-repeat rgba(25, 0, 25, 0.5);
+-webkit-margin-bottom: 10px;
 }
 
 .selector select {
+-webkit-appearance: button;
 padding-left: 5px;
 width:430px;
 height: 30px;
@@ -32,6 +39,11 @@ background: transparent none;
 border-width: 0;
 font-size: 18pt;
 color: #7d007C;
+}
+
+
+.selector select option {
+background: transparent none!important;
 }
 
 ::-webkit-input-placeholder {
@@ -43,17 +55,33 @@ color: #7d007C;
 
 textarea {
 width: 100%;
-  max-width: 930px;
+  max-width: 400px;
+}
+
+.support {
+max-width: 930px;
 }
 
 .label, label {
 font-size: 26px;
 width: 200px;
-margin-right: 10px;
+margin: 5px 10px 5px auto;
 display: inline-block;
 text-align: right;
+float:left;
 }
 
 .form {
   max-width: 960px;
+}
+
+.error
+{
+  border-color: #a40000;
+  color: #a40000;
+  box-shadow: 0 0 5px #a40000;
+}
+
+.errMessage {
+color: #a40000;
 }

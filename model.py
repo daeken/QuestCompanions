@@ -1,6 +1,7 @@
-import json, os
+import math, json, os
 from datetime import datetime
 import sqlalchemy as sa
+from sqlalchemy.orm import relationship
 from sqlalchemy.types import *
 
 from metamodel import *
@@ -36,20 +37,49 @@ def gamename(id):
 		return 'SW:TOR'
 
 @Model
+class GoldHistory(object):
+	user_id = ForeignKey(Integer, 'User.id')
+	date = DateTime
+	amount = Integer
+	balance = Integer
+	dollars = Integer
+	job_id = ForeignKey(Integer, 'Job.id', nullable=True)
+	desc = Unicode
+
+@Model
+class Bid(object):
+	job_id = ForeignKey(Integer, 'Job.id')
+	char_id = ForeignKey(Integer, 'Character.id')
+	amount = Integer
+	date = DateTime
+	accepted = Boolean
+
+	def accept(self):
+		with transact:
+			self.update(accepted=True)
+			self.job.update(accepted_date=datetime.now())
+
+@Model
 class Job(object):
 	user_id = ForeignKey(Integer, 'User.id')
 	char_id = ForeignKey(Integer, 'Character.id')
-	game = Integer()
-	created_date = DateTime()
+	game = Integer
+	created_date = DateTime
 
-	max_pay = Integer()
-	time_reqd = Integer()
+	max_pay = Integer
+	time_reqd = Integer
 	desc = Unicode(140)
-	reqs = String()
+	reqs = String
+
+	bids = Bid.relation(backref='job')
 
 	accepted_date = Nullable(DateTime())
-	#accepted_char_id = ForeignKey(Integer, 'Character.id', nullable=True)
-	accepted_pay = Nullable(Integer)
+	timer_flags = Integer
+	timer_started = Nullable(DateTime())
+	completed = Boolean
+	fee_paid = Integer
+
+	gold_history = GoldHistory.relation(backref='job')
 
 	@staticmethod
 	def add(char, max_pay, time_reqd, desc, **kwargs):
@@ -62,11 +92,54 @@ class Job(object):
 				max_pay=max_pay, 
 				time_reqd=time_reqd,
 				desc=desc, 
-				reqs=json.dumps(kwargs)
+				reqs=json.dumps(kwargs), 
+				timer_flags=0, 
+				completed=False, 
+				fee_paid=0
 			)
 
 	def gamename(self):
 		return gamename(self.game)
+
+	def bid(self, char, amount):
+		with transact:
+			return Bid.create(
+					job=self, 
+					char=char, 
+					amount=amount, 
+					date=datetime.now()
+				)
+
+	def complete(self):
+		accepted = None
+		for bid in self.bids:
+			if bid.accepted:
+				accepted = bid
+				break
+		assert accepted
+		accepted_user = accepted.char.user
+		with transact:
+			fee = int(math.ceil(float(accepted.amount) * 0.3))
+			earned = accepted.amount-fee
+			self.update(completed=True, fee_paid=fee)
+			self.user.update(gold=self.user.gold-accepted.amount)
+			GoldHistory.create(
+					user=self.user, 
+					date=datetime.now(), 
+					amount=-accepted.amount, 
+					balance=self.user.gold, 
+					job=self, 
+					desc=u'Paid %i gold for a job' % accepted.amount
+				)
+			accepted_user.update(gold=accepted_user.gold+earned)
+			GoldHistory.create(
+					user=accepted_user, 
+					date=datetime.now(), 
+					amount=earned, 
+					balance=accepted_user.gold, 
+					job=self,
+					desc=u'Earned %i gold for a job' % (earned)
+				)
 
 @Model
 class Character(object):
@@ -80,6 +153,7 @@ class Character(object):
 	last_update = Date()
 
 	jobs = Job.relation(backref='char')
+	bids = Bid.relation(backref='char')
 
 	def gamename(self):
 		return gamename(self.game)
@@ -90,11 +164,16 @@ class User(object):
 	admin = Boolean
 	username = Unicode(255)
 	password = String(40)
-	money = Integer
+	gold = Integer
+	phone_number = String
+	phone_verified = Boolean
+	verification_code = Integer
+	verification_tries = Integer
 
 	characters = Character.relation(backref='user')
 	news = News.relation(backref='creator')
 	jobs = Job.relation(backref='user')
+	gold_history = GoldHistory.relation(backref='user')
 
 	@staticmethod
 	def hash(password):
@@ -117,14 +196,15 @@ class User(object):
 		if User.one(enabled=True, username=username):
 			return None
 		with transact:
-			user = User.create(
+			return User.create(
 				enabled=True, 
 				username=username, 
 				password=User.hash(password), 
 				admin=admin, 
-				money=0
+				gold=0, 
+				phone_number='', 
+				phone_verified=False, 
 			)
-		return user
 	
 	@staticmethod
 	def find(username, password):
@@ -142,6 +222,19 @@ class User(object):
 			password = User.hash(password)
 		with transact:
 			self.update(username=username, admin=admin, password=password)
+
+	def addGold(self, amount, price):
+		with transact:
+			self.update(gold=self.gold+amount)
+			GoldHistory.create(
+					user=self, 
+					date=datetime.now(), 
+					amount=amount, 
+					balance=self.gold, 
+					dollars=price, 
+					job=None, 
+					desc=u'Bought %i gold for $%i' % (amount, price)
+				)
 
 @Model
 class Config(object):
@@ -178,6 +271,8 @@ class Config(object):
 @setup
 def init():
 	admin = User.add(u'admin', 'admin', True)
+	print User.add(u'foo', 'password', False)
+	print User.add(u'bar', 'password', False)
 
 	with transact:
 		News.create(

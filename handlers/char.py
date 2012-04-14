@@ -6,15 +6,18 @@ from datetime import date
 
 @handler('char/profile', authed=True)
 def get_index(id):
-	char = Character.one(id=int(id))
+	char = Character.one(id=id)
 	if not char: abort(404)
 
 	return dict(char=char)
 
 @handler('char/create', authed=True)
-def get_create():
+def get_create(return_to=None):
+	if return_to != None and return_to[0] != '/':
+		abort(403)
 	return dict(
-			wow_servers=wow_servers
+			wow_servers=wow_servers, 
+			return_to=return_to
 		)
 
 @handler(authed=True)
@@ -29,7 +32,7 @@ def rpc_add_wow(server, charname):
 		char = Character.create(
 				user=session.user,  
 				game=WOW, 
-				name=wowchar.name, 
+				name=wowchar.name.decode('utf-8'), 
 				server=server, 
 				avatar=thumbnail, 
 				attrs='',

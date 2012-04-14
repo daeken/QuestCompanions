@@ -22,9 +22,10 @@ function errorClear()
 $(window).load(
     function() {
     $('button').click(
-      function() { 
-        createCover();
-      }    
-    )
-    }
-  );
+      function() {
+      if($(this).attr('cover'))
+      {
+          createCover();
+      }
+      })
+    });

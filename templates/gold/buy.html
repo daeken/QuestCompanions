@@ -1,0 +1,60 @@
+{% extends "base.html" %}
+{% block title %}Buy gold{% endblock %}
+{% block includes %}
+<script type="text/javascript" src="https://js.stripe.com/v1/"></script>
+<script src="/scripts/buy_gold.js"></script>
+<script src="/scripts/loading.js"></script>
+<link rel="stylesheet" type="text/css" href="/static/css/forms.css">
+<link rel="stylesheet" type="text/css" href="/static/css/buttons.css">
+<link rel="stylesheet" type="text/css" href="/static/css/buy_gold.css">
+<link rel="stylesheet" type="text/css" href="/static/css/cover.css">
+{% endblock %}
+{% block content %}
+<h1>Buy Gold</h1>
+So you want to fight a dragon?  Dragons love gold.  Let's take care of that.<br>
+<br>
+<div id="amounts" class="payment-section">
+  <h3>Amount</h3>
+	<div class="boxes">
+  <div class="box"><div class="details"><strong>$5 for 50 gold</strong></div><button class="amount-choice bWide" data-price="5" data-gold="50">Buy Now</button></div>
+
+    <div class="box"><div class="details"><strong>$10 for 105 gold </strong><br> 5% bonus</div> <button class="amount-choice bWide" data-price="10" data-gold="105">Buy Now</button></div>
+
+	<div class="box"><div class="details"><strong>$20 for 220 gold</strong> <br> 10% bonus</div><button class="amount-choice bWide" data-price="20" data-gold="220">Buy Now</button></div>
+	
+<div class="box"><div class="details"><strong>$50 for 575 gold </strong><br> 15% bonus</div><button class="amount-choice bWide" data-price="50" data-gold="575">Buy Now</button></div>
+</div>
+</div>
+
+<div id="payment" class="payment-section" style="display: none">
+  <h3>Payment details</h3>
+  <div class="form-row">
+    <label>Card Number</label>
+    <input type="text" size="20" autocomplete="off" class="card-number" value="4242424242424242" />
+  </div>
+  <div class="form-row">
+    <label>CVC</label>
+    <input type="text" size="4" autocomplete="off" class="card-cvc" value="123"/>
+  </div>
+  <div class="form-row">
+    <label>Expiration (MM/YYYY)</label>
+    <input type="text" size="2" class="card-expiry-month narrow" value="01"/>
+    <span> / </span>
+    <input type="text" size="4" class="card-expiry-year narrow" value="2014"/>
+  </div>
+  <button id="pay-next" class="submit-button">Next</button>
+</div>
+<div id="confirmation" class="payment-section" style="display: none">
+	<h3>Confirmation</h3>
+	Buying <span id="gold-amount"></span> gold for $<span id="gold-price"></span>.<br>
+	<br>
+	Card <span id="card-number"></span> with CVC <span id="cvc"></span><br>
+	Expires <span id="exp-month"></span> / <span id="exp-year"></span><br>
+	<br>
+	<button id="complete" class="submit-button" cover=true>Purchase</button>
+</div>
+<div id="completion" class="payment-section" style="display: none">
+  <h3>Success!</h3>
+  Have fun storming the castle.  You now have <span id="gold-total"></span> gold.  <a href="{{ handler.index.get_index }}">Go home</a>
+</div>
+{% endblock %}

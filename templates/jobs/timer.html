@@ -1,0 +1,22 @@
+{% extends "base.html" %}
+{% block title %}Timer for {{ job.desc }}{% endblock %}
+{% block includes %}
+<link rel="stylesheet" type="text/css" href="/static/css/job_timer.css"/>
+<script src="/scripts/job_timer.js"></script>
+{% endblock %}
+{% block content %}
+<h2 id="job" data-id="{{ job.id }}">Timer</h2>
+<div id="first" class="timer-panel">
+	<button id="start">Start</button>
+</div>
+<div id="second" class="timer-panel">
+	Waiting for peer.
+</div>
+<div id="main" class="timer-panel">
+	Running <span id="foo"></span><br>
+	<button id="complete">Complete Job</button>
+</div>
+<div id="feedback" class="timer-panel">
+	Job has completed!  You should leave some feedback and shit.
+</div>
+{% endblock %}

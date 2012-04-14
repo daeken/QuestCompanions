@@ -10,4 +10,8 @@ $(document).ready ->
 				alert 'Check the server and character name and try again'
 				errorClear()
 			else
-				window.location = ret
+				return_to = $('#return-to').val()
+				if return_to
+					window.location = return_to
+				else
+					window.location = ret

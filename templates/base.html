@@ -21,6 +21,7 @@
   		{% if session.user.admin %}
 	  		<a class="tab" href="{{ handler.admin.get_index }}">Admin</a>
 	  	{% endif %}
+      <a class="tab" href="{{ handler.gold.get_index }}">Gold</a>
       <a class="tab" href="{{ handler.index.get_faq }}">FAQ</a>
       <a class="tab" href="{{ handler.index.get_support }}">Support</a>
   		<a class="tab" href="{{ handler.auth.get_logout }}">Log out</a>
@@ -31,6 +32,8 @@
 {% block content %}{% endblock %}
 </div>
 <div class="footer">
+  <a href="{{ handler.legal.get_privacy }}">Privacy Policy</a> 
+  <a href="{{ handler.legal.get_tos }}">Terms of Service</a> 
 {% for item in footer %}
   <a href="{{ item.href }}">{{ item.title }}</a>
 {% endfor %}
