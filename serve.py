@@ -1,5 +1,5 @@
 import coffeescript, os
-from flask import Flask
+from flask import Flask, request
 import handler
 import handlers
 from handlers import *
@@ -133,12 +133,20 @@ def script(fn):
 
 		source = file(fn + '.coffee', 'rb').read()
 
-		source = coffeescript.compile(source)
+		try:
+			source = coffeescript.compile(source)
+		except Exception, e:
+			return 'window.onload = function() { window.location = "/_coffee_error?fn=" + encodeURIComponent(%r) + "&error=" + encodeURIComponent(%r); };' % (str(fn + '.coffee'), str(e.message))
 		file(fn + '.cjs', 'wb').write(source)
 
 		return source
 	except:
 		import traceback
 		traceback.print_exc()
+
+@app.route('/_coffee_error')
+def coffee_error():
+	fn, error = request.args['fn'], request.args['error']
+	return '<h1>Compilation error in %s</h1>%s' % (fn.replace('<', '&lt;'), error.replace('<', '&lt;'))
 
 app.run(host='')
