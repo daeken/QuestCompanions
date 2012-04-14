@@ -2,6 +2,8 @@ from handler import *
 from model import *
 import battlenet
 from datetime import date
+import urllib2
+import json
 
 @handler('login', authed=False)
 def get_index():
@@ -62,3 +64,28 @@ def get_logout():
 	session['userId'] = None
 
 	redirect(handler.index.get_index)
+
+@handler(authed=False)
+def rpc_enlist(email): 
+	APIKey = '2ffe157a9871aa5ed3a5e4c1eb4b2c91-us4'
+	Server = 'us4'
+	Payload = json.dumps({
+		'email_address':email,
+		'apikey':APIKey,
+		'id':'f0fa9e4aae',
+		'double_option':False,
+		'send_welcome':True,
+		'email_type':'html',
+		'merge_vars':{'NAME':'Companion'}
+		})
+
+	URL = 'http://' + Server + '.api.mailchimp.com/1.3/?method=listSubscribe'
+	Headers={'Content-Type':'application/json'}
+	Request = urllib2.Request(URL, data=Payload, headers=Headers)
+	Result = urllib2.urlopen(Request)
+	JSONResponse = json.loads(Result.read())
+	if JSONResponse is True:
+		return True
+	return False
+
+
