@@ -85,7 +85,7 @@ width: 650px;
 .content {
 position: absolute;
 background: #fff url("../img/back.png") repeat;
-max-width: 940px;
+width: 940px;
 min-height: 400px;
 left: 50%;
 margin-left: -470px;
