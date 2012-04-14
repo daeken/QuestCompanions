@@ -1,5 +1,8 @@
 {% extends "loggedOut.html" %}
 {% block title %}Login{% endblock %}
+{% block includes %}
+<script src="/scripts/landing.js"></script>
+{% endblock %}
 {% block content %}
     <div id="loginForm" class="col left">
       <form action="{{ handler.auth.post_login }}" method="POST">$CSRF$
@@ -12,9 +15,7 @@
     </div>
     <div id="loginInterest" class="col right">
       <span>QuestCompanions isn't quite ready yet, but drop us an<br />email address and we'll let you know when it is.</span>
-      <form action="{{ handler.auth.post_interest }}" method="POST">$CSRF$
-        <input name="email" type="text" placeholder="Email Address" value="{{ email }}">
-        <button name="submit">Enlist</button>
-      </form>
+        <input id="email" name="email" type="text" placeholder="Email Address" value="{{ email }}">
+        <button id="enlist">Enlist</button>
     </div>
 {% endblock %}
