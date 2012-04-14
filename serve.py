@@ -136,7 +136,7 @@ def script(fn):
 		try:
 			source = coffeescript.compile(source)
 		except Exception, e:
-			return 'window.onload = function() { window.location = "/_coffee_error?fn=" + encodeURIComponent(%r) + "&error=" + encodeURIComponent(%r); };' % (str(fn + '.coffee'), str(e.message))
+			return 'window.location = "/_coffee_error?fn=" + encodeURIComponent(%r) + "&error=" + encodeURIComponent(%r);' % (str(fn + '.coffee'), str(e.message))
 		file(fn + '.cjs', 'wb').write(source)
 
 		return source
