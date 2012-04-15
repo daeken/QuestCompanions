@@ -11,9 +11,9 @@
 </head>
 <body>
 {% if error %}
-<div class="alertPop error"> 
+<div class="alertPop {{ error.type }}"> 
 <script src="/scripts/errors.js"></script> 
-{{ error }} <div class="errKill">X</div>
+{{ error.message }} <div class="errKill">X</div>
 </div> 
 {% endif %}
 <div class="header">
