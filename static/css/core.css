@@ -122,7 +122,7 @@ display: block;
 h1, h2, h3, h4 {text-transform: capitalize; font-size: 150%; }
 
 .errPop {
-width: 980px;
+width: 800px;
 height: 15px;
 background: rgba(150,0,0,0.7);
 color: #bbb;
@@ -131,11 +131,12 @@ top: 40px;
 z-index: 999;
 text-align: center;
 left: 50%;
-      margin-left: -470px;
+      margin-left: -400px;
 padding-top:5px;
 padding-bottom: 10px;
 border-bottom-left-radius: 5px;
 border-bottom-right-radius: 5px;
+display:none;
 }
 
 .errKill {

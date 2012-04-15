@@ -1,10 +1,9 @@
 $(document).ready(
     function() {
+      $('.errPop').slideDown('slow')
       $('.errKill').click(
         function() {
-          $('.errPop').animate(
-            {opacity : 0},
-            500,  
+          $('.errPop').slideUp('slow', 
             function() {$('.errPop').remove()}
             )
           }
