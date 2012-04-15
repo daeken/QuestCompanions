@@ -1,10 +1,10 @@
 $(document).ready(
     function() {
-      $('.errPop').slideDown('slow')
+      $('.alertPop').slideDown('slow')
       $('.errKill').click(
         function() {
-          $('.errPop').slideUp('slow', 
-            function() {$('.errPop').remove()}
+          $('.alertPop').slideUp('slow', 
+            function() {$('.alertPop').remove()}
             )
           }
         )

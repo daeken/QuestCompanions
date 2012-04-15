@@ -121,7 +121,7 @@ display: block;
 }
 h1, h2, h3, h4 {text-transform: capitalize; font-size: 150%; }
 
-.errPop {
+.alertPop {
 width: 800px;
 height: 15px;
 background: rgba(150,0,0,0.7);
@@ -137,6 +137,18 @@ padding-bottom: 10px;
 border-bottom-left-radius: 5px;
 border-bottom-right-radius: 5px;
 display:none;
+}
+
+.alertPop[class~='error']
+{
+background: rgba(150,0,0,0.7);
+color: #fff;
+box-shadow: none;
+}
+
+.alertPop[class~='alert']
+{
+background: rgba(50, 0 ,50, 0.7);
 }
 
 .errKill {
