@@ -4,12 +4,18 @@
 <link rel="stylesheet" type="text/css" href="/static/css/core.css"/>
 <link rel="stylesheet" type="text/css" href="/static/css/head.css"/>
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.7.2/jquery.min.js"></script>
+<script src="/scripts/footer.js"></script>
 <script src="/rpc.js"></script>
 <script>$csrf = '{{ session['csrf'] }}';</script>
-<script src="/scripts/footer.js"></script>
 {% block includes %}{% endblock %}
 </head>
 <body>
+{% if error %}
+<div class="errPop"> 
+<script src="/scripts/errors.js"></script> 
+{{ error }} <div class="errKill">X</div>
+</div> 
+{% endif %}
 <div class="header">
   <div class="logo" onclick="window.location = '/';"></div><div class="logotype" onclick="window.location = '/';"></div>
   <div class="nav">
@@ -28,11 +34,13 @@
   	{% endif %}
   </div>
 </div>
+     
+      
 <div class="content">
 {% block content %}{% endblock %}
 </div>
 <div class="footer">
-  <a href="{{ handler.legal.get_privacy }}">Privacy Policy</a> 
+<a href="{{ handler.legal.get_privacy }}">Privacy Policy</a> 
   <a href="{{ handler.legal.get_tos }}">Terms of Service</a> 
 {% for item in footer %}
   <a href="{{ item.href }}">{{ item.title }}</a>
