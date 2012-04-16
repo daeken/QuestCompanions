@@ -5,10 +5,10 @@ function createCover()
 }
 
 function fade()
-{ 
+{
   var currentOpacity = $('.shield').css('opacity');
   $('.shield').animate({
-    opacity : 1 - currentOpacity} ,
+    opacity: 1 - currentOpacity} ,
     2000,
     function() {fade()}
     );
@@ -23,9 +23,9 @@ $(window).load(
     function() {
     $('button').click(
       function() {
-      if($(this).attr('cover'))
+      if ($(this).attr('cover'))
       {
           createCover();
       }
-      })
+      });
     });

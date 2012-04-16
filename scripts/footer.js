@@ -1,7 +1,7 @@
 $(document).ready(function() {
-    if($('.col').length > 0)
+    if ($('.col').length > 0)
     {
-    if($(window).width() > 980)
+    if ($(window).width() > 980)
     {
       $('.content').height($('.col').height());
     } else {
@@ -17,10 +17,11 @@ $(window).resize(function() {
 
 function footGlue()
 {
-  if(($('.content').outerHeight() + 40) < ($(window).outerHeight() - $('.footer').outerHeight()))
+  if (($('.content').outerHeight() + 40) <
+      ($(window).outerHeight() - $('.footer').outerHeight()))
   {
     $('.footer').addClass('stuck');
   } else {
      $('.footer').removeClass('stuck');
-  } 
+  }
 }
