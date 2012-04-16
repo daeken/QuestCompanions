@@ -1,6 +1,6 @@
 $(document).ready(function() {
  $('input').each(function() {
-   handler(this);
+   handler($(this));
   });
  $('textarea').each(function() {
    handler($(this));
@@ -10,25 +10,33 @@ $(document).ready(function() {
 function handler(obj)
 {
 
-  var tipHolder = '<div class="tip" style="' +
+ $(obj).focus(function() {
+   $('.tip').remove();
+   $(obj).parent().append('<div class="tip" style="' +
      'position:fixed;' +
-     'left:' + $(obj).offset().left + 'px;' +
-     'top:' + ($(obj).offset().top + ($(obj).outerHeight(false))) + 'px;' +
+     'left:' + $(obj).offset().left + 'px!important;' +
+     'top:' + ($(obj).offset().top + ($(obj).outerHeight(false)) + 5) + 'px;' +
      'background: rgba(0,0,0,0.8);' +
      'color: #fff;' +
      'padding: 10px;' +
      'border-radius:5px;' +
      'z-index: 10;">' +
-     $(obj).attr('data-hint') +
-     '</div>';
-
- $(obj).focus(function() {
-   $('.tip').remove();
-   $(obj).parent().append(tipHolder);
+     $(obj).data('hint') +
+     '</div>');
    $(obj).mouseover(function() {
     if ($(obj).is($(':focus')))
     {
-     $(obj).parent().append(tipHolder);
+     $(obj).parent().append('<div class="tip" style="' +
+     'position:fixed;' +
+     'left:' + $(obj).offset().left + 'px!important;' +
+     'top:' + ($(obj).offset().top + ($(obj).outerHeight(false)) + 5) + 'px;' +
+     'background: rgba(0,0,0,0.8);' +
+     'color: #fff;' +
+     'padding: 10px;' +
+     'border-radius:5px;' +
+     'z-index: 10;">' +
+     $(obj).data('hint') +
+     '</div>');
      }
    });
  });
