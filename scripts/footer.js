@@ -1,5 +1,13 @@
 $(document).ready(function() {
-    $('.content').height($('.col').height());
+    if($('.col').length > 0)
+    {
+    if($(window).width() > 980)
+    {
+      $('.content').height($('.col').height());
+    } else {
+      $('.content').height($('.col').height() + $('.col').next().height());
+      }
+      }
     footGlue();
     });
 
