@@ -1,6 +1,8 @@
 function createCover()
 {
-  $('body').append('<div class="cover"><img class="shield" src="/static/img/logo.png"></div>');
+  $('body').append('<div class="cover">' +
+      '<img class="shield" src="/static/img/logo.png">' +
+      '</div>');
   fade();
 }
 
