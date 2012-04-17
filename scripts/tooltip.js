@@ -10,21 +10,25 @@ function handler(obj)
   {
     $(obj).focus(function() {
       addTip(obj);
+      $('.tip').slideDown('fast');
       $(obj).mouseover(function() {
         if ($(obj).is($(':focus')))
         {          
           addTip(obj);
+          $('.tip').slideDown('fast');
+      
         }
       });
     });
   } else {
     $(obj).mouseover( function() {
       addCharTip(obj);
+      $('.tip').slideDown('fast');
     });
   }
   $(obj).mouseout(function() {
     var oldTip = $('.tip');
-      $(oldTip).fadeOut(200, function() {$(oldTip).remove()});
+      $(oldTip).slideUp('fast', function() {$(oldTip).remove()});
   });
 }
 
