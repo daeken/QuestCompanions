@@ -6,6 +6,7 @@ padding: 10px;
 border-radius:5px;
 z-index: 10;
 display:none;
+height: 20px;
 }
 
 .charTip {

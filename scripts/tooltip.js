@@ -15,8 +15,7 @@ function handler(obj)
         if ($(obj).is($(':focus')))
         {          
           addTip(obj);
-          $('.tip').slideDown('fast');
-      
+          $('.tip').slideDown('fast'); 
         }
       });
     });

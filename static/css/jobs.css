@@ -15,14 +15,14 @@ width: 100%;
 list-style: none;
 }
 
-ul :hover {
+ul a:hover .job {
 background: -moz-linear-gradient(rgba(255,255,255,0.2), rgba(190,120,190,0.2) );
 background: -webkit-linear-gradient(rgba(255,255,255,0.2), rgba(190,120,190,0.2) );
 background: -ms-linear-gradient(rgba(255,255,255,0.2), rgba(190,120,190,0.2) );
 background: linear-gradient(rgba(255,255,255,0.2), rgba(190,120,190,0.2) );
 }
 
-ul :active {
+ul a:active .job {
 background: -moz-linear-gradient(rgba(100,100,100,0.4), rgba(140, 80, 140, 0.2));
 background: -webkit-linear-gradient(rgba(100,100,100,0.4), rgba(140, 80, 140, 0.2));
 background: -ms-linear-gradient(rgba(100,100,100,0.4), rgba(140, 80, 140, 0.2));
