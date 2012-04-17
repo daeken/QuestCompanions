@@ -163,6 +163,12 @@ class Character(object):
 		return '<a class="%s" data-char=%s href="%s">%s</a>' %\
 			(cls, self.json(), handler.char.get_index.url(self.id), self.name.replace('<', '&lt;'))
 
+	def imagelink(self, cls='charLink'):
+		from handler import handler
+		return '<a class="%s" data-char=%s href="%s"><img src="%s" alt="%s"></a>' %\
+			(cls, self.json(), handler.char.get_index.url(self.id), 
+			 self.avatar.replace('"', '&quot;'), self.name.replace('"', '&quot;'))
+
 	def json(self):
 		val = json.dumps(dict(
 				game=gamename(self.game), 
