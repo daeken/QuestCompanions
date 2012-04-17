@@ -3,12 +3,14 @@
 {% block includes %}
 <link rel="stylesheet" type="text/css" href="/static/css/news.css"/>
 <link rel="stylesheet" type="text/css" href="/static/css/jobs.css"/>
+<link rel="stylesheet" type="text/css" href="/static/css/tooltip.css"/>
+<script src="/scripts/charTip.js"></script>
 {% endblock %}
 {% block content %}
 <h2>Jobs</h2>
 <ul>
 	{% for job in jobs %}
-		<a href="{{ handler.job.get_index.url(job.id) }}"><li><img class="avatar" href="{{ job.img }}"/> {{ job.desc }} &ndash; {{ job.gamename() }}{% if job.details %}: {{ job.details|truncate(length=100, killwords=False, end="...") }}{% endif %}</li></a>
+		<a href="{{ handler.job.get_index.url(job.id) }}"><li class="job">{{ job.char.imagelink()|safe }} {{ job.desc }} &ndash; {{ job.gamename() }}{% if job.details %}: {{ job.details|truncate(length=100, killwords=False, end="...") }}{% endif %}</li></a>
 	{% endfor %}
 </ul>
 {% endblock %}
