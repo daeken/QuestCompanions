@@ -8,6 +8,8 @@ function handler(obj)
 {
   if($(obj).is('input, textarea'))
   {
+    if($(obj).data('hint'))
+    {
     $(obj).focus(function() {
       addTip(obj);
       $('.tip').slideDown('fast');
@@ -19,6 +21,7 @@ function handler(obj)
         }
       });
     });
+    }
   } else {
     $(obj).mouseover( function() {
       addCharTip(obj);
