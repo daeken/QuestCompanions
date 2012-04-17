@@ -23,7 +23,8 @@ function handler(obj)
     });
   }
   $(obj).mouseout(function() {
-    $('.tip').remove();
+    var oldTip = $('.tip');
+      $(oldTip).fadeOut(200, function() {$(oldTip).remove()});
   });
 }
 
