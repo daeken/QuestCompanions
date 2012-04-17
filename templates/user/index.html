@@ -36,7 +36,7 @@
         <li><a href="{{ handler.char.get_create.url() }}">Add a character</a></li>
       {% endif %}
       {% for char in user.characters %}
-        <li><a href="{{ handler.char.get_index.url(char.id) }}">{{ char.name }}</a></li>
+        <li>{{ char.link()|safe }}</li>
       {% endfor %}
     </div>
   </div>

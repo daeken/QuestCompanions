@@ -158,6 +158,21 @@ class Character(object):
 	def gamename(self):
 		return gamename(self.game)
 
+	def link(self, cls='charLink'):
+		from handler import handler
+		return '<a class="%s" data-char=%s href="%s">%s</a>' %\
+			(cls, self.json(), handler.char.get_index.url(self.id), self.name.replace('<', '&lt;'))
+
+	def json(self):
+		val = json.dumps(dict(
+				game=gamename(self.game), 
+				name=self.name, 
+				server=self.server, 
+				avatar=self.avatar
+			))
+		val = '"%s"' % val.replace('"', '&quot;')
+		return val
+
 @Model
 class User(object):
 	enabled = Boolean
