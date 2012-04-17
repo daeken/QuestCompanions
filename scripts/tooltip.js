@@ -1,46 +1,50 @@
 $(document).ready(function() {
- $('input').each(function() {
+ $('input, textarea, .charLink').each(function() {
    handler($(this));
   });
- $('textarea').each(function() {
-   handler($(this));
-   });
- });
+});
 
 function handler(obj)
 {
+  if($(obj).is('input, textarea'))
+  {
+    $(obj).focus(function() {
+      addTip(obj);
+      $(obj).mouseover(function() {
+        if ($(obj).is($(':focus')))
+        {          
+          addTip(obj);
+        }
+      });
+    });
+  } else {
+    $(obj).mouseover( function() {
+      addCharTip(obj);
+    });
+  }
+  $(obj).mouseout(function() {
+    $('.tip').remove();
+  });
+}
 
- $(obj).focus(function() {
-   $('.tip').remove();
+function addTip(obj)
+{
    $(obj).parent().append('<div class="tip" style="' +
-     'position:fixed;' +
      'left:' + $(obj).offset().left + 'px!important;' +
-     'top:' + ($(obj).offset().top + ($(obj).outerHeight(false)) + 5) + 'px;' +
-     'background: rgba(0,0,0,0.8);' +
-     'color: #fff;' +
-     'padding: 10px;' +
-     'border-radius:5px;' +
-     'z-index: 10;">' +
+     'top:' + ($(obj).offset().top + ($(obj).outerHeight(false)) + 5 - $(window).scrollTop()) + 'px;' +
+     '">' +
      $(obj).data('hint') +
      '</div>');
-   $(obj).mouseover(function() {
-    if ($(obj).is($(':focus')))
-    {
-     $(obj).parent().append('<div class="tip" style="' +
-     'position:fixed;' +
-     'left:' + $(obj).offset().left + 'px!important;' +
-     'top:' + ($(obj).offset().top + ($(obj).outerHeight(false)) + 5) + 'px;' +
-     'background: rgba(0,0,0,0.8);' +
-     'color: #fff;' +
-     'padding: 10px;' +
-     'border-radius:5px;' +
-     'z-index: 10;">' +
-     $(obj).data('hint') +
-     '</div>');
-     }
-   });
- });
- $(obj).mouseout(function() {
-   $('.tip').remove();
-   });
+}
+
+function addCharTip(obj)
+{
+  var data = $(obj).data('char');
+  $(obj).parent().append( '<div class="charTip tip" style="top: ' + ($(obj).offset().top - 10) + 'px"> ' +
+  '<img class="avatar" src="' + data.avatar + '"/> ' +
+  '<ul>' +
+  '<li class="game">' + data.game +
+  '<li class="server">' + data.server +
+  '</ul>' +
+  '</div>');
 }

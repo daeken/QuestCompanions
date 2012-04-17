@@ -1,12 +1,16 @@
-.charTip {
-background: rgba(0,0,0,0.7);
+.tip {
+position: fixed;
+background: rgba(0,0,0,0.8);
 color: #fff;
 padding: 10px;
-border-radius: 5px;
+border-radius:5px;
+z-index: 10;
+}
+
+.charTip {
 height: 90px;
 width: 200px;
 position: absolute;
-
 }
 
 
