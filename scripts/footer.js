@@ -1,5 +1,5 @@
 $(document).ready(function() {
-    if ($('.col').length > 0)
+   /* if ($('.col').length > 0)
     {
     if ($(window).width() > 980)
     {
@@ -7,7 +7,7 @@ $(document).ready(function() {
     } else {
       $('.content').height($('.col').height() + $('.col').next().height());
       }
-      }
+      }*/
     footGlue();
     });
 
