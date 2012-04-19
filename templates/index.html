@@ -2,11 +2,25 @@
 {% block title %}Home{% endblock %}
 {% block includes %}
 <link rel="stylesheet" type="text/css" href="/static/css/news.css"/>
+<link rel="stylesheet" type="text/css" href="/static/css/jobs.css" />
+<link rel="stylesheet" type="text/css" href="/static/css/tooltip.css" />
+<script src="/scripts/tooltip.js"></script>
+<style>
+ul a .job { width: 600px!important;}
+.hasBids { float: right;}
+</style>
 {% endblock %}
 {% block content %}
 <div class="col wide">
-  <div class="back"> Welcome back, <span class="feature">{{ session.user.username }}</span></div>
+  <h3 class="back"> Welcome back, {{ session.user.username }}</h3>
   <a href="{{ handler.job.get_create }}">Post a job</a> or <a href="{{ handler.job.get_index }}">list all jobs</a>
+  <h3>Your jobs</h3>
+  <ul>
+{% for job in jobs if job.user_id == session.user.id and job.completed == false%}
+		<a href="{{ handler.job.get_index.url(job.id) }}"><li class="job">{{ job.char.imagelink()|safe }} {{ job.desc }} &ndash; {{ job.gamename() }}{% if job.details %}: {{ job.details|truncate(length=100, killwords=False, end="...") }}{% endif %}{% if job.bids and not job.accepted_date%} <span class=hasBids>This job has bids </span>{% endif %} {% if job.accepted_date %}<span class="hasBids">You haven't completed this job</span>{%endif%}</li></a>
+{% endfor %}
+</ul>
+
 </div>
 <div class="col narrow">
   <div class="news">

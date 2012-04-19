@@ -5,9 +5,15 @@ from model import *
 def get_index():
 	if session.user == None:
 		redirect(handler.auth.get_index)
-
+  
+	alljobs = Job.some(completed=False)
+	jobs = []
+	for job in alljobs:
+		if job.accepted_date == None or job.user == session.user or \
+			len([bid for bid in job.bids if bid.accepted and bid.char.user == session.user]) == 1:
+			jobs.append(job)
 	return dict(
-		news=News.getLast(5)
+		news=News.getLast(5), jobs=jobs
 	)
 
 @handler('support', authed=True)
