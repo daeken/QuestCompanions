@@ -1,15 +1,21 @@
 from handler import *
 from model import *
-import time
+import thread, time
 
 @handler('jobs/index', authed=True)
 def get_index():
 	alljobs = Job.some(completed=False)
 	jobs = []
 	for job in alljobs:
-		if job.accepted_date == None or job.user == session.user or \
-			len([bid for bid in job.bids if bid.accepted and bid.char.user == session.user]) == 1:
+		if (job.user == session.user or 
+			len([bid for bid in job.bids if bid.accepted and bid.char.user == session.user]) == 1):
 			jobs.append(job)
+		if job.accepted_date == None:
+			for char in session.user.characters:
+				if char.eligible(job):
+					jobs.append(job)
+					break
+	
 	return dict(jobs=jobs)
 
 @handler('jobs/job', authed=True)
@@ -40,6 +46,16 @@ def get_index(id):
 def get_create():
 	return dict(chars=session.user.characters, gold=session.user.gold)
 
+def dispatch_notifications(id):
+	job = Job.one(id=id)
+	for char in Character.some(game=job.char.game, server=job.char.server):
+		if not char.eligible(job):
+			continue
+		char.user.sms(
+			'Greetings from QuestCompanions! Your character %s is eligible for a new job.  Bidding starts at %i gold.' % 
+			(char.name, job.max_pay)
+		)
+
 @handler
 def post_job_create(char, desc, time_reqd, max_pay):
 	char = Character.one(id=char)
@@ -49,6 +65,9 @@ def post_job_create(char, desc, time_reqd, max_pay):
 		abort(403)
 
 	job = Job.add(char, max_pay, time_reqd, desc)
+
+	thread.start_new_thread(dispatch_notifications, (job.id, ))
+
 	redirect(get_index.url(job.id))
 
 @handler

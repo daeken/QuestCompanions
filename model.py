@@ -3,6 +3,7 @@ from datetime import datetime
 import sqlalchemy as sa
 from sqlalchemy.orm import relationship
 from sqlalchemy.types import *
+from sms import sms
 
 from metamodel import *
 import hashlib
@@ -178,6 +179,12 @@ class Character(object):
 		val = '"%s"' % val.replace('"', '&quot;')
 		return val
 
+	def eligible(self, job):
+		char = job.char
+		if char.id == self.id or self.game != char.game or self.server != char.server:
+			return False
+		return True
+
 @Model
 class User(object):
 	enabled = Boolean
@@ -255,6 +262,13 @@ class User(object):
 					job=None, 
 					desc=u'Bought %i gold for $%i' % (amount, price)
 				)
+
+	def sms(self, message):
+		if not self.phone_verified:
+			return False
+
+		sms(self.phone_number, message)
+		return True
 
 @Model
 class Config(object):
