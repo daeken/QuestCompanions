@@ -113,4 +113,4 @@ Migrations
 
 We're using Alembic for migrations, and they live in `migrations/`.  Read [this](http://readthedocs.org/docs/alembic/en/latest/tutorial.html) for more info.
 
-After you pull, make sure you do `alembic upgrade head` to migrate the DB if anything needs to be done.  Auto-migrating will be added Real Soon Now (TM).
+Ensure you create a migration for anything that affects prod, but development should be done with SQLite and you should simply nuke your DB for each model change.
