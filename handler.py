@@ -6,6 +6,10 @@ from werkzeug.exceptions import HTTPException
 from model import User
 from urllib import quote, urlencode
 
+from email.mime.multipart import MIMEMultipart
+from email.mime.text import MIMEText
+import smtplib
+
 class DictObject(dict):
 	pass
 
@@ -138,3 +142,26 @@ def redirect(url, _id=None, **kwargs):
 		url = url.url(_id, **kwargs)
 	print 'Redirecting to', url
 	raise RedirectException(url)
+
+from jinja2 import Environment, FileSystemLoader
+email_env = Environment(loader=FileSystemLoader('templates/emails'))
+def email(recv, tpl, **args):
+	tpl = email_env.get_template(tpl + '.html')
+	def render_template(tpl, **args):
+		return template.render(**args)
+
+	html = tpl.render(html=True, handler=handler, **args)
+	title, html = html.split('\n', 1)
+	text = tpl.render(html=False, handler=handler, **args)
+	
+	msg = MIMEMultipart('alternative')
+	msg['Subject'] = title
+	_from = msg['From'] = 'notifications@questcompanions.com'
+	msg['To'] = recv
+
+	msg.attach(MIMEText(text, 'plain'))
+	msg.attach(MIMEText(html, 'html'))
+
+	s = smtplib.SMTP('mail.adelphia.net') # XXX Set up SMTP.  Issue #61
+	s.sendmail(_from, recv, msg.as_string())
+	s.quit()

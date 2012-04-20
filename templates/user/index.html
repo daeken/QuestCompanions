@@ -24,6 +24,14 @@
               <span style="color: red">Unverified</span> &ndash; <a href="{{ handler.user.get_verify }}">Verify here to receive notifications and enable two-factor auth.</a>
             {% endif %}
           {% endif %}<br>
+          <label class="small">Email:</label> <input type="email" name="email" value="{{ user.email if user.email else '' }}">
+          {% if user.email %}
+            {% if user.email_verified %}
+              <span style="color: green">Verified</span>
+            {% else %}
+              <span style="color: red">Unverified</span>
+            {% endif %}
+          {% endif %}<br>
           <button type="submit" class="center">Save</button>
         </form>
       {% endif %}

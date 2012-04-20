@@ -192,6 +192,8 @@ class User(object):
 	username = Unicode(255)
 	password = String(40)
 	gold = Integer
+	email = String
+	email_verified = Boolean
 	phone_number = String
 	phone_verified = Boolean
 	verification_code = Integer
@@ -231,6 +233,8 @@ class User(object):
 				gold=0, 
 				phone_number='', 
 				phone_verified=False, 
+				email='', 
+				email_verified=False,
 			)
 	
 	@staticmethod

@@ -11,7 +11,7 @@ def get_index(id, error=None):
 	return dict(user=user, error=error)
 
 @handler
-def post_index(id, phone_number=None):
+def post_index(id, phone_number=None, email=None):
 	def normalize(phone_number):
 		if phone_number == None:
 			return user.phone_number
@@ -26,11 +26,18 @@ def post_index(id, phone_number=None):
 	phone_number = normalize(phone_number)
 	if len(phone_number) != 10:
 		redirect(get_index.url(id, error='Invalid phone number'))
-	if phone_number != user.phone_number:
-		with transact:
+	elif False: # XXX add email validation
+		redirect(get_index.url(id, error='Invalid email'))
+	with transact:
+		if phone_number != user.phone_number:
 			user.update(
 					phone_number=phone_number, 
 					phone_verified=False
+				)
+		if email != user.email:
+			user.update(
+					email=email, 
+					email_verified=True # XXX add email verification
 				)
 
 	redirect(get_index.url(id))
@@ -49,7 +56,7 @@ def get_verify():
 		redirect(get_index.url(session.user.id))
 
 	new = False
-	if session.user.verification_code == 0:
+	if not session.user.verification_code:
 		generateVerification()
 		new=True
 	return dict(new=new)
@@ -77,5 +84,8 @@ def get_resend_code():
 	if session.user.phone_verified:
 		redirect(get_index.url(session.user.id))
 
-
+	if not session.user.verification_code:
+		generateVerification()
+		new=True
 	sms(session.user.phone_number, 'Quest Companions verification code: %06i' % session.user.verification_code)
+	return dict(new=new)

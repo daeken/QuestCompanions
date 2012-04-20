@@ -48,13 +48,19 @@ def get_create():
 
 def dispatch_notifications(id):
 	job = Job.one(id=id)
+	notified = []
 	for char in Character.some(game=job.char.game, server=job.char.server):
 		if not char.eligible(job):
 			continue
+		if char.user in notified:
+			continue
+		notified.append(char.user)
 		char.user.sms(
 			'Greetings from QuestCompanions! Your character %s is eligible for a new job.  Bidding starts at %i gold.' % 
 			(char.name, job.max_pay)
 		)
+		if char.user.email:
+			email(char.user.email, 'new_job', char=char, job=job)
 
 @handler
 def post_job_create(char, desc, time_reqd, max_pay):
