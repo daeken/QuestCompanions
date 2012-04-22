@@ -16,7 +16,6 @@ class Feedback(object):
 	helpful = Boolean
 	date = DateTime
 	body = Unicode()
-	body_markdown = Unicode
 
 @Model
 class FAQ(object):

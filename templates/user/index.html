@@ -52,7 +52,7 @@
     <div class="feedback block">
 	    <h3>Feedback<h3>
 	{% for feed in user.feedbacks %}
-		{{ feed.body_markdown|safe}}
+		{{ feed.body }}
 	{% endfor %}
 	
 	<form action="{{ handler.user.post_feedback_create.url(user.id) }}" method="POST">$CSRF$

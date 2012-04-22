@@ -20,7 +20,6 @@ def post_feedback_create(id, helpful=None, body=None):
 				helpful= helpful==u'on',
 				date=datetime.now(),
 				body=body,
-				body_markdown = markdown2.markdown(body)
 				)
 	redirect(get_index.url(id))
 
