@@ -52,7 +52,20 @@
     <div class="feedback block">
 	    <h3>Feedback<h3>
 	{% for feed in user.feedbacks %}
-		{{ feed.body }}
+		<table>
+			<tr>
+				<td>
+					{% if feed.helpful %}
+					<span style="color: green">[+]</span>
+					{% else %}
+					<span style="color: red">[-]</span>
+					{% endif %}
+				</td>
+				<td>
+					{{ feed.body }}
+				</td>
+			</tr>
+		</table>
 	{% endfor %}
 	
 	<form action="{{ handler.user.post_feedback_create.url(user.id) }}" method="POST">$CSRF$
