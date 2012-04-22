@@ -9,6 +9,15 @@ from metamodel import *
 import hashlib
 import markdown2
 
+
+@Model
+class Feedback(object):
+	profile_id = ForeignKey(Integer, 'User.id')
+	helpful = Boolean
+	date = DateTime
+	body = Unicode()
+	body_markdown = Unicode
+
 @Model
 class FAQ(object):
 	creator_id = ForeignKey(Integer, 'User.id')
@@ -203,6 +212,8 @@ class User(object):
 	news = News.relation(backref='creator')
 	jobs = Job.relation(backref='user')
 	gold_history = GoldHistory.relation(backref='user')
+	feedbacks = Feedback.relation(backref='profile')
+
 
 	@staticmethod
 	def hash(password):

@@ -2,6 +2,8 @@ import random, re
 from sms import sms
 from handler import *
 from model import *
+from datetime import datetime
+import markdown2
 
 @handler('user/index')
 def get_index(id, error=None):
@@ -9,6 +11,18 @@ def get_index(id, error=None):
 	if not user: abort(404)
 
 	return dict(user=user, error=error)
+
+@handler
+def post_feedback_create(id, helpful=None, body=None):
+	with transact:
+		Feedback.create(
+				profile_id=id,
+				helpful= helpful==u'on',
+				date=datetime.now(),
+				body=body,
+				body_markdown = markdown2.markdown(body)
+				)
+	redirect(get_index.url(id))
 
 @handler
 def post_index(id, phone_number=None, email=None):
