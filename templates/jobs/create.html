@@ -43,7 +43,7 @@ width: 300px;
       </div>
       <div class="form-row">
         <label></label>
-        <span>(You have {{ gold }} gold in your account. <a href="{{ handler.gold.get_buy }}">Add more here</a>)</span>
+        <span>(You have {{ gold }} gold available{% if outstanding > 0 %} and {{ outstanding }} gold allocated to other jobs.  Cancel or complete your outstanding jobs to free up your gold{% endif %}. <a href="{{ handler.gold.get_buy }}">Add more here</a>)</span>
       </div>
       <div class="form-row">
         <label>Other details</label>

@@ -2,7 +2,7 @@ from handler import *
 from model import *
 import thread, time
 
-@handler('jobs/index', authed=True)
+@handler('jobs/index')
 def get_index():
 	alljobs = Job.some(completed=False)
 	jobs = []
@@ -18,7 +18,7 @@ def get_index():
 	
 	return dict(jobs=jobs)
 
-@handler('jobs/job', authed=True)
+@handler('jobs/job')
 def get_index(id):
 	job = Job.one(id=id)
 	bids = accepted = None
@@ -42,9 +42,17 @@ def get_index(id):
 		min_bid=bids[0].amount if bids and len(bids) else job.max_pay
 	)
 
-@handler('jobs/create', authed=True)
+@handler('jobs/create')
 def get_create():
-	return dict(chars=session.user.characters, gold=session.user.gold)
+	outstanding = 0
+	for job in session.user.jobs:
+		if not job.completed:
+			outstanding += job.max_pay
+	return dict(
+			chars=session.user.characters, 
+			gold=session.user.gold-outstanding, 
+			outstanding=outstanding
+		)
 
 def dispatch_notifications(id):
 	job = Job.one(id=id)
@@ -155,3 +163,12 @@ def rpc_complete(id):
 def rpc_check_complete(id):
 	job = Job.one(id=int(id))
 	return job.completed
+
+@handler
+def rpc_cancel(id):
+	job = Job.one(id=int(id))
+	if job.user != session.user or job.completed or job.accepted_date != None:
+		return
+
+	# XXX add canceling logic
+	return

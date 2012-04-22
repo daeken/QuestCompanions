@@ -10,7 +10,7 @@
 {% endblock %}
 {% block content %}
 <img class="avatar" href="{{ job.char.img }}"/>
-<h2 id="job-title" data-accepted="{{ 'yes' if accepted else 'no' }}">{{ job.desc }}</h2>
+<h2 id="job-title" data-id="{{ job.id }}" data-accepted="{{ 'yes' if accepted else 'no' }}">{{ job.desc }}</h2>
 Posted by: {{ job.char.link()|safe }}<br>
 Game: {{ job.gamename() }}<br>
 {% if job.details %}
@@ -20,6 +20,10 @@ Description: {{ job.details }}<br>
 	Job auction has completed.<br>
 	<a href="{{ handler.job.get_timer.url(job.id) }}">Open timer to continue</a>
 {% else %}
+	{% if job.user == session.user %}
+	<button id="cancel-job">Cancel job</button><br>
+	<br>
+	{% endif %}
 	Maximum pay: {{ job.max_pay }}<br>
 	{% if len(bids) == 0 %}
 		No bids.
