@@ -51,6 +51,7 @@
     </div>
     <div class="feedback block">
 	    <h3>Feedback<h3>
+	    <p>Average positive feedback score: {{ user.feedback_score }}%.</p>
 	{% for feed in user.feedbacks %}
 		<table>
 			<tr>

@@ -206,6 +206,9 @@ class User(object):
 	phone_verified = Boolean
 	verification_code = Integer
 	verification_tries = Integer
+	feedback_score = Integer
+	feedback_positive = Integer
+	feedback_negative = Integer
 
 	characters = Character.relation(backref='user')
 	news = News.relation(backref='creator')
@@ -245,6 +248,9 @@ class User(object):
 				phone_verified=False, 
 				email='', 
 				email_verified=False,
+				feedback_score = 0,
+				feedback_positive = 0,
+				feedback_negative = 0
 			)
 	
 	@staticmethod

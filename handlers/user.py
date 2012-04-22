@@ -15,12 +15,26 @@ def get_index(id, error=None):
 @handler
 def post_feedback_create(id, helpful=None, body=None):
 	with transact:
+		user = User.one(id=id)
 		Feedback.create(
 				profile_id=id,
 				helpful= helpful==u'on',
 				date=datetime.now(),
 				body=body,
 				)
+		if helpful==u'on':
+			user.update(
+					feedback_positive=user.feedback_positive+1,
+					feedback_score = int((float(user.feedback_positive+1) / (user.feedback_positive + user.feedback_negative + 1)) * 100)
+					)
+		else:
+			user.update(
+					feedback_negative=user.feedback_negative+1,
+					feedback_score = int((float(user.feedback_positive) / (user.feedback_positive+user.feedback_negative+1)) * 100)
+					)
+
+
+			
 	redirect(get_index.url(id))
 
 @handler
