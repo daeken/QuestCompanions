@@ -32,6 +32,10 @@ function handler(obj)
     var oldTip = $('.tip');
       $(oldTip).slideUp('fast', function() {$(oldTip).remove()});
   });
+  $(obj).blur(function() {
+      var oldTip = $('.tip');
+      $(oldTip).slideUp('fast', function() {$(oldTip).remove()});
+      } );
 }
 
 function addTip(obj)
