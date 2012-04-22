@@ -7,6 +7,8 @@ def get_index():
 	alljobs = Job.some(completed=False)
 	jobs = []
 	for job in alljobs:
+		if job.canceled:
+			continue
 		if (job.user == session.user or 
 			len([bid for bid in job.bids if bid.accepted and bid.char.user == session.user]) == 1):
 			jobs.append(job)
@@ -24,7 +26,7 @@ def get_index(id):
 	bids = accepted = None
 	if job.accepted_date != None:
 		accepted = [bid for bid in job.bids if bid.accepted][0]
-	else:
+	elif not job.canceled:
 		bids = []
 		users = []
 		all = job.bids
@@ -39,14 +41,15 @@ def get_index(id):
 		job=job, 
 		accepted=accepted, 
 		bids=bids, 
-		min_bid=bids[0].amount if bids and len(bids) else job.max_pay
+		min_bid=bids[0].amount if bids and len(bids) else job.max_pay, 
+		canceled=job.canceled
 	)
 
 @handler('jobs/create')
 def get_create():
 	outstanding = 0
 	for job in session.user.jobs:
-		if not job.completed:
+		if not job.completed and not job.canceled:
 			outstanding += job.max_pay
 	return dict(
 			chars=session.user.characters, 
@@ -90,11 +93,10 @@ def post_bid(id, amount, char):
 	char = Character.one(id=char)
 	amount = int(amount)
 	if (job == None or char == None or char.user != session.user or amount < 5 or 
-		session.user == job.user or amount > job.max_pay):
+		session.user == job.user or amount > job.max_pay or job.canceled or job.accepted_date != None):
 		redirect(get_index.url(id))
 
-	if job.accepted_date == None:
-		job.bid(char, amount)
+	job.bid(char, amount)
 
 	redirect(get_index.url(id))
 
@@ -102,7 +104,7 @@ def post_bid(id, amount, char):
 def rpc_accept_bid(id):
 	bid = Bid.one(id=int(id))
 
-	if bid.job.user != session.user or bid.job.accepted_date != None:
+	if bid.job.user != session.user or bid.job.accepted_date != None or bid.job.canceled:
 		abort(403)
 
 	bid.accept()
@@ -155,6 +157,9 @@ def rpc_set_active(id):
 @handler
 def rpc_complete(id):
 	job = Job.one(id=int(id))
+	if job.user != session.user and \
+		len([bid for bid in job.bids if bid.accepted and bid.char.user == session.user]) == 0:
+		abort(403)
 	if job.completed:
 		return
 	job.complete()
@@ -170,5 +175,5 @@ def rpc_cancel(id):
 	if job.user != session.user or job.completed or job.accepted_date != None:
 		return
 
-	# XXX add canceling logic
-	return
+	with transact:
+		job.update(canceled=True)

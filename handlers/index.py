@@ -9,6 +9,8 @@ def get_index():
 	alljobs = Job.some(completed=False)
 	jobs = []
 	for job in alljobs:
+		if job.canceled:
+			continue
 		if job.accepted_date == None or job.user == session.user or \
 			len([bid for bid in job.bids if bid.accepted and bid.char.user == session.user]) == 1:
 			jobs.append(job)

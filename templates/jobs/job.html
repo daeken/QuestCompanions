@@ -9,6 +9,9 @@
 <script src="/scripts/job.js"></script>
 {% endblock %}
 {% block content %}
+{% if canceled %}
+<h1>Canceled</h1>
+{% else %}
 <img class="avatar" href="{{ job.char.img }}"/>
 <h2 id="job-title" data-id="{{ job.id }}" data-accepted="{{ 'yes' if accepted else 'no' }}">{{ job.desc }}</h2>
 Posted by: {{ job.char.link()|safe }}<br>
@@ -57,5 +60,6 @@ Description: {{ job.details }}<br>
 			{% endfor %}
 		</table>
 	{% endif %}
+{% endif %}
 {% endif %}
 {% endblock %}

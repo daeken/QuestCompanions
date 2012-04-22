@@ -82,6 +82,7 @@ class Job(object):
 
 	bids = Bid.relation(backref='job')
 
+	canceled = Boolean
 	accepted_date = Nullable(DateTime())
 	timer_flags = Integer
 	timer_started = Nullable(DateTime())
@@ -104,6 +105,7 @@ class Job(object):
 				reqs=json.dumps(kwargs), 
 				timer_flags=0, 
 				completed=False, 
+				canceled=False, 
 				fee_paid=0
 			)
 
@@ -325,8 +327,8 @@ class Config(object):
 @setup
 def init():
 	admin = User.add(u'admin', 'admin', True)
-	print User.add(u'foo', 'password', False)
-	print User.add(u'bar', 'password', False)
+	User.add(u'foo', 'password', False)
+	User.add(u'bar', 'password', False)
 
 	with transact:
 		News.create(
