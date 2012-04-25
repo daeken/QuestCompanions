@@ -1,0 +1,16 @@
+{% extends "base.html" %}
+{% set title='Email verification for QuestCompanions'%}
+{% block html %}
+  Thanks for adding your email to your QuestCompanions account.  Click the link below to verify your account.<br>
+  <br>
+  <a href="http://questcompanions.com{{ handler.user.get_verify_email.url(code=code) }}">Verify your email</a> or go to http://questcompanions.com{{ handler.user.get_verify_email.url(code=code) }}<br>
+  <br>
+  If you received this email in error, simply ignore it; you won't receive any further contact from us.
+{% endblock %}
+{% block text %}
+Thanks for adding your email to your QuestCompanions account.  Click the link below to verify your account.
+
+Verify your email at http://questcompanions.com{{ handler.user.get_verify_email.url(code=code) }}
+
+If you received this email in error, simply ignore it; you won't receive any further contact from us.
+{% endblock %}

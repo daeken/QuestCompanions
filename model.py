@@ -206,8 +206,9 @@ class User(object):
 	email_verified = Boolean
 	phone_number = String
 	phone_verified = Boolean
-	verification_code = Integer
-	verification_tries = Integer
+	phone_verification_code = Integer
+	phone_verification_tries = Integer
+	email_verification = String
 	feedback_score = Integer
 	feedback_positive = Integer
 	feedback_negative = Integer
