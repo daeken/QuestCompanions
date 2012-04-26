@@ -1,4 +1,4 @@
-import math, json, os
+import math, json, os, random
 from datetime import datetime
 import sqlalchemy as sa
 from sqlalchemy.orm import relationship
@@ -8,7 +8,6 @@ from sms import sms
 from metamodel import *
 import hashlib
 import markdown2
-
 
 @Model
 class Feedback(object):
@@ -265,13 +264,21 @@ class User(object):
 			return user
 		return None
 	
-	def change(self, username, password, admin):
-		if password == None:
-			password = self.password
-		else:
-			password = User.hash(password)
+	def change(self, email=None):
+		if email != None and email != self.email:
+			with transact:
+				self.update(
+						email=email, 
+						email_verified=False
+					)
+			self.generateEmailVerification()
+
+	def generateEmailVerification(self):
+		from handler import email
+		code = ''.join('%02X' % random.randrange(256) for i in range(20))
 		with transact:
-			self.update(username=username, admin=admin, password=password)
+			self.update(email_verification=code)
+		email(self.email, 'verify', code=code)
 
 	def addGold(self, amount, price):
 		with transact:

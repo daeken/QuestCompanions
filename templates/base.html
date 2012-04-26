@@ -10,10 +10,10 @@
 {% block includes %}{% endblock %}
 </head>
 <body>
-{% if error %}
-<div class="alertPop {{ error.type }}"> 
+{% if error or alert %}
+<div class="alertPop {% if error %}error{% else %}alert{% endif %}"> 
 <script src="/scripts/errors.js"></script> 
-{{ error.message }} <div class="errKill">X</div>
+{% if error %}{{ error }}{% else %}{{ alert }}{% endif %} <div class="errKill">X</div>
 </div> 
 {% endif %}
 <div class="header">
@@ -28,6 +28,7 @@
 	  		<a class="tab" href="{{ handler.admin.get_index }}">Admin</a>
 	  	{% endif %}
       <a class="tab" href="{{ handler.gold.get_index }}">Gold</a>
+      <a class="tab" href="{{ handler.invite.get_index }}">Invite Your Friends</a>
       <a class="tab" href="{{ handler.index.get_faq }}">FAQ</a>
       <a class="tab" href="{{ handler.index.get_support }}">Support</a>
   		<a class="tab" href="{{ handler.auth.get_logout }}">Log out</a>

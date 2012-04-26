@@ -1,0 +1,26 @@
+{% extends "base.html" %}
+{% block title %}Accept Invitation{% endblock %}
+{% block includes %}
+<link rel="stylesheet" type="text/css" href="/static/css/users.css"/>
+<link rel="stylesheet" type="text/css" href="/static/css/forms.css"/>
+<link rel="stylesheet" type="text/css" href="/static/css/buttons.css"/>
+{% endblock %}
+{% block content %}
+<h3>Welcome!</h3>
+We're glad you've decided to accept an invitation to our private beta and join the QuestCompanions.<br>
+<br>
+There are a few things you should know about before you sign up:<br>
+<ul>
+	<li>While you can be located anywhere to hire a Companion, we are currently only able to pay Companions located in the United States.</li>
+	<li>QuestCompanions is still in the very early stages.  Your feedback is very important to us, so if you notice any bugs or have any feature requests, please let us know.</li>
+	<li>Likewise, we're going to be changing things very rapidly.  Keep an eye on the news area for more information.</li>
+</ul>
+<br>
+<form action="{{ handler.invite.post_accept }}" method="POST">$CSRF$
+	<input type="hidden" name="code" value="{{ code }}">
+	Username: <input type="text" name="username" value="{{ username }}"><br>
+	Password: <input type="password" name="password"><br>
+	Email: <input type="text" name="email" value="{{ email }}"><br>
+	<button type="submit">Enlist</button>
+</form>
+{% endblock %}

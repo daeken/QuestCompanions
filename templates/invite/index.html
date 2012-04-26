@@ -1,0 +1,14 @@
+{% extends "base.html" %}
+{% block title %}Invite{% endblock %}
+{% block includes %}
+<link rel="stylesheet" type="text/css" href="/static/css/users.css"/>
+<link rel="stylesheet" type="text/css" href="/static/css/forms.css"/>
+<link rel="stylesheet" type="text/css" href="/static/css/buttons.css"/>
+{% endblock %}
+{% block content %}
+<h3>Invite a friend</h3>
+<form action="{{ handler.invite.post_index }}" method="POST">$CSRF$
+  Email: <input type="text" name="email"><br>
+  <button type="submit">Invite</button>
+</form>
+{% endblock %}

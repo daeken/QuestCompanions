@@ -61,12 +61,7 @@ def post_index(id, phone_number=None, email=None):
 					phone_number=phone_number, 
 					phone_verified=False
 				)
-		if email != user.email:
-			user.update(
-					email=email, 
-					email_verified=False
-				)
-			generateEmailVerification()
+		user.change(email=email)
 
 	redirect(get_index.url(id))
 
@@ -77,12 +72,6 @@ def generatePhoneVerification():
 				phone_verification_tries=0
 			)
 	sms(session.user.phone_number, 'Quest Companions verification code: %06i' % session.user.phone_verification_code)
-
-def generateEmailVerification():
-	code = ''.join('%02X' % random.randrange(256) for i in range(20))
-	with transact:
-		session.user.update(email_verification=code)
-	email(session.user.email, 'verify', code=code)
 
 @handler('user/verify')
 def get_verify():

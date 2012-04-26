@@ -170,3 +170,4 @@ def email(recv, tpl, **args):
 		return True
 	except:
 		return False
+handler.email = email
