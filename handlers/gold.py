@@ -2,8 +2,11 @@ import stripe
 from handler import *
 from model import *
 
-stripe.api_key = 'akA7Aw3aFIcAb8UstFLBWcMFO6QIFcKY' # test key
-#stripe.api_key = 'kQY4rWVg47wS417Y5yc3UhdNrLiysZiK' # prod key
+testing = True
+if testing:
+	stripe.api_key = 'akA7Aw3aFIcAb8UstFLBWcMFO6QIFcKY' # test key
+else:
+	stripe.api_key = 'kQY4rWVg47wS417Y5yc3UhdNrLiysZiK' # prod key
 
 @handler('gold/index')
 def get_index():
@@ -11,7 +14,7 @@ def get_index():
 
 @handler('gold/buy')
 def get_buy():
-	pass
+	return dict(testing=testing)
 
 gold_map = {
 	50: 5, 
