@@ -24,7 +24,7 @@ gold_map = {
 def rpc_buy(token, gold):
 	gold = int(gold)
 	if gold not in gold_map:
-		return 'Invalid gold amount'
+		abort(403)
 	try:
 		charge = stripe.Charge.create(
 				amount=gold_map[gold]*100, 
@@ -33,7 +33,7 @@ def rpc_buy(token, gold):
 				description=u'%s bought %i gold on QuestCompanions' % (session.user.username, gold)
 			)
 	except e:
-		return e.message, -1
+		return e.message, session.user.gold
 	
 	session.user.addGold(gold, gold_map[gold] * 100)
 

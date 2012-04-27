@@ -13,6 +13,9 @@ $(document).ready ->
     $('#amounts').hide 'fast'
     $('#payment').show 'fast'
 
+  $('#pay-back').click ->
+    $('#payment').hide 'fast'    
+    $('#amounts').show 'fast'
   $('#pay-next').click ->
     card_number = $('.card-number').val()
     cvc = $('.card-cvc').val()
@@ -33,6 +36,9 @@ $(document).ready ->
     $('#payment').hide 'fast'
     $('#confirmation').show 'fast'
 
+  $('#complete-back').click ->
+    $('#confirmation').hide 'fast'    
+    $('#payment').show 'fast'
   $('#complete').click ->
     Stripe.createToken {
       number: card_number, 
@@ -41,11 +47,12 @@ $(document).ready ->
       exp_year: expyear
     }, (status, response) ->
       if response.error?
-        return alert response.error
+        errorClear()
+        return alert response.error.message
       $rpc.gold.buy response.id, gold, (ret) ->
         [error, gold] = ret
+        errorClear()
         if not error?
-          errorClear()
           $('#gold-total').text gold
           $('#confirmation').hide 'fast'
           $('#completion').show 'fast'
