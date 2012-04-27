@@ -25,13 +25,13 @@ $(document).ready ->
     return alert 'Invalid CVC number' if not Stripe.validateCVC cvc
     return alert 'Invalid expiration' if not Stripe.validateExpiry expmonth, expyear
 
-    $('#gold-amount').text gold
-    $('#gold-price').text price
+    $('#gold-amount-confirm').text gold
+    $('#gold-price-confirm').text price
 
-    $('#card-number').text card_number
-    $('#cvs').text cvc
-    $('#exp-month').text expmonth
-    $('#exp-year').text expyear
+    $('#card-number-confirm').text card_number
+    $('#cvc-confirm').text cvc
+    $('#exp-month-confirm').text expmonth
+    $('#exp-year-confirm').text expyear
 
     $('#payment').hide 'fast'
     $('#confirmation').show 'fast'
