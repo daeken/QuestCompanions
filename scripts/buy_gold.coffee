@@ -1,7 +1,8 @@
 price = gold = 0
 card_number = cvc = expmonth = expyear = null
 
-Stripe.setPublishableKey 'pk_c8kMInhHhfcmjGrhNkm64xI0wpLwG' # test key
+#Stripe.setPublishableKey 'pk_c8kMInhHhfcmjGrhNkm64xI0wpLwG' # test key
+Stripe.setPublishableKey 'pk_0IeXiL6E6MIyU64Ws1FCCFo4YLJg3' # prod key
 
 $(document).ready ->
   $('.amount-choice').click (e) ->
