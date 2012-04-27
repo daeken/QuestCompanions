@@ -32,7 +32,7 @@ def rpc_buy(token, gold):
 				card=token, 
 				description=u'%s bought %i gold on QuestCompanions' % (session.user.username, gold)
 			)
-	except e:
+	except Exception, e:
 		return e.message, session.user.gold
 	
 	session.user.addGold(gold, gold_map[gold] * 100)
