@@ -149,4 +149,5 @@ def coffee_error():
 	fn, error = request.args['fn'], request.args['error']
 	return '<h1>Compilation error in %s</h1>%s' % (fn.replace('<', '&lt;'), error.replace('<', '&lt;'))
 
-app.run(host='')
+if __name__=='__main__':
+	app.run(host='')
