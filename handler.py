@@ -171,3 +171,10 @@ def email(recv, tpl, **args):
 	except:
 		return False
 handler.email = email
+
+int_ = int
+def int(v):
+	try:
+		return int_(v)
+	except:
+		return 0
