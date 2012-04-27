@@ -335,25 +335,3 @@ class Config(object):
 @setup
 def init():
 	admin = User.add(u'admin', 'admin', True)
-	User.add(u'foo', 'password', False)
-	User.add(u'bar', 'password', False)
-
-	with transact:
-		News.create(
-				creator=admin, 
-				headline=u'This is a news story', 
-				story=u'With a body',
-				story_markdown=markdown2.markdown(u'With a body')
-			)
-		News.create(
-				creator=admin, 
-				headline=u'This is another news story', 
-				story=u'With another body',
-				story_markdown=markdown2.markdown(u'with a body')
-			)
-		FAQ.create(
-				creator=admin, 
-				question=u'Do you have anything without spam in it?', 
-				answer=u'Why would you want that?!',
-				answer_markdown=markdown2.markdown(u'Why would you want that?!')
-			)
