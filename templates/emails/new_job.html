@@ -6,7 +6,7 @@
   Bidding starts at {{ job.max_pay }}<br>
   Description: {{ job.desc }}<br>
   <br>
-  <a href="http://questcompanions.com{{ handler.job.get_index.url(job.id) }}">Check the job out here!</a>
+  <a href="https://questcompanions.com{{ handler.job.get_index.url(job.id) }}">Check the job out here!</a>
 {% endblock %}
 {% block text %}
 Your character {{ char.name }}{% if char.server != None %} on server {{ char.server }}{% endif %} is eligible for a new job.
@@ -14,5 +14,5 @@ Your character {{ char.name }}{% if char.server != None %} on server {{ char.ser
 Bidding starts at {{ job.max_pay }}
 Description: {{ job.desc }}
 
-Check the job out at http://questcompanions.com{{ handler.job.get_index.url(job.id) }}
+Check the job out at https://questcompanions.com{{ handler.job.get_index.url(job.id) }}
 {% endblock %}
