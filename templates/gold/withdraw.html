@@ -1,0 +1,37 @@
+{% extends "base.html" %}
+{% block title %}Withdraw Gold{% endblock %}
+{% block includes %}
+<link rel="stylesheet" type="text/css" href="/static/css/forms.css">
+<link rel="stylesheet" type="text/css" href="/static/css/buttons.css">
+<link rel="stylesheet" type="text/css" href="/static/css/buy_gold.css">
+<link rel="stylesheet" type="text/css" href="/static/css/cover.css">
+<script src="/scripts/withdraw.js"></script>
+{% endblock %}
+{% block content %}
+<h1>With Gold</h1>
+You have {{ gold }} gold available for withdrawal{% if gold != session.user.gold %} ({{ session.user.gold}} gold total &ndash; cancel or complete jobs to free up the outstanding balance){% endif %}.<br>
+<br>
+<form action="{{ handler.gold.post_withdraw }}" method="POST">$CSRF$
+	<div id="first">
+		<h3>Amount</h3>
+		Amount of gold to withdraw: <input type="text" id="amount" name="amount" value="{{ gold }}"><br>
+		<br>
+		<button id="next-1" class="submit-button">Next</button>
+	</div>
+	<div id="second" style="display: none">
+		<h3>Payment details</h3>
+		Name to put on check: <input type="text" id="name" name="name"><br>
+		Full address (include country if not US): <textarea id="address" name="address" cols=40 rows=5></textarea><br>
+		<br>
+		<button id="next-2" class="submit-button">Next</button>
+	</div>
+	<div id="third" style="display: none">
+		<h3>Confirmation</h3>
+		Gold: <span id="amount-confirm"></span><br>
+		Name on check: <span id="name-confirm"></span><br>
+		Address: <pre style="display: inline" id="address-confirm"></pre><br>
+		<br>
+		<button id="confirm" class="submit-button">Confirm</button>
+	</div>
+</form>
+{% endblock %}

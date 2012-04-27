@@ -78,7 +78,11 @@ def post_job_create(char, desc, time_reqd, max_pay):
 	char = Character.one(id=char)
 	time_reqd = int(time_reqd)
 	max_pay = int(max_pay)
-	if char == None or char.user != session.user or len(desc) > 140 or time_reqd < 1 or max_pay < 10 or max_pay > session.user.gold:
+	outstanding = 0
+	for job in session.user.jobs:
+		if not job.completed and not job.canceled:
+			outstanding += job.max_pay
+	if char == None or char.user != session.user or len(desc) > 140 or time_reqd < 1 or max_pay < 10 or max_pay > session.user.gold - outstanding:
 		abort(403)
 
 	job = Job.add(char, max_pay, time_reqd, desc)

@@ -290,7 +290,7 @@ class User(object):
 					balance=self.gold, 
 					dollars=price, 
 					job=None, 
-					desc=u'Bought %i gold for $%i' % (amount, price)
+					desc=u'Bought %i gold for $%.2f' % (amount, price / 100.0)
 				)
 
 	def sms(self, message):

@@ -1,0 +1,13 @@
+{% extends "base.html" %}
+{% set title='Withdrawal Notification'%}
+{% block html %}
+	User {{ user.username }} is requesting a withdrawal of {{ gold }} gold for ${{ usd }}.<br>
+	<br>
+	Address: <pre>{{ address }}</pre>
+{% endblock %}
+{% block text %}
+User {{ user.username }} is requesting a withdrawal of {{ gold }} gold for ${{ usd }}.
+
+Address:
+{{ address }}
+{% endblock %}
