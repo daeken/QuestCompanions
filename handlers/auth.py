@@ -9,11 +9,11 @@ import json
 def get_index():
 	pass
 
-@handler(authed=False)
+@handler('login', authed=False)
 def post_login(username=None, password=None):
 	user = User.find(username, password)
 	if user == None:
-		return 'Login failed'
+		return dict(username=username, error='Login failed')
 	
 	session['userId'] = user.id
 	
