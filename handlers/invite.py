@@ -27,7 +27,7 @@ def post_index(email):
 
 def codeCheck(code):
 	code, mac = code[:-8], code[-8:]
-	return hmac.new(Config.getString('secret_key'), code).hexdigest() == mac
+	return hmac.new(Config.getString('secret_key'), code).hexdigest()[:8] == mac
 
 @handler('invite/accept', authed=False)
 def get_accept(code=None):
