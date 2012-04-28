@@ -126,10 +126,10 @@ font-size:20px;
 }
 
 .panel ::-webkit-input-placeholder {
-color:    #ddd;
+color:    #bbb;
 }
 .panel :-moz-placeholder {
-color:    #ddd;
+color:    #bbb;
 }
 
 .panel .col {
