@@ -6,7 +6,7 @@ from model import *
 
 def genInvite():
 	code = '%i.%i' % (session.user.id, mktime(datetime.now().timetuple()))
-	return code + hmac.new(Config.getString('secret_key'), code).hexdigest()
+	return code + hmac.new(Config.getString('secret_key'), code).hexdigest()[:8]
 
 @handler('invite/index')
 def get_index():
@@ -26,7 +26,7 @@ def post_index(email):
 	return dict(alert='Invite sent successfully!')
 
 def codeCheck(code):
-	code, mac = code[:-32], code[-32:]
+	code, mac = code[:-8], code[-8:]
 	return hmac.new(Config.getString('secret_key'), code).hexdigest() == mac
 
 @handler('invite/accept', authed=False)
