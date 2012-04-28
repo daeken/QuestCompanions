@@ -1,0 +1,17 @@
+CoffeeScript==1.0.2
+Flask==0.8
+Jinja2==2.6
+Mako==0.7.0
+MarkupSafe==0.15
+PyExecJS==1.0.3
+PyJWT==0.1.2
+SQLAlchemy==0.7.6
+Werkzeug==0.8.3
+alembic==0.3.1
+certifi==0.0.6
+httplib2==0.7.4
+markdown2==1.4.3
+requests==0.9.0
+stripe==1.6.1
+twilio==3.3.6
+wsgiref==0.1.2
