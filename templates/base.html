@@ -31,7 +31,7 @@
     Array.prototype.slice.call(arguments,0)))}})(g[e]);c._i.push([a,d,f])};window.mixpanel=c}
     )(document,[]);
     mixpanel.init("d86dc866a8c63bf7593bd3bda343237a");
-    {% if session.user %}mixpanel.name_tag('{{ session.user.username.replace('\\', '\\\\').replace('\'', '\\\'').replace('\n', '\\n') }}')//'{% endif %}
+    {% if session.user %}mixpanel.name_tag('{{ session.user.username.replace("\\", "\\\\").replace("'", "\\'").replace('\n', '\\n') }}'){% endif %}
 </script>
 </head>
 <body>
