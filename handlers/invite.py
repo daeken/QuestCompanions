@@ -4,9 +4,13 @@ from time import mktime
 from handler import *
 from model import *
 
+def genInvite():
+	code = '%i.%i' % (session.user.id, mktime(datetime.now().timetuple()))
+	return code + hmac.new(Config.getString('secret_key'), code).hexdigest()
+
 @handler('invite/index')
 def get_index():
-	pass
+	return dict(invite_url='https://questcompanions.com' + get_accept.url(code=genInvite()))
 
 @handler('invite/index')
 def post_index(email):
@@ -15,8 +19,7 @@ def post_index(email):
 	elif len(User.some(email=email)):
 		return dict(alert='Your friend is already a QuestCompanions member')
 
-	code = '%i.%i' % (session.user.id, mktime(datetime.now().timetuple()))
-	code += hmac.new(Config.getString('secret_key'), code).hexdigest()
+	code = genInvite()
 
 	handler.email(email, 'invite', code=code, username=None if session.user.admin else session.user.username)
 
