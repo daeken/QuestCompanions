@@ -24,7 +24,7 @@ Description: {{ job.details }}<br>
 	<a href="{{ handler.job.get_timer.url(job.id) }}">Open timer to continue</a>
 {% else %}
 	{% if job.user == session.user %}
-	<button id="cancel-job">Cancel job</button><br>
+	<button id="cancel-job" class="bWide">Cancel job</button><br>
 	<br>
 	{% endif %}
 	Maximum pay: {{ job.max_pay }}<br>
