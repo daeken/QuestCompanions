@@ -5,15 +5,14 @@
 <link rel="stylesheet" type="text/css" href="/static/css/jobs.css" />
 <link rel="stylesheet" type="text/css" href="/static/css/tooltip.css" />
 <script src="/scripts/tooltip.js"></script>
-<style>
-ul a .job { width: 600px!important;}
-.hasBids { float: right;}
-</style>
 {% endblock %}
+{% block bodyclass %}index{% endblock %}
 {% block content %}
 <div class="col wide">
   <h3 class="back"> Welcome back, {{ session.user.username }}</h3>
-  <a href="{{ handler.job.get_create }}">Post a job</a> or <a href="{{ handler.job.get_index }}">list all jobs</a>
+  <p>
+  <a href="{{ handler.job.get_create }}" class="button">Post a job</a> or <a href="{{ handler.job.get_index }}" class="button">list all jobs</a>
+  </p>
   <h3>Your jobs</h3>
   <ul>
 {% for job in jobs if job.user_id == session.user.id and job.completed == false%}

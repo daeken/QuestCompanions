@@ -34,7 +34,7 @@
     {% if session.user %}mixpanel.name_tag('{{ session.user.username.replace("\\", "\\\\").replace("'", "\\'").replace('\n', '\\n') }}'){% endif %}
 </script>
 </head>
-<body>
+<body class="{% block bodyclass %}base{% endblock %}">
 {% if error or alert %}
 <div class="alertPop {% if error %}error{% else %}alert{% endif %}"> 
 <script src="/scripts/errors.js"></script> 
