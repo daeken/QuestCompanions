@@ -13,19 +13,19 @@
   <h3>{{ char.name }}</h3>
   <ul>
     <li>Server: {{ char.server }}
-    {% if char.level is defined %}
+    {% if char.level %}
     <li>Level: {{ char.level }}
     {% endif %}
-    {% if char.level is defined %}
+    {% if char.faction  %}
     <li>Faction: {{ char.faction }}
     {% endif %}
-    {% if char.charclass is defined %}
+    {% if char.charclass %}
     <li>Class: {{ char.charclass }}
     {% endif %}
-    {% if char.race is defined %}
+    {% if char.race %}
     <li>Race: {{ char.race }}
     {% endif %}
-    {% if char.level is defined %}
+    {% if char.item_level %}
     <li>Equipment level: {{ char.item_level }}
     {% endif %}
   </ul>
