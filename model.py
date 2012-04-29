@@ -201,7 +201,7 @@ class User(object):
 	enabled = Boolean
 	admin = Boolean
 	username = Unicode(255)
-	password = String(40)
+	password = String(64)
 	gold = Integer
 	email = String
 	email_verified = Boolean
