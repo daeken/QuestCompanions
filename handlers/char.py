@@ -35,13 +35,14 @@ def rpc_add_wow(server, charname):
 				name=wowchar.name.decode('utf-8'), 
 				server=server, 
 				avatar=thumbnail, 
-				attrs='',
 				last_update=date.today(),
-				faction=wowchar.faction,
-				level=wowchar.level,
-				charclass=wowchar.get_class_name(),
-				race=wowchar.get_race_name(),
-				item_level=wowchar.equipment.average_item_level
+				attrs=json.dumps(dict(
+					faction=wowchar.faction,
+					level=wowchar.level,
+					charclass=wowchar.get_class_name(),
+					race=wowchar.get_race_name(),
+					item_level=wowchar.equipment.average_item_level
+				))
 			)
 
 	return get_index.url(char.id)

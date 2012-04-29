@@ -161,11 +161,6 @@ class Character(object):
 	avatar = String()
 	attrs = String()
 	last_update = Date()
-	faction = Unicode()
-	level = Integer
-	charclass = Unicode()
-	race = Unicode()
-	item_level = Integer
 
 	jobs = Job.relation(backref='char')
 	bids = Bid.relation(backref='char')
@@ -184,18 +179,15 @@ class Character(object):
 			(cls, self.json(), self.avatar.replace('"', '&quot;'), self.name.replace('"', '&quot;'))
 
 	def json(self):
-		val = json.dumps(dict(
+		val = dict(
 				game=gamename(self.game), 
 				name=self.name, 
 				server=self.server, 
 				avatar=self.avatar,
-				faction=self.faction,
-				level=self.level,
-				charclass=self.charclass,
-				race=self.race,
-				item_level=self.item_level
-			))
-		val = '"%s"' % val.replace('"', '&quot;')
+			)
+		if self.attrs not in (None, ''):
+			val.update(json.loads(self.attrs)))
+		val = '"%s"' % json.dumps(val).replace('"', '&quot;')
 		return val
 
 	def eligible(self, job):
