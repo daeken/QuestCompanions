@@ -17,10 +17,16 @@
     <li>Level: {{ char.level }}
     {% endif %}
     {% if char.level is defined %}
-    <li>Faction: { char.faction }}
+    <li>Faction: {{ char.faction }}
+    {% endif %}
+    {% if char.charclass is defined %}
+    <li>Class: {{ char.charclass }}
+    {% endif %}
+    {% if char.race is defined %}
+    <li>Race: {{ char.race }}
     {% endif %}
     {% if char.level is defined %}
-    <li>Equipment level: {{ char.equipment }}
+    <li>Equipment level: {{ char.item_level }}
     {% endif %}
   </ul>
 </div>

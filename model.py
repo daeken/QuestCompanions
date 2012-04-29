@@ -165,6 +165,7 @@ class Character(object):
 	level = Integer
 	charclass = Unicode()
 	race = Unicode()
+	item_level = Integer
 
 	jobs = Job.relation(backref='char')
 	bids = Bid.relation(backref='char')
@@ -191,7 +192,8 @@ class Character(object):
 				faction=self.faction,
 				level=self.level,
 				charclass=self.charclass,
-				race=self.race
+				race=self.race,
+				item_level=self.item_level
 			))
 		val = '"%s"' % val.replace('"', '&quot;')
 		return val

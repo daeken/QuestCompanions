@@ -36,8 +36,9 @@ def post_login(username=None, password=None):
 							last_update = CurrentDate,
 							faction = wowchar.faction,
 							level = wowchar.level,
-							charclass = wowchar.class_,
-							race = wowchar.race
+							charclass = wowchar.get_class_name(),
+							race = wowchar.get_race_name(),
+							item_level = wowchar.equipment.average_item_level
 					)
 					#Add any other attributes that need to be updated.
 				
