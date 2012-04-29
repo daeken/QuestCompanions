@@ -32,7 +32,7 @@
               <span style="color: red">Unverified</span> &ndash; Check your email (make sure it's not in spam) or <a href="{{ handler.user.get_resend_email_verify }}">click here to resend.</a>
             {% endif %}
           {% endif %}<br>
-          <button type="submit" class="center">Save</button>
+          <button type="submit" class="">Save</button>
         </form>
       {% endif %}
     </div>
@@ -50,7 +50,7 @@
       {% endfor %}
     </div>
     <div class="feedback block">
-	    <h3>Feedback<h3>
+	    <h3>Feedback</h3>
 	    <p>Average positive feedback score: {{ user.feedback_score }}%.</p>
 	{% for feed in user.feedbacks %}
 		<table>

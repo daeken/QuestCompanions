@@ -75,11 +75,17 @@ padding-bottom: 30px;
 }
 
 .narrow {
-width: 250px;
+width: 274px;
+padding-left:20px;
+border-left: 1px solid #fff;
+}
+
+.narrow.right {
+border-left: 1px solid #ddd;
 }
 
 .wide {
-width: 650px;
+width: 545px;
 }
 
 .content {
@@ -135,7 +141,7 @@ top: 40px;
 z-index: 999;
 text-align: center;
 left: 50%;
-    margin-left: -400px;
+margin-left: -400px;
 padding-top:5px;
 padding-bottom: 10px;
 border-bottom-left-radius: 5px;
@@ -166,7 +172,7 @@ background: -o-linear-gradient(#b82c2c, #8a0808);
 background: -ms-linear-gradient(#b82c2c, #8a0808);
 background: linear-gradient(#b82c2c, #8a0808);
 color: #fff;
-     border-radius: 10px;
+border-radius: 10px;
 position: absolute;
 right: 10px; 
 top: 8px;

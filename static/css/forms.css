@@ -69,12 +69,11 @@ max-width: calc(100% - 20px);
 }
 
 .label, label {
-font-size: 26px;
 width: 200px;
-margin: 5px 10px 5px auto;
+margin-top: 5px;
 display: inline-block;
-text-align: right;
-float:left;
+text-align: left;
+display: block;
 }
 
 label[class~="small"]
