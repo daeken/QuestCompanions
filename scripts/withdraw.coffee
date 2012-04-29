@@ -1,5 +1,8 @@
 $(document).ready ->
   $('#next-1').click ->
+    if ~~$('#amount').val() < 10
+        alert('Minimum amount for withdrawal is 10 gold')
+        return false
     $('#first').hide 'fast'
     $('#second').show 'fast'
     false

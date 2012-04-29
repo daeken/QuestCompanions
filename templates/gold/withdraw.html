@@ -14,7 +14,7 @@ You have {{ gold }} gold available for withdrawal{% if gold != session.user.gold
 <form action="{{ handler.gold.post_withdraw }}" method="POST">$CSRF$
 	<div id="first">
 		<h3>Amount</h3>
-		Amount of gold to withdraw: <input type="text" id="amount" name="amount" value="{{ gold }}"><br>
+		Amount of gold to withdraw: <input type="text" id="amount" name="amount" value="{{ gold }}"> (Minimum is 10 gold)<br>
 		<br>
 		<button id="next-1" class="submit-button">Next</button>
 	</div>

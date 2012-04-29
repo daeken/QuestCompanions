@@ -63,7 +63,7 @@ def post_withdraw(amount, name, address):
 	for job in session.user.jobs:
 		if not job.completed and not job.canceled:
 			outstanding += job.max_pay
-	if amount < 0 or amount > session.user.gold - outstanding:
+	if amount < 10 or amount > session.user.gold - outstanding:
 		redirect(get_withdraw)
 
 	price = amount * 10 # Put it into cents
