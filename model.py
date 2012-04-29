@@ -205,11 +205,13 @@ class User(object):
 	gold = Integer
 	email = String
 	email_verified = Boolean
+	email_verification = String
+	email_notifications = Boolean
 	phone_number = String
 	phone_verified = Boolean
 	phone_verification_code = Integer
 	phone_verification_tries = Integer
-	email_verification = String
+	phone_notifications = Boolean
 	feedback_score = Integer
 	feedback_positive = Integer
 	feedback_negative = Integer
@@ -250,8 +252,10 @@ class User(object):
 				gold=0, 
 				phone_number='', 
 				phone_verified=False, 
+				phone_notifications=True, 
 				email='', 
 				email_verified=False,
+				email_notifications=True, 
 				feedback_score = 0,
 				feedback_positive = 0,
 				feedback_negative = 0
