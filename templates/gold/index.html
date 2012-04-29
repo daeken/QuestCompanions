@@ -1,12 +1,13 @@
 {% extends "base.html" %}
 {% block title %}Gold{% endblock %}
 {% block includes %}
+<link rel="stylesheet" type="text/css" href="/static/css/buttons.css" />
 {% endblock %}
 {% block content %}
 <h1>Gold</h1>
 You have {{ session.user.gold }} gold in your account.<br>
 <br>
-<a href="{{ handler.gold.get_buy }}">Buy more</a><br>
-<a href="{{ handler.gold.get_withdraw }}">Withdraw gold</a><br>
-<a href="{{ handler.gold.get_history }}">See your account history</a>
+<a href="{{ handler.gold.get_buy }}" class="silver button">Buy more</a><br>
+<a href="{{ handler.gold.get_withdraw }}" class="silver button">Withdraw gold</a><br>
+<a href="{{ handler.gold.get_history }}" class="silver button">See your account history</a>
 {% endblock %}
