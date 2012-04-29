@@ -10,15 +10,16 @@ height: 20px;
 }
 
 .charTip {
-height: 90px;
-width: 200px;
+height: auto;
+width: auto;
 position: absolute;
 }
 
 
 .charTip ul {
-left: 20px;
-position: relative;
+left: 5px;
+width: 180px;
+float:left;
 }
 
 .charTip img {
