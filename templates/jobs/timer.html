@@ -7,16 +7,38 @@
 {% block content %}
 <h2 id="job" data-id="{{ job.id }}">Timer</h2>
 <div id="first" class="timer-panel">
+	Press the start button once you and your Companion are together in your game.  Once you both click start, the job will begin.<br>
+	<br>
 	<button id="start">Start</button>
 </div>
 <div id="second" class="timer-panel">
-	Waiting for peer.
+	Waiting for your Companion to press start.
 </div>
 <div id="main" class="timer-panel">
-	Running <span id="foo"></span><br>
+	The timer below tracks the time left on the job.  Once your or your Companion click this button, the job is completed.<br>
+	<br>
+	<span id="foo"></span><br>
 	<button id="complete">Complete Job</button>
 </div>
 <div id="feedback" class="timer-panel">
-	Job has completed!  You should leave some feedback and shit.
+	Congratulations, your job has succeeded.<br>
+	{% if not is_poster %}
+		You have received {% payment %} gold for the job.<br>
+	{% endif %}
+	<br>
+	Please leave feedback for your Companion below:<br>
+	<form action="{{ handler.job.post_feedback.url(job.id) }}" method="POST">$CSRF$
+		<table>
+			<tr>
+				<td><label>Was this user helpful?</label></td>
+				<td><input type="checkbox" name="helpful"></td>
+			</tr>
+			<tr>
+				<td><label>Feedback</label></td>
+				<td><textarea name="body" cols="50" rows="5"></textarea></td>
+			</tr>
+		</table>
+		<button type="submit" class="center">Submit</button>
+	</form>
 </div>
 {% endblock %}
