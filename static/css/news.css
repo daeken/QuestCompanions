@@ -9,6 +9,10 @@ padding-bottom: 10px;
 border-bottom: 1px dashed #bbb;
 }
 
+.item:nth-last-of-type(1) .story { 
+  border-bottom-width: 0;
+ }
+
 img { 
 float: left;
 }
