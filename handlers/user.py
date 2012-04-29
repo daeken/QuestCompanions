@@ -38,7 +38,7 @@ def post_feedback_create(id, helpful=None, body=None):
 	redirect(get_index.url(id))
 
 @handler
-def post_index(id, phone_number=None, email=None):
+def post_index(id, phone_number=None, email=None, phone_notify=None, email_notify=None):
 	def normalize(phone_number):
 		if phone_number == None:
 			return user.phone_number
@@ -56,6 +56,10 @@ def post_index(id, phone_number=None, email=None):
 	elif email != '' and (u'@' not in email or '\n' in email or '\r' in email or ',' in email):
 		redirect(get_index.url(id, error='Invalid email'))
 	with transact:
+		user.update(
+				phone_notifications=phone_notify == u'on', 
+				email_notifications=email_notify == u'on'
+			)
 		if phone_number != user.phone_number:
 			user.update(
 					phone_number=phone_number, 

@@ -32,6 +32,9 @@
               <span style="color: red">Unverified</span> &ndash; Check your email (make sure it's not in spam) or <a href="{{ handler.user.get_resend_email_verify }}">click here to resend.</a>
             {% endif %}
           {% endif %}<br>
+          <br>
+          <label for="email_notify">Email notifications</label> <input type="checkbox" name="email_notify" {% if user.email_notifications %}checked{% endif %}><br>
+          <label for="phone_notify">Text message notifications</label> <input type="checkbox" name="phone_notify" {% if user.phone_notifications %}checked{% endif %}><br>
           <button type="submit" class="">Save</button>
         </form>
       {% endif %}
