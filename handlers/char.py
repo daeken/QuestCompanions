@@ -36,7 +36,11 @@ def rpc_add_wow(server, charname):
 				server=server, 
 				avatar=thumbnail, 
 				attrs='',
-				last_update=date.today()
+				last_update=date.today(),
+				faction=wowchar.faction,
+				level=wowchar.level,
+				charclass=wowchar.class_,
+				race=wowchar.race
 			)
 
 	return get_index.url(char.id)

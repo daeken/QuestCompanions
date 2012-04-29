@@ -160,6 +160,10 @@ class Character(object):
 	avatar = String()
 	attrs = String()
 	last_update = Date()
+	faction = Unicode()
+	level = Integer
+	charclass = Unicode()
+	race = Unicode()
 
 	jobs = Job.relation(backref='char')
 	bids = Bid.relation(backref='char')
@@ -182,7 +186,11 @@ class Character(object):
 				game=gamename(self.game), 
 				name=self.name, 
 				server=self.server, 
-				avatar=self.avatar
+				avatar=self.avatar,
+				faction=self.faction,
+				level=self.level,
+				charclass=self.charclass,
+				race=self.race
 			))
 		val = '"%s"' % val.replace('"', '&quot;')
 		return val

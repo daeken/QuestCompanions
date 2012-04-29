@@ -33,7 +33,11 @@ def post_login(username=None, password=None):
 				with transact:
 					UserCharacter.update(
 							avatar = thumbnail,
-							last_update = CurrentDate
+							last_update = CurrentDate,
+							faction = wowchar.faction,
+							level = wowchar.level,
+							charclass = wowchar.class_,
+							race = wowchar.race
 					)
 					#Add any other attributes that need to be updated.
 				
