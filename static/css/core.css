@@ -200,3 +200,8 @@ ul.flat {
 margin: 0;
 padding: 0;
 }
+
+small {
+font-size: .8em; 
+color: #999;
+}
