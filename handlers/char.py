@@ -1,7 +1,7 @@
 from handler import *
 from model import *
 from wow_servers import wow_servers
-import battlenet
+import battlenet, urllib
 from datetime import date
 
 @handler('char/profile', authed=True)
@@ -13,7 +13,13 @@ def get_index(id):
 		for k, v in json.loads(char.attrs).items():
 			setattr(char, k, v)
 
-	return dict(char=char)
+	profile = None
+	if char.game == WOW:
+		server = char.server.replace("'", '').lower()
+		profile = u'http://us.battle.net/wow/en/character/%s/%s/advanced' % (server, urllib.quote(char.name))
+		profile = profile
+
+	return dict(char=char, profile=profile)
 
 @handler('char/create', authed=True)
 def get_create(return_to=None):

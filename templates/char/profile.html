@@ -15,6 +15,9 @@
     <li>User: <a href="{{ handler.user.get_index.url(char.user.id) }}">{{ char.user.username }}</a>
     <li>Server: {{ char.server }}
     {% if char.level %}
+    {% if profile %}
+    <li><a href="{{ profile }}" target="_blank">Armory profile</a>
+    {% endif %}
     <li>Level: {{ char.level }}
     {% endif %}
     {% if char.faction  %}
