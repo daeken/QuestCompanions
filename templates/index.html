@@ -23,7 +23,9 @@
 
 </div>
 <div class="col narrow right">
+  {% if news %}
   <div class="news">
+    <h3>News</h3>
     {% for item in news %}
     <div class="item">  
       <a class="title" href="{{ handler.news.get_index.url(item.id) }}">{{ item.headline }}</a>
@@ -31,6 +33,7 @@
     </div>
    {% endfor  %}
   </div>
+  {% endif %}
 </div>
 
 {% endblock %}
