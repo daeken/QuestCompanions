@@ -38,7 +38,7 @@ background: url("/static/img/arrow.png") center right no-repeat rgba(209, 209, 2
 
 .selector select {
 -webkit-appearance: button;
-width: 430px;
+width: 450px;
 height: 40px;
 background: transparent none;
 border-width: 0;
