@@ -195,7 +195,7 @@ def post_feedback(id, helpful=None, body=u''):
 		abort(403)
 	with transact:
 		Feedback.create(
-				profile_id=id,
+				profile_id=user.id,
 				helpful= helpful==u'on',
 				date=datetime.now(),
 				body=body,
