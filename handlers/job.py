@@ -118,10 +118,10 @@ def rpc_accept_bid(id):
 def get_timer(id):
 	job = Job.one(id=id)
 	accepted = Bid.one(job=job, accepted=True)
-	with transact:
-		job.update(timer_flags=0, completed=False)
 	if job.user != session.user and accepted.char.user != session.user:
 		abort(403)
+	elif job.completed:
+		redirect(Job.get_index.url(id))
 
 	return dict(job=job, is_poster=job.user == session.user, payment=accepted.amount)
 
