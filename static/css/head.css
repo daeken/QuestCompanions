@@ -16,45 +16,55 @@ cursor: pointer;
 .logotype {
 height: 32px;
 width: 200px;
-background: url("../img/wordmark.png") no-repeat;
+background: url("../img/wordmark.png") 0 5px no-repeat;
 background-size: auto 32px;
 display:inline-block;
-margin-top: -10px;
 cursor: pointer;
 }
 
 .nav {
-height: 40px;
-padding-top:20px;
-width: 940px;
-margin: 10px auto;
+width: 920px;
+margin: 0 auto;
+border-radius: 5px;
+background: -moz-linear-gradient(#CC1484, #993D75);
+background: -webkit-linear-gradient(#CC1484, #993D75);
+background: -moz-linear-gradient(#CC1484, #993D75);
+background: -ms-linear-gradient(#CC1484, #993D75);
+background: linear-gradient(#CC1484, #993D75);
+border-bottom: 1px solid #BD1170;
+box-shadow: 0 2px 0 #A13D75;
+padding:5px 10px;
 }
 
 .nav .tab {
 display: inline-block;
-padding: 0 10px;
+padding: 11px 6px 14px;
 color: #fff;
 font-size: 16px;
-font-weight: 400;
+font-weight: bold;
 text-align: center;
 text-decoration: none;
-background: rgba(200,200,200,0.1);
 margin-left: -5px;
 border-left: 1px solid rgba(255,255,255,0.1);
-text-shadow: -1px -1px 0px rgba(0,0,0,0.9);
-}
-
-.nav .tab:nth-of-type(1) {
-}
-
-.nav .tab a:hover {
+font-size: 14px;
 }
 
 .nav .tab:hover {
-
+background: rgba(200,200,200,0.1);
 }
-.nav .tab:nth-of-type(1):hover {
 
+.nav .tab:nth-of-type(1) {
+background: white;
+color: #681E67;
+border: 0;
+border-radius: 3px;
+padding: 5px 8px;
+margin: 0 11px;
+box-shadow: 0 2px 5px #993D75;
+}
+
+.nav .tab:nth-of-type(1):hover {
+background: #eee;
 }
 
 .wrapnav {
