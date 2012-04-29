@@ -60,7 +60,6 @@ def handler(_tpl=None, _json=False, admin=False, authed=True):
 			elif admin and not session.user.admin:
 				abort(403)
 			params = request.form if method == 'POST' else request.args
-			print params
 			kwargs = {}
 			for i, arg in enumerate(args):
 				if i == 0 and arg == 'id' and not rpc:

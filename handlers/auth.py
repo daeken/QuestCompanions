@@ -31,14 +31,21 @@ def post_login(username=None, password=None):
 				
 				thumbnail = 'https://us.battle.net/static-render/us/' + wowchar.thumbnail
 				with transact:
-					UserCharacter.update(
-							avatar = thumbnail,
-							last_update = CurrentDate,
+					if UserCharacter.attrs in ('', None):
+						attrs = {}
+					else:
+						attrs = json.loads(UserCharacter.attrs)
+					attrs = attrs.update(
 							faction = wowchar.faction,
 							level = wowchar.level,
 							charclass = wowchar.get_class_name(),
 							race = wowchar.get_race_name(),
 							item_level = wowchar.equipment.average_item_level
+						)
+					UserCharacter.update(
+							avatar = thumbnail,
+							last_update = CurrentDate,
+							attrs = json.dumps(attrs)
 					)
 					#Add any other attributes that need to be updated.
 				

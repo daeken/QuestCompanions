@@ -48,20 +48,28 @@ function addTip(obj)
      '</div>');
 }
 
+var attrmap = {
+  game: 'Game', 
+  server: 'Server', 
+  name: 'Name', 
+  faction: 'Faction', 
+  race: 'Race', 
+  level: 'Level', 
+  charclass: 'Class', 
+  item_level: 'Equipment Level'
+};
+
 function addCharTip(obj)
 {
   var data = $(obj).data('char');
+  var elements = '';
+  for(k in attrmap)
+    if(data[k])
+      elements += '<li class="' + k + '">' + attrmap[k] + ': ' + data[k];
   $(obj).parent().append( '<div class="charTip tip" style="top: ' + ($(obj).offset().top + ($(obj).outerHeight(false)) + 5 ) + 'px"> ' +
   '<img class="avatar" src="' + data.avatar + '"/> ' +
   '<ul>' +
-  '<li class="game">Game: ' + data.game +
-  '<li class="server">Server: ' + data.server +
-  '<li class="name">Name: ' + data.name +
-  '<li class="faction">Faction: ' + data.faction +
-  '<li class="race">Race: ' + data.race +
-  '<li class="level">Level: ' + data.level +
-  '<li class="charclass">Class: ' + data.charclass +
-  '<li class="item_level">Equipment Level: ' + data.item_level +
+  elements + 
   '</ul>' +
   '<div style="clear:all"></div>'+
   '</div>');
