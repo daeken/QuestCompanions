@@ -16,6 +16,7 @@ font-weight: 800;
 cursor: pointer;
 box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.1);
 padding: 0 15px;
+margin-top: 5px;
 }
 
 .button:hover, button:hover {
