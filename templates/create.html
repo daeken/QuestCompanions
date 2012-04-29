@@ -1,6 +1,9 @@
 {% extends "loggedOut.html" %}
 {% block title %}Create Account{% endblock %}
 {% block content %}
+<script type="text/javascript">
+	mixpanel.track("Account creation page loaded.")
+</script>
   <span class="Welcome"><!-- TODO Create a "welcome message" for here --></span>
   <div class="form">
     <span class="label">Username: </span><input id="name" type="text" placeholder="Username">
@@ -9,6 +12,6 @@
     <br/>
     <span class="label">Email: </span><input id="email" type="email" placeholder="Email">
     <br/>
-    <button id="submit">Enlist!</button>
+    <button id="submit" onClick="mixpanel.track('Account created.')">Enlist!</button>
   </div>
 {% endblock %}
