@@ -4,6 +4,7 @@
 <link rel="stylesheet" type="text/css" href="/static/css/news.css"/>
 <link rel="stylesheet" type="text/css" href="/static/css/jobs.css" />
 <link rel="stylesheet" type="text/css" href="/static/css/tooltip.css" />
+<link rel="stylesheet" type="text/css" href="/static/css/buttons.css" />
 <script src="/scripts/tooltip.js"></script>
 {% endblock %}
 {% block bodyclass %}index{% endblock %}
@@ -11,7 +12,7 @@
 <div class="col wide">
   <h3 class="back"> Welcome back, {{ session.user.username }}</h3>
   <p>
-  <a href="{{ handler.job.get_create }}" class="button">Post a job</a> or <a href="{{ handler.job.get_index }}" class="button">list all jobs</a>
+  <a href="{{ handler.job.get_create }}" class="button silver">Post a job</a> or <a href="{{ handler.job.get_index }}" class="button silver">List all jobs</a>
   </p>
   <h3>Your jobs</h3>
   <ul>
@@ -22,7 +23,9 @@
 
 </div>
 <div class="col narrow right">
+  {% if news %}
   <div class="news">
+    <h3>News</h3>
     {% for item in news %}
     <div class="item">  
       <a class="title" href="{{ handler.news.get_index.url(item.id) }}">{{ item.headline }}</a>
@@ -30,6 +33,7 @@
     </div>
    {% endfor  %}
   </div>
+  {% endif %}
 </div>
 
 {% endblock %}
