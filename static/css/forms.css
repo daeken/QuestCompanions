@@ -14,6 +14,8 @@ padding: 10px;
 font-size: 14px;
 max-width: 400px;
 width:100%;
+outline: none;
+margin: 5px 0;
 }
 
 input[class~="narrow"] {
