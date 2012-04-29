@@ -69,19 +69,21 @@
 		</table>
 	{% endfor %}
 	
-	<form action="{{ handler.user.post_feedback_create.url(user.id) }}" method="POST">$CSRF$
-		<table>
-			<tr>
-				<td><label>Was this user helpful?</label></td>
-				<td><input type="checkbox" name="helpful"></td>
-			</tr>
-			<tr>
-				<td><label>Feedback</label></td>
-				<td><textarea name="body" cols="50" rows="5"></textarea></td>
-			</tr>
-		</table>
-		<button type="submit" class="center">Submit</button>
-	</form>
+  	{% if false %}
+    <form action="{{ handler.user.post_feedback_create.url(user.id) }}" method="POST">$CSRF$
+  		<table>
+  			<tr>
+  				<td><label>Was this user helpful?</label></td>
+  				<td><input type="checkbox" name="helpful"></td>
+  			</tr>
+  			<tr>
+  				<td><label>Feedback</label></td>
+  				<td><textarea name="body" cols="50" rows="5"></textarea></td>
+  			</tr>
+  		</table>
+  		<button type="submit" class="center">Submit</button>
+  	</form>
+    {% endif %}
     </div>
   </div>
 {% endblock %}
