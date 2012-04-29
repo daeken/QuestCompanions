@@ -117,13 +117,13 @@ def rpc_accept_bid(id):
 @handler('jobs/timer')
 def get_timer(id):
 	job = Job.one(id=id)
-	with transact:
-		job.update(timer_flags=0, completed=False)
-	if job.user != session.user and \
-		len([bid for bid in job.bids if bid.accepted and bid.char.user == session.user]) == 0:
+	accepted = Bid.one(job=job, accepted=True)
+	if job.user != session.user and accepted.char.user != session.user:
 		abort(403)
+	elif job.completed:
+		redirect(Job.get_index.url(id))
 
-	return dict(job=job)
+	return dict(job=job, is_poster=job.user == session.user, payment=accepted.amount)
 
 def epoch(dt):
 	return time.mktime(dt.utctimetuple()) + dt.microsecond/1000000.
@@ -181,3 +181,36 @@ def rpc_cancel(id):
 
 	with transact:
 		job.update(canceled=True)
+
+@handler
+def post_feedback(id, helpful=None, body=None):
+	print `id, helpful, body`
+	return 'fdpaoj'
+	job = Job.one(id=id)
+	if job == None or not job.completed:
+		abort(403)
+	if job.user == session.user:
+		user = Bid.one(job=job, accepted=True).char.user
+	elif len([bid for bid in job.bids if bid.accepted and bid.char.user == session.user]) == 0:
+		user = job.user
+	else:
+		abort(403)
+	with transact:
+		Feedback.create(
+				profile_id=id,
+				helpful= helpful==u'on',
+				date=datetime.now(),
+				body=body,
+				)
+		if helpful==u'on':
+			user.update(
+					feedback_positive=user.feedback_positive+1,
+					feedback_score = int((float(user.feedback_positive+1) / (user.feedback_positive + user.feedback_negative + 1)) * 100)
+					)
+		else:
+			user.update(
+					feedback_negative=user.feedback_negative+1,
+					feedback_score = int((float(user.feedback_positive) / (user.feedback_positive+user.feedback_negative+1)) * 100)
+					)
+
+	redirect(Job.get_index.url(id))
