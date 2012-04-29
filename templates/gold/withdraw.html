@@ -8,7 +8,7 @@
 <script src="/scripts/withdraw.js"></script>
 {% endblock %}
 {% block content %}
-<h1>With Gold</h1>
+<h1>Withdraw Gold</h1>
 You have {{ gold }} gold available for withdrawal{% if gold != session.user.gold %} ({{ session.user.gold}} gold total &ndash; cancel or complete jobs to free up the outstanding balance){% endif %}.<br>
 <br>
 <form action="{{ handler.gold.post_withdraw }}" method="POST">$CSRF$
