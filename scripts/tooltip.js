@@ -54,8 +54,14 @@ function addCharTip(obj)
   $(obj).parent().append( '<div class="charTip tip" style="top: ' + ($(obj).offset().top + ($(obj).outerHeight(false)) + 5 - $(window).scrollTop()) + 'px"> ' +
   '<img class="avatar" src="' + data.avatar + '"/> ' +
   '<ul>' +
-  '<li class="game">' + data.game +
-  '<li class="server">' + data.server +
+  '<li class="game">Game: ' + data.game +
+  '<li class="server">Server: ' + data.server +
+  '<li class="name">Name: ' + data.name +
+  '<li class="faction">Faction: ' + data.faction +
+  '<li class="race">Race: ' + data.race +
+  '<li class="level">Level: ' + data.level +
+  '<li class="charclass">Class: ' + data.charclass +
+  '<li class="item_level">Equipment Level: ' + data.item_level +
   '</ul>' +
   '</div>');
 }
