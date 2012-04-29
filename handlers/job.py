@@ -21,7 +21,7 @@ def get_index():
 	return dict(jobs=jobs)
 
 @handler('jobs/job')
-def get_index(id):
+def get_index(id, alert=None):
 	job = Job.one(id=id)
 	bids = accepted = None
 	if job.accepted_date != None:
@@ -42,7 +42,8 @@ def get_index(id):
 		accepted=accepted, 
 		bids=bids, 
 		min_bid=bids[0].amount if bids and len(bids) else job.max_pay, 
-		canceled=job.canceled
+		canceled=job.canceled, 
+		alert=alert
 	)
 
 @handler('jobs/create')
@@ -72,15 +73,16 @@ def dispatch_notifications(id):
 		else:
 			first, end = ', '.join(char.name for char in chars[:-1]), chars[-1].name
 			if len(chars) > 2:
-				first += ', '
+				first += ','
 			charstr = 'characters %s and %s' % (first, end)
+		char = chards[0]
 		if char.user.phone_notifications:
 			char.user.sms(
 				'Greetings from QuestCompanions! Your %s %s eligible for a new job.  Bidding starts at %i gold.' % 
 				(charstr, ('is' if len(chars) == 1 else 'are'), job.max_pay)
 			)
 		if char.user.email and char.user.email_notifications:
-			email(char.user.email, 'new_job', charstr=chartr, job=job, plural=len(chars) > 1, server=chars[0].server)
+			email(char.user.email, 'new_job', charstr=charstr, job=job, plural=len(chars) > 1, server=chars[0].server)
 
 @handler
 def post_job_create(char, desc, time_reqd, max_pay):
@@ -220,4 +222,4 @@ def post_feedback(id, helpful=None, body=u''):
 					feedback_score = int((float(user.feedback_positive) / (user.feedback_positive+user.feedback_negative+1)) * 100)
 					)
 
-	redirect(get_index.url(id))
+	redirect(get_index.url(id, alert='Thanks for your feedback!'))
