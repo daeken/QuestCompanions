@@ -20,6 +20,7 @@ margin: 5px 0;
 
 input[class~="narrow"] {
 width: 73px;
+min-height: 14px!important;
 }
 
 .selector {
