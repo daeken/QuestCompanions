@@ -211,4 +211,4 @@ def post_feedback(id, helpful=None, body=u''):
 					feedback_score = int((float(user.feedback_positive) / (user.feedback_positive+user.feedback_negative+1)) * 100)
 					)
 
-	redirect(Job.get_index.url(id))
+	redirect(get_index.url(id))
