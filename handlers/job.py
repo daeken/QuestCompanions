@@ -21,7 +21,7 @@ def get_index():
 	return dict(jobs=jobs)
 
 @handler('jobs/job')
-def get_index(id):
+def get_index(id, alert=None):
 	job = Job.one(id=id)
 	bids = accepted = None
 	if job.accepted_date != None:
@@ -42,7 +42,8 @@ def get_index(id):
 		accepted=accepted, 
 		bids=bids, 
 		min_bid=bids[0].amount if bids and len(bids) else job.max_pay, 
-		canceled=job.canceled
+		canceled=job.canceled, 
+		alert=alert
 	)
 
 @handler('jobs/create')
@@ -221,4 +222,4 @@ def post_feedback(id, helpful=None, body=u''):
 					feedback_score = int((float(user.feedback_positive) / (user.feedback_positive+user.feedback_negative+1)) * 100)
 					)
 
-	redirect(get_index.url(id))
+	redirect(get_index.url(id, alert='Thanks for your feedback!'))

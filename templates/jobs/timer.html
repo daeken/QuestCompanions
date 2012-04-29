@@ -26,7 +26,7 @@
 		You have received {{ payment }} gold for the job.<br>
 	{% endif %}
 	<br>
-	Please leave feedback for your Companion below:<br>
+	Please leave feedback for your Companion below.  If you feel that the other player acted in violation of the rules, please contact support rather than leaving feedback.<br>
 	<form action="{{ handler.job.post_feedback.url(job.id) }}" method="POST">$CSRF$
 		<table>
 			<tr>
