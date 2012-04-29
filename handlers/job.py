@@ -121,7 +121,7 @@ def get_timer(id):
 	if job.user != session.user and accepted.char.user != session.user:
 		abort(403)
 	elif job.completed:
-		redirect(Job.get_index.url(id))
+		redirect(get_index.url(id))
 
 	return dict(job=job, is_poster=job.user == session.user, payment=accepted.amount)
 
@@ -189,13 +189,13 @@ def post_feedback(id, helpful=None, body=u''):
 		abort(403)
 	if job.user == session.user:
 		user = Bid.one(job=job, accepted=True).char.user
-	elif len([bid for bid in job.bids if bid.accepted and bid.char.user == session.user]) == 0:
+	elif len([bid for bid in job.bids if bid.accepted and bid.char.user == session.user]) == 1:
 		user = job.user
 	else:
 		abort(403)
 	with transact:
 		Feedback.create(
-				profile_id=id,
+				profile_id=user.id,
 				helpful= helpful==u'on',
 				date=datetime.now(),
 				body=body,

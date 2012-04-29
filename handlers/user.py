@@ -12,7 +12,7 @@ def get_index(id, error=None):
 
 	return dict(user=user, error=error)
 
-@handler
+#@handler # Commented out while feedback is disabled on profiles
 def post_feedback_create(id, helpful=None, body=None):
 	with transact:
 		user = User.one(id=id)
