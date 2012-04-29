@@ -63,7 +63,9 @@ width: 100%;
 }
 
 .support {
-max-width: 930px;
+max-width: -moz-calc(100% - 20px);
+max-width: -webkit-calc(100% - 20px);
+max-width: calc(100% - 20px);
 }
 
 .label, label {
