@@ -334,6 +334,11 @@ class Config(object):
 					value=unicode(value)
 				)
 
-@setup
+try:
+	file('prod', 'r')
+	db = 'postgresql://postgres:postgresqc@localhost/qc'
+except:
+	db = 'sqlite:///model.db'
+@setup(db)
 def init():
 	admin = User.add(u'admin', 'admin', True)

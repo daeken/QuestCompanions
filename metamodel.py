@@ -81,10 +81,10 @@ def Model(cls):
 
 engine = None
 
-def setup(func=None):
+def setup(db):
 	global engine, _session
 	_session = scoped_session(sessionmaker())
-	engine = sa.create_engine('sqlite:///model.db')
+	engine = sa.create_engine(db)
 	_session.configure(bind=engine)
 	metadata.bind = engine
 
@@ -124,8 +124,10 @@ def setup(func=None):
 			initialized = True
 	
 	metadata.create_all()
-	if not initialized and func:
-		func()
+	def sub(func):
+		if not initialized:
+			func()
+	return sub
 
 class Modifier(object):
 	pass
