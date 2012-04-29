@@ -118,7 +118,12 @@ width: 800px;
 margin: 0 auto;
 display: block; 
 }
-h1, h2, h3, h4 {text-transform: capitalize; font-size: 150%; }
+h1, h2, h3, h4 {
+text-transform: capitalize; 
+font-size: 150%;
+margin-top: 0;
+margin-bottom: 24px;
+}
 
 .alertPop {
 width: 800px;
