@@ -74,14 +74,14 @@ margin-right: 20px;
 padding-bottom: 30px;
 }
 
-.narrow {
+.narrow.right {
 width: 274px;
 padding-left:20px;
-border-left: 1px solid #fff;
+border-left: 1px solid #ddd;
 }
 
-.narrow.right {
-border-left: 1px solid #ddd;
+.narrow.left {
+width: 274px;
 }
 
 .wide {
