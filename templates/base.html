@@ -42,8 +42,13 @@
 </div> 
 {% endif %}
 <div class="header">
-  <div class="logo" onclick="window.location = '/';"></div><div class="logotype" onclick="window.location = '/';"></div>
+  <div class="logo" onclick="window.location = '/';"></div>
   <div class="nav">
+    <div class="logotype" onclick="window.location = '/';"></div>
+    <div class="wrapnav">
+  	{% if session.user %}
+      <a class="tab invite" href="{{ handler.invite.get_index }}">Invite Your Friends</a>
+    {% endif %}
     {% for item in navigation %}
       <a class="tab" href="{{ item.href }}">{{ item.title }}</a>
     {% endfor %}
@@ -53,18 +58,20 @@
 	  		<a class="tab" href="{{ handler.admin.get_index }}">Admin</a>
 	  	{% endif %}
       <a class="tab" href="{{ handler.gold.get_index }}">Gold</a>
-      <a class="tab" href="{{ handler.invite.get_index }}">Invite Your Friends</a>
       <a class="tab" href="{{ handler.index.get_faq }}">FAQ</a>
       <a class="tab" href="{{ handler.index.get_support }}">Support</a>
-  		<a class="tab" href="{{ handler.auth.get_logout }}">Log out</a>
-  	{% endif %}
+  	  <a class="tab" href="{{ handler.auth.get_logout }}">Log out</a>
+    {% endif %}
+    </div>
   </div>
 </div>
      
-      
-<div class="content">
-{% block content %}{% endblock %}
-<div style="clear:both"></div>
+
+<div class="container">
+  <div class="content">
+  {% block content %}{% endblock %}
+  <div style="clear:both"></div>
+  </div>
 </div>
 <div class="footer">
 <a href="{{ handler.legal.get_privacy }}">Privacy Policy</a> 
