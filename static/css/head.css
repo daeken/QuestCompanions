@@ -26,13 +26,12 @@ cursor: pointer;
 width: 920px;
 margin: 0 auto;
 border-radius: 5px;
-background: -moz-linear-gradient(#CC1484, #993D75);
-background: -webkit-linear-gradient(#CC1484, #993D75);
-background: -moz-linear-gradient(#CC1484, #993D75);
-background: -ms-linear-gradient(#CC1484, #993D75);
-background: linear-gradient(#CC1484, #993D75);
-border-bottom: 1px solid #BD1170;
-box-shadow: 0 2px 0 #A13D75;
+background: -moz-linear-gradient(#14CCCC, #3D7C99);
+background: -webkit-linear-gradient(#14CCCC, #3D7C99);
+background: -moz-linear-gradient(#14CCCC, #3D7C99);
+background: -ms-linear-gradient(#14CCCC, #3D7C99);
+border-bottom: 1px solid #11B6BD;
+box-shadow: 0 2px 0 #3D95A1;
 padding:5px 10px;
 }
 
@@ -55,12 +54,12 @@ background: rgba(200,200,200,0.1);
 
 .nav .tab:nth-of-type(1) {
 background: white;
-color: #681E67;
+color: #1E5068;
 border: 0;
 border-radius: 3px;
 padding: 5px 8px;
 margin: 0 11px;
-box-shadow: 0 2px 5px #993D75;
+box-shadow: 0 2px 5px #3D5E99;
 }
 
 .nav .tab:nth-of-type(1):hover {
