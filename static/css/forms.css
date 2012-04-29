@@ -23,31 +23,36 @@ width: 73px;
 }
 
 .selector {
-width: 400px;
+width: 420px;
 overflow: hidden;
-display:inline-block;
-background-color: #170017;
-border-radius: 7px;
-border: 1px solid #A400A2;
+display: inline-block;
+background: url("/static/img/arrow.png") center right no-repeat rgba(150, 150, 150, 0.5);
+border-radius: 4px;
+border: 1px solid #BEBCBC;
 margin: 5px auto;
-background: url("/static/img/arrow.png") center right no-repeat rgba(25, 0, 25, 0.5);
+background: url("/static/img/arrow.png") center right no-repeat rgba(150, 150, 150, 0.5);
 -webkit-margin-bottom: 10px;
 }
 
 .selector select {
 -webkit-appearance: button;
-padding-left: 5px;
-width:430px;
-height: 30px;
+width: 430px;
+height: 40px;
 background: transparent none;
 border-width: 0;
-font-size: 18pt;
-color: #7d007C;
+font-size: 13pt;
+color: dimGray;
+padding: 8px;
 }
 
 
 .selector select option {
 background: transparent none!important;
+}
+
+.form-row span {
+color: #999;
+font-size: .9em;
 }
 
 ::-webkit-input-placeholder {
