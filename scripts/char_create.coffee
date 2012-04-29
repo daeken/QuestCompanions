@@ -15,3 +15,6 @@ $(document).ready ->
 					window.location = return_to
 				else
 					window.location = ret
+	$('#wow-form').submit ->		
+    $('#wow-add').click  
+    return false

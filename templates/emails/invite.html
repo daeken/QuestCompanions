@@ -1,0 +1,22 @@
+{% extends "base.html" %}
+{% set title='Beta Invite for QuestCompanions'%}
+{% block html %}
+  Greetings Hero,<br>
+  <br>
+  You're receiving this email as you have been invited to join the QuestCompanions private beta{% if username %} by your friend {{ username }}{% endif %}.<br>
+  In case you don't know already, QuestCompanions is a site that allows casual players of popular MMORPGs to hire help for the tasks they can't complete on their own.<br>
+  <br>
+  <a href="https://questcompanions.com{{ handler.invite.get_accept.url(code=code) }}">Click this link to sign up now</a> or simply go to https://questcompanions.com{{ handler.invite.get_accept.url(code=code) }}<br>
+  <br>
+  If you received this email in error, simply ignore it; you won't receive any further contact from us.
+{% endblock %}
+{% block text %}
+  Greetings Hero,
+  
+  You're receiving this email as you have been invited to join the QuestCompanions private beta{% if username %} by your friend {{ username }}{% endif %}.
+  In case you don't know already, QuestCompanions is a site that allows casual players of popular MMORPGs to hire help for the tasks they can't complete on their own.
+  
+  Simply go here to sign up now: https://questcompanions.com{{ handler.invite.get_accept.url(code=code) }}
+  
+  If you received this email in error, simply ignore it; you won't receive any further contact from us.
+{% endblock %}

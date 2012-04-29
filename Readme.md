@@ -9,6 +9,9 @@ Install Python 2.7 and then run:
 	cd python-markdown2
 	sudo python setup.py install
 
+Or, install pip and then run:
+
+    pip install -r requirements.txt
 
 Writing scripts
 ===============

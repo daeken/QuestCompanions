@@ -83,7 +83,7 @@ def post_faq_edit(_id, question, answer):
 	redirect(get_faq)
 
 def goldusd(gold):
-	return gold / 10.0
+	return gold * 10.0
 
 @handler('admin/stats', admin=True)
 def get_stats():
@@ -105,7 +105,7 @@ def get_stats():
 		if elem.amount < 0:
 			withdrawals += 1
 			withdrawal_gold -= elem.amount
-			withdrawal_dollars -= elem.dollars
+			withdrawal_dollars += elem.dollars
 		else:
 			deposits += 1
 			deposit_gold += elem.amount

@@ -20,3 +20,8 @@ $(document).ready ->
 		if confirm('Accept bid for ' + gold + ' from ' + char + '?  This cannot be undone.')
 			$rpc.job.accept_bid elem.data('id'), ->
 				location.reload()
+
+	$('#cancel-job').click ->
+		if confirm('Are you sure you want to cancel this job?  This cannot be undone.')
+			$rpc.job.cancel $('#job-title').data('id'), ->
+				location.reload()

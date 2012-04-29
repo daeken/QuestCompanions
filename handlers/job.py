@@ -2,11 +2,13 @@ from handler import *
 from model import *
 import thread, time
 
-@handler('jobs/index', authed=True)
+@handler('jobs/index')
 def get_index():
 	alljobs = Job.some(completed=False)
 	jobs = []
 	for job in alljobs:
+		if job.canceled:
+			continue
 		if (job.user == session.user or 
 			len([bid for bid in job.bids if bid.accepted and bid.char.user == session.user]) == 1):
 			jobs.append(job)
@@ -18,13 +20,13 @@ def get_index():
 	
 	return dict(jobs=jobs)
 
-@handler('jobs/job', authed=True)
+@handler('jobs/job')
 def get_index(id):
 	job = Job.one(id=id)
 	bids = accepted = None
 	if job.accepted_date != None:
 		accepted = [bid for bid in job.bids if bid.accepted][0]
-	else:
+	elif not job.canceled:
 		bids = []
 		users = []
 		all = job.bids
@@ -39,12 +41,21 @@ def get_index(id):
 		job=job, 
 		accepted=accepted, 
 		bids=bids, 
-		min_bid=bids[0].amount if bids and len(bids) else job.max_pay
+		min_bid=bids[0].amount if bids and len(bids) else job.max_pay, 
+		canceled=job.canceled
 	)
 
-@handler('jobs/create', authed=True)
+@handler('jobs/create')
 def get_create():
-	return dict(chars=session.user.characters, gold=session.user.gold)
+	outstanding = 0
+	for job in session.user.jobs:
+		if not job.completed and not job.canceled:
+			outstanding += job.max_pay
+	return dict(
+			chars=session.user.characters, 
+			gold=session.user.gold-outstanding, 
+			outstanding=outstanding
+		)
 
 def dispatch_notifications(id):
 	job = Job.one(id=id)
@@ -67,7 +78,11 @@ def post_job_create(char, desc, time_reqd, max_pay):
 	char = Character.one(id=char)
 	time_reqd = int(time_reqd)
 	max_pay = int(max_pay)
-	if char == None or char.user != session.user or len(desc) > 140 or time_reqd < 1 or max_pay < 10 or max_pay > session.user.gold:
+	outstanding = 0
+	for job in session.user.jobs:
+		if not job.completed and not job.canceled:
+			outstanding += job.max_pay
+	if char == None or char.user != session.user or len(desc) > 140 or time_reqd < 1 or max_pay < 10 or max_pay > session.user.gold - outstanding:
 		abort(403)
 
 	job = Job.add(char, max_pay, time_reqd, desc)
@@ -82,11 +97,10 @@ def post_bid(id, amount, char):
 	char = Character.one(id=char)
 	amount = int(amount)
 	if (job == None or char == None or char.user != session.user or amount < 5 or 
-		session.user == job.user or amount > job.max_pay):
+		session.user == job.user or amount > job.max_pay or job.canceled or job.accepted_date != None):
 		redirect(get_index.url(id))
 
-	if job.accepted_date == None:
-		job.bid(char, amount)
+	job.bid(char, amount)
 
 	redirect(get_index.url(id))
 
@@ -94,7 +108,7 @@ def post_bid(id, amount, char):
 def rpc_accept_bid(id):
 	bid = Bid.one(id=int(id))
 
-	if bid.job.user != session.user or bid.job.accepted_date != None:
+	if bid.job.user != session.user or bid.job.accepted_date != None or bid.job.canceled:
 		abort(403)
 
 	bid.accept()
@@ -147,6 +161,9 @@ def rpc_set_active(id):
 @handler
 def rpc_complete(id):
 	job = Job.one(id=int(id))
+	if job.user != session.user and \
+		len([bid for bid in job.bids if bid.accepted and bid.char.user == session.user]) == 0:
+		abort(403)
 	if job.completed:
 		return
 	job.complete()
@@ -155,3 +172,12 @@ def rpc_complete(id):
 def rpc_check_complete(id):
 	job = Job.one(id=int(id))
 	return job.completed
+
+@handler
+def rpc_cancel(id):
+	job = Job.one(id=int(id))
+	if job.user != session.user or job.completed or job.accepted_date != None:
+		return
+
+	with transact:
+		job.update(canceled=True)

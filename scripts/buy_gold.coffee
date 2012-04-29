@@ -2,6 +2,7 @@ price = gold = 0
 card_number = cvc = expmonth = expyear = null
 
 Stripe.setPublishableKey 'pk_c8kMInhHhfcmjGrhNkm64xI0wpLwG' # test key
+#Stripe.setPublishableKey 'pk_0IeXiL6E6MIyU64Ws1FCCFo4YLJg3' # prod key
 
 $(document).ready ->
   $('.amount-choice').click (e) ->
@@ -12,6 +13,9 @@ $(document).ready ->
     $('#amounts').hide 'fast'
     $('#payment').show 'fast'
 
+  $('#pay-back').click ->
+    $('#payment').hide 'fast'    
+    $('#amounts').show 'fast'
   $('#pay-next').click ->
     card_number = $('.card-number').val()
     cvc = $('.card-cvc').val()
@@ -21,17 +25,20 @@ $(document).ready ->
     return alert 'Invalid CVC number' if not Stripe.validateCVC cvc
     return alert 'Invalid expiration' if not Stripe.validateExpiry expmonth, expyear
 
-    $('#gold-amount').text gold
-    $('#gold-price').text price
+    $('#gold-amount-confirm').text gold
+    $('#gold-price-confirm').text price
 
-    $('#card-number').text card_number
-    $('#cvs').text cvc
-    $('#exp-month').text expmonth
-    $('#exp-year').text expyear
+    $('#card-number-confirm').text card_number
+    $('#cvc-confirm').text cvc
+    $('#exp-month-confirm').text expmonth
+    $('#exp-year-confirm').text expyear
 
     $('#payment').hide 'fast'
     $('#confirmation').show 'fast'
 
+  $('#complete-back').click ->
+    $('#confirmation').hide 'fast'    
+    $('#payment').show 'fast'
   $('#complete').click ->
     Stripe.createToken {
       number: card_number, 
@@ -40,11 +47,12 @@ $(document).ready ->
       exp_year: expyear
     }, (status, response) ->
       if response.error?
-        return alert response.error
+        errorClear()
+        return alert response.error.message
       $rpc.gold.buy response.id, gold, (ret) ->
         [error, gold] = ret
+        errorClear()
         if not error?
-          errorClear()
           $('#gold-total').text gold
           $('#confirmation').hide 'fast'
           $('#completion').show 'fast'

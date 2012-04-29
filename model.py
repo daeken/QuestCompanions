@@ -1,4 +1,4 @@
-import math, json, os
+import math, json, os, random
 from datetime import datetime
 import sqlalchemy as sa
 from sqlalchemy.orm import relationship
@@ -8,7 +8,6 @@ from sms import sms
 from metamodel import *
 import hashlib
 import markdown2
-
 
 @Model
 class Feedback(object):
@@ -82,6 +81,7 @@ class Job(object):
 
 	bids = Bid.relation(backref='job')
 
+	canceled = Boolean
 	accepted_date = Nullable(DateTime())
 	timer_flags = Integer
 	timer_started = Nullable(DateTime())
@@ -104,6 +104,7 @@ class Job(object):
 				reqs=json.dumps(kwargs), 
 				timer_flags=0, 
 				completed=False, 
+				canceled=False, 
 				fee_paid=0
 			)
 
@@ -212,8 +213,9 @@ class User(object):
 	email_verified = Boolean
 	phone_number = String
 	phone_verified = Boolean
-	verification_code = Integer
-	verification_tries = Integer
+	phone_verification_code = Integer
+	phone_verification_tries = Integer
+	email_verification = String
 	feedback_score = Integer
 	feedback_positive = Integer
 	feedback_negative = Integer
@@ -270,13 +272,21 @@ class User(object):
 			return user
 		return None
 	
-	def change(self, username, password, admin):
-		if password == None:
-			password = self.password
-		else:
-			password = User.hash(password)
+	def change(self, email=None):
+		if email != None and email != self.email:
+			with transact:
+				self.update(
+						email=email, 
+						email_verified=False
+					)
+			self.generateEmailVerification()
+
+	def generateEmailVerification(self):
+		from handler import email
+		code = ''.join('%02X' % random.randrange(256) for i in range(20))
 		with transact:
-			self.update(username=username, admin=admin, password=password)
+			self.update(email_verification=code)
+		email(self.email, 'verify', code=code)
 
 	def addGold(self, amount, price):
 		with transact:
@@ -288,7 +298,7 @@ class User(object):
 					balance=self.gold, 
 					dollars=price, 
 					job=None, 
-					desc=u'Bought %i gold for $%i' % (amount, price)
+					desc=u'Bought %i gold for $%.2f' % (amount, price / 100.0)
 				)
 
 	def sms(self, message):
@@ -333,25 +343,3 @@ class Config(object):
 @setup
 def init():
 	admin = User.add(u'admin', 'admin', True)
-	print User.add(u'foo', 'password', False)
-	print User.add(u'bar', 'password', False)
-
-	with transact:
-		News.create(
-				creator=admin, 
-				headline=u'This is a news story', 
-				story=u'With a body',
-				story_markdown=markdown2.markdown(u'With a body')
-			)
-		News.create(
-				creator=admin, 
-				headline=u'This is another news story', 
-				story=u'With another body',
-				story_markdown=markdown2.markdown(u'with a body')
-			)
-		FAQ.create(
-				creator=admin, 
-				question=u'Do you have anything without spam in it?', 
-				answer=u'Why would you want that?!',
-				answer_markdown=markdown2.markdown(u'Why would you want that?!')
-			)

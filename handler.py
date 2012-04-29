@@ -162,6 +162,19 @@ def email(recv, tpl, **args):
 	msg.attach(MIMEText(text, 'plain'))
 	msg.attach(MIMEText(html, 'html'))
 
-	s = smtplib.SMTP('mail.adelphia.net') # XXX Set up SMTP.  Issue #61
-	s.sendmail(_from, recv, msg.as_string())
-	s.quit()
+	try:
+		s = smtplib.SMTP_SSL('email-smtp.us-east-1.amazonaws.com')
+		s.login('AKIAJTUVTEOZ2GOXQG7A', 'Anuu9LuAauvS/DL2/V0wAYKNNedacVXlq2d+JaDSYAgB')
+		s.sendmail(_from, recv, msg.as_string())
+		s.quit()
+		return True
+	except:
+		return False
+handler.email = email
+
+int_ = int
+def int(v):
+	try:
+		return int_(v)
+	except:
+		return 0

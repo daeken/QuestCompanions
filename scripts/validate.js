@@ -18,6 +18,18 @@ $(document).ready(function() {
         $('.' + $(this).attr('type') + 'post')[0].innerHTML = '*required';
         $(this).removeClass('error');
       }
+      if(($(this).attr('data-maxValue') - 0) < ($(this).val() * 1))
+      {
+        $(this).addClass('error');
+        $('.' + $(this).attr('type') + 'post')[0].innerHTML = "That value is too high. it can be no higher then " + $(this).attr('data-maxValue') + ".";
+       } else if(($(this).attr('data-minValue') - 0) > ($(this).val() * 1))
+        {
+        $(this).addClass('error');
+        $('.' + $(this).attr('type') + 'post')[0].innerHTML = "That value is too low. It must be at least " + $(this).attr('data-minValue') + ".";
+       } else {
+       $(this).removeClass('error');
+       $('.' + $(this).attr('type') + 'post')[0].innerHTML = '*required';
+       }
     });
   });
 
@@ -42,6 +54,10 @@ $(document).ready(function() {
         $(this).addClass('error');
         hasErrors = true;
       }
+      if($(this).hasClass('error'))
+        {
+          hasErrors = true;
+        }
     });
     if (hasErrors)
     {

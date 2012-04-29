@@ -1,0 +1,30 @@
+{% extends "base.html" %}
+{% block title %}Invite{% endblock %}
+{% block includes %}
+<link rel="stylesheet" type="text/css" href="/static/css/users.css"/>
+<link rel="stylesheet" type="text/css" href="/static/css/forms.css"/>
+<link rel="stylesheet" type="text/css" href="/static/css/buttons.css"/>
+<style>
+.fbbutton {
+float:left;
+margin-right: 10px;
+margin-top: 1px;
+}
+</style>
+{% endblock %}
+{% block content %}
+<h3>Invite a friend</h3>
+
+<a href="https://twitter.com/intent/tweet?text=I got into the QuestCompanions beta.  Come check it out: " class="twitter-share-button" data-size="large" data-related="QuestCompanions" data-url="{{ invite_url }}">Tweet an invite</a><a name="fb_share" type="Button_Large" share_url="{{ invite_url }}" class="fbbutton">Invite</a><br>
+<script>!function(d,s,id){var js,fjs=d.getElementsByTagName(s)[0];if(!d.getElementById(id)){js=d.createElement(s);js.id=id;js.src="//platform.twitter.com/widgets.js";fjs.parentNode.insertBefore(js,fjs);}}(document,"script","twitter-wjs");</script>
+<script src="http://static.ak.fbcdn.net/connect.php/js/FB.Share" type="text/javascript">
+</script>
+<script>
+$('.FBConnectButton').removeClass('FBConnectButton_Small').addClass('FBConnectButton_Large');
+</script>
+<br>
+<form action="{{ handler.invite.post_index }}" method="POST">$CSRF$
+  Email: <input type="text" name="email"><br>
+  <button type="submit">Invite</button>
+</form>
+{% endblock %}

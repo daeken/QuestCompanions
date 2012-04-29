@@ -35,15 +35,15 @@ width: 300px;
       </div>
       <div class="form-row">
         <label>Time Required (minutes)</label>
-        <input type="time" id="time-required" name="time_reqd" data-hint="Enter a length of time you expect the job to take, in minutes" required=true />
+        <input type="time" id="time-required" name="time_reqd" data-maxValue="1000" data-hint="Enter a length of time you expect the job to take, in minutes" required=true />
       </div>
       <div class="form-row">
         <label>Max Payment</label>
-        <input type="number" id="max-pay" name="max_pay" minPay=5 required=true data-gold="{{ gold }}" data-hint="Enter the maximum amount you want to pay your companion" /> 
+        <input type="number" id="max-pay" name="max_pay" data-minValue="5" minPay=5 required=true data-gold="{{ gold }}" data-hint="Enter the maximum amount you want to pay. It has to be more then 5 gold" /> 
       </div>
       <div class="form-row">
         <label></label>
-        <span>(You have {{ gold }} gold in your account. <a href="{{ handler.gold.get_buy }}">Add more here</a>)</span>
+        <span>(You have {{ gold }} gold available{% if outstanding > 0 %} and {{ outstanding }} gold allocated to other jobs.  Cancel or complete your outstanding jobs to free up your gold{% endif %}. <a href="{{ handler.gold.get_buy }}">Add more here</a>)</span>
       </div>
       <div class="form-row">
         <label>Other details</label>

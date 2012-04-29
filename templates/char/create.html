@@ -19,13 +19,13 @@
   <option value="1">Star Wars: The Old Republic</option>
 </select></span>
 <div id="game-0" class="game-pane">
-  <label>Server:</label><span class="selector"> <select id="server">
+ <form id="wow-form"> <label>Server:</label><span class="selector"> <select id="server">
     {% for name in wow_servers %}
       <option>{{ name }}</option>
     {% endfor %}
   </select></span><br>
   <label>Character name:</label> <input type="text" id="charname"><br>
-  <button id="wow-add" class="center" cover=true>Add</button>
+  <button id="wow-add" class="center" cover=true>Add</button></form>
 </div>
 <div id="game-1" class="game-pane">
   SWTOR

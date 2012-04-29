@@ -1,4 +1,4 @@
-.button, button{
+.button, button {
 width: 79px;
 height: 41px;
 display: inline;
@@ -18,6 +18,14 @@ cursor: pointer;
 box-shadow: 3px 3px 5px rgba(0,0,0,0.5);
 }
 
+.button:hover, button:hover {
+background: -moz-linear-gradient(#00BF02, #009F01);
+background: -webkit-linear-gradient(#00BF02, #009F01);
+background: -moz-linear-gradient(#00BF02, #009F01);
+background: -ms-linear-gradient(#00BF02, #009F01);
+background: linear-gradient(#00BF02, #009F01);
+}
+
 .button:active, button:active {
 background: -moz-linear-gradient(#007f01, #005601);
 background: -webkit-linear-gradient(#007f01, #005601);
@@ -25,8 +33,8 @@ background: -moz-linear-gradient(#007f01, #005601);
 background: -ms-linear-gradient(#007f01, #005601);
 background: linear-gradient(#007f01, #005601);
 border-top-color: #00BF02;
-box-shadow: -3px -3px 5px rgba(0,0,0,0.5);
-       }
+box-shadow: 3px 3px 5px rgba(0,0,0,0.2);
+}
 
 button[class~="center"] {
 width: 79px;
@@ -34,7 +42,6 @@ left: 50%;
 position:relative;
 margin-left: -40px;
 }
-
 
 .bBig {
 padding: 20px;

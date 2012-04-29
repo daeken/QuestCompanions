@@ -1,6 +1,7 @@
 {% extends "base.html" %}
 {% block title %}Gold History{% endblock %}
 {% block includes %}
+<link rel="stylesheet" type="text/css" href="/static/css/gold.css" />
 {% endblock %}
 {% block content %}
 <h1>Gold History</h1>
@@ -8,7 +9,7 @@
 	<tr><th>Date</th><th>Description</th><th>Amount</th><th>Balance</th></tr>
 	{% for elem in history %}
 		<tr>
-			<td>{{ elem.date }}</td>
+			<td>{{ elem.date.strftime('%d of %b, %Y  at %l:%M %p') }}</td>
 			<td>{{ elem.desc }}</td>
 			{% if elem.amount > 0 %}
 				<td style="color: green">+{{ elem.amount }}</td>

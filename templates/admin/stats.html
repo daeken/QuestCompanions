@@ -9,12 +9,12 @@ Jobs (completed/created): {{ jobs_completed }} / {{ jobs_total }}<br>
 Total fees paid: {{ fees }} -- ${{ fees_usd }}<br>
 Deposits / Withdrawals (count): {{ deposits }} / {{ withdrawals }}<br>
 Deposits / Withdrawals (gold): {{ deposit_gold }} / {{ withdrawal_gold }}<br>
-Deposits / Withdrawals: ${{ deposit_dollars }} / ${{ withdrawal_dollars }}<br>
-Total money in all accounts: {{ total_gold }} -- ${{ total_dollars }}<br>
+Deposits / Withdrawals: ${{ deposit_dollars / 100.0 }} / ${{ withdrawal_dollars / 100.0 }}<br>
+Total money in all accounts: {{ total_gold }} -- ${{ total_dollars / 100.0 }}<br>
 
 {% if total_dollars > deposit_dollars - withdrawal_dollars %}
-	<span style="color: red">Current net loss: ${{ total_dollars - deposit_dollars - withdrawal_dollars }}</span>
+	<span style="color: red">Current net loss: ${{ (total_dollars - deposit_dollars - withdrawal_dollars) / 100.0 }}</span>
 {% else %}
-	<span style="color: green">Current net gains: ${{ deposit_dollars - withdrawal_dollars - total_dollars }}</span>
+	<span style="color: green">Current net gains: ${{ (deposit_dollars - withdrawal_dollars - total_dollars) / 100.0 }}</span>
 {% endif %}
 {% endblock %}

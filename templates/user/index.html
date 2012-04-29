@@ -29,7 +29,7 @@
             {% if user.email_verified %}
               <span style="color: green">Verified</span>
             {% else %}
-              <span style="color: red">Unverified</span>
+              <span style="color: red">Unverified</span> &ndash; Check your email (make sure it's not in spam) or <a href="{{ handler.user.get_resend_email_verify }}">click here to resend.</a>
             {% endif %}
           {% endif %}<br>
           <button type="submit" class="center">Save</button>
