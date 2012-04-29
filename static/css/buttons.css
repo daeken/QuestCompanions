@@ -1,5 +1,4 @@
 .button, button {
-width: 79px;
 height: 41px;
 display: inline;
 background: -moz-linear-gradient(#00BF02, #007F01);
@@ -16,6 +15,7 @@ font-size: 16px;
 font-weight: 800;
 cursor: pointer;
 box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.1);
+padding: 0 15px;
 }
 
 .button:hover, button:hover {
