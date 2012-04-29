@@ -121,7 +121,7 @@ def get_timer(id):
 	if job.user != session.user and accepted.char.user != session.user:
 		abort(403)
 	elif job.completed:
-		redirect(Job.get_index.url(id))
+		redirect(get_index.url(id))
 
 	return dict(job=job, is_poster=job.user == session.user, payment=accepted.amount)
 
