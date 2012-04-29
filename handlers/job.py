@@ -183,7 +183,9 @@ def rpc_cancel(id):
 		job.update(canceled=True)
 
 @handler
-def post_feedback(id, helpful, body):
+def post_feedback(id, helpful=None, body=None):
+	print `id, helpful, body`
+	return 'fdpaoj'
 	job = Job.one(id=id)
 	if job == None or not job.completed:
 		abort(403)
