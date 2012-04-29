@@ -58,10 +58,11 @@ padding: 0 15px;
 text-decoration: none;
 padding: 9px 12px;
 background: #EEE;
+line-height: 45px;
 }
 
 a.button.silver:hover {
-background: #f3f3f3;
+background: #f7f7f7;
 }
 
 .bBig {

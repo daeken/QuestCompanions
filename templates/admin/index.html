@@ -1,13 +1,12 @@
 {% extends "base.html" %}
 {% block title %}Admin{% endblock %}
 {% block includes %}
+<link rel="stylesheet" type="text/css" href="/static/css/buttons.css" />
 {% endblock %}
 {% block content %}
 <h1>Admin</h1>
-<ul>
-  <li><a href="{{ handler.admin.get_stats }}">Stats</a></li>
-  <li><a href="{{ handler.admin.get_news }}">News</a></li>
-  <li><a href="{{ handler.admin.get_user }}">Users</a></li>
-  <li><a href="{{ handler.admin.get_faq }}">FAQ</a></li>
-</ul>
+  <a href="{{ handler.admin.get_stats }}" class="silver button">Stats</a>
+  <a href="{{ handler.admin.get_news }}" class="silver button">News</a>
+  <a href="{{ handler.admin.get_user }}" class="silver button">Users</a>
+  <a href="{{ handler.admin.get_faq }}" class="silver button">FAQ</a>
 {% endblock %}

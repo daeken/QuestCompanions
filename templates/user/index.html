@@ -40,14 +40,14 @@
       {% endif %}
     </div>
   </div>
-  <div class="col wide">
+  <div class="col wide right">
     <h1>{{ user.username }}</h1>
     <div class="chars block">
     <h3>Characters</h3>
     {% if user == session.user %}
       <a href="{{ handler.char.get_create.url() }}" class="silver button">Add a character</a>
     {% endif %}
-    <ul>
+    <ul class="flat">
       {% for char in user.characters %}
         <li>{{ char.link()|safe }}</li>
       {% endfor %}

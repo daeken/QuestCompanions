@@ -20,7 +20,8 @@ padding: 0;
 }
 
 a {
-color:#3688a1 
+color:#3688a1;
+text-decoration: none;
 }
 
 a:hover {
@@ -89,6 +90,14 @@ width: 274px;
 
 .wide {
 width: 545px;
+}
+
+.wide.right {
+width: 515px;
+border-left: 1px solid #E4E4E4;
+padding-left: 20px;
+margin-left: 30px;
+min-height:565px;
 }
 
 .content {
@@ -181,4 +190,13 @@ right: 10px;
 top: 8px;
 cursor: pointer;
 font-size: 12px;
+}
+
+h3 a { 
+font-size: 24px; 
+}
+
+ul.flat {
+margin: 0;
+padding: 0;
 }

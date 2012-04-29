@@ -10,7 +10,7 @@
 {% block bodyclass %}index{% endblock %}
 {% block content %}
 <div class="col wide">
-  <h3 class="back"> Welcome back, {{ session.user.username }}</h3>
+  <h3 class="back"> Welcome back, <a href="{{ handler.user.get_index.url(session.user.id) }}">{{ session.user.username }}</a></h3>
   <p>
   <a href="{{ handler.job.get_create }}" class="button silver">Post a job</a> or <a href="{{ handler.job.get_index }}" class="button silver">List all jobs</a>
   </p>
