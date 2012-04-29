@@ -132,6 +132,7 @@ color:    #bbb;
 
 .panel .col {
 width: 350px;
+padding-bottom: 0;
 }
 
 .panel .col.right {

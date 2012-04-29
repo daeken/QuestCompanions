@@ -86,7 +86,7 @@ border-left: 1px solid #ddd;
 width: 274px;
 }
 
-.narrow { min-height: 370px; }
+.index .narrow, .user .narrow { min-height: 370px; }
 
 .wide {
 width: 545px;

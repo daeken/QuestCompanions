@@ -80,4 +80,8 @@ def post_withdraw(amount, name, address):
 				desc=u'Withdrew %i gold for $%.2f' % (amount, price / 100.0)
 			)
 	email('cody@questcompanions.com', 'withdrawal', user=user, gold=amount, usd=price/100.0, address=u'%s\n%s' % (name, address))
-	redirect(get_withdraw)
+	redirect(get_withdraw_confirm)
+
+@handler('gold/withdraw_confirm')
+def get_withdraw_confirm():
+	pass
