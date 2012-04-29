@@ -117,13 +117,13 @@ def rpc_accept_bid(id):
 @handler('jobs/timer')
 def get_timer(id):
 	job = Job.one(id=id)
-	with transact:
-		job.update(timer_flags=0, completed=False)
-	if job.user != session.user and \
-		len([bid for bid in job.bids if bid.accepted and bid.char.user == session.user]) == 0:
+	accepted = Bid.one(job=job, accepted=True)
+	if job.user != session.user and accepted.char.user != session.user:
 		abort(403)
+	elif job.completed:
+		redirect(Job.get_index.url(id))
 
-	return dict(job=job, is_poster=job.user == session.user)
+	return dict(job=job, is_poster=job.user == session.user, payment=accepted.amount)
 
 def epoch(dt):
 	return time.mktime(dt.utctimetuple()) + dt.microsecond/1000000.
@@ -183,7 +183,9 @@ def rpc_cancel(id):
 		job.update(canceled=True)
 
 @handler
-def post_feedback(id, helpful, body):
+def post_feedback(id, helpful=None, body=None):
+	print `id, helpful, body`
+	return 'fdpaoj'
 	job = Job.one(id=id)
 	if job == None or not job.completed:
 		abort(403)
