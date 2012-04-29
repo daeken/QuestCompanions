@@ -117,13 +117,13 @@ def rpc_accept_bid(id):
 @handler('jobs/timer')
 def get_timer(id):
 	job = Job.one(id=id)
+	accepted = Bid.one(job=job, accepted=True)
 	with transact:
 		job.update(timer_flags=0, completed=False)
-	if job.user != session.user and \
-		len([bid for bid in job.bids if bid.accepted and bid.char.user == session.user]) == 0:
+	if job.user != session.user and accepted.char.user != session.user:
 		abort(403)
 
-	return dict(job=job, is_poster=job.user == session.user)
+	return dict(job=job, is_poster=job.user == session.user, payment=accepted.amount)
 
 def epoch(dt):
 	return time.mktime(dt.utctimetuple()) + dt.microsecond/1000000.
