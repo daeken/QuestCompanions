@@ -9,6 +9,9 @@ def get_index(id):
 	char = Character.one(id=id)
 	if not char: abort(404)
 
+	for k, v in json.loads(char.attrs).items():
+		setattr(char, k, v)
+
 	return dict(char=char)
 
 @handler('char/create', authed=True)
