@@ -1,18 +1,20 @@
-
-input,textarea {
--moz-border-radius: 15px;
-border-radius: 7px;
-background-color: #170017;
-background-color: rgba(25, 0, 25, 0.5);
-border: solid 1px #A400A2;
-margin: 5px auto;
+input, textarea
+{
+color: #777;
+background: #f8f8f8;
+border: 1px solid #ddd;
+-moz-border-radius: 4px;
+-webkit-border-radius: 4px;
+-moz-background-clip: padding;
+-webkit-background-clip: padding-box;
+background-clip: padding-box;
+box-shadow: inset 0px 2px 4px  rgba(0, 0, 0, .05);
+-moz-box-shadow: inset 0px 2px 4px rgba(0,0,0, .05);
+-webkit-box-shadow: inset 0px 2px 4px rgba(0, 0, 0, .05);
+padding: 10px;
+font-size: 14px;
 max-width: 400px;
-width: 100%;
-font-size: 18pt;
-color: #7D007C;
-font-family: "Museo100", verdana, sans-serif;
-outline: none;
-padding-left: 5px;
+width:100%;
 }
 
 input[class~="narrow"] {
@@ -48,10 +50,10 @@ background: transparent none!important;
 }
 
 ::-webkit-input-placeholder {
-      color: rgba(125, 0, 125, 0.5);
+      color: #bbb;
 }
 :-moz-placeholder {
-      color: rgba(125, 0, 125, 0.5);
+      color: #bbb;
 }
 
 textarea {
