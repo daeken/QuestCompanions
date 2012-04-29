@@ -189,7 +189,7 @@ def post_feedback(id, helpful=None, body=u''):
 		abort(403)
 	if job.user == session.user:
 		user = Bid.one(job=job, accepted=True).char.user
-	elif len([bid for bid in job.bids if bid.accepted and bid.char.user == session.user]) == 0:
+	elif len([bid for bid in job.bids if bid.accepted and bid.char.user == session.user]) == 1:
 		user = job.user
 	else:
 		abort(403)
