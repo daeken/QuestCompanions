@@ -63,5 +63,6 @@ function addCharTip(obj)
   '<li class="charclass">Class: ' + data.charclass +
   '<li class="item_level">Equipment Level: ' + data.item_level +
   '</ul>' +
+  '<div style="clear:all"></div>'+
   '</div>');
 }
