@@ -81,19 +81,6 @@ text-align: left;
 }
 
 .panel input, .panel textarea {
-color: #777;
-background: #f8f8f8;
-border: 1px solid #ddd;
--moz-border-radius: 4px;
--webkit-border-radius: 4px;
--moz-background-clip: padding;
--webkit-background-clip: padding-box;
-background-clip: padding-box;
-box-shadow: inset 0px 2px 4px  rgba(0, 0, 0, .05);
--moz-box-shadow: inset 0px 2px 4px rgba(0,0,0, .05);
--webkit-box-shadow: inset 0px 2px 4px rgba(0, 0, 0, .05);
-padding: 10px;
-font-size: 14px;
 width:325px;
 }
 
