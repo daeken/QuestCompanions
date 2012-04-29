@@ -53,8 +53,8 @@ background: rgba(200,200,200,0.1);
 }
 
 .nav .tab:nth-of-type(1) {
-background: white;
-color: #1E5068;
+background: #C22F2F;
+color: white;
 border: 0;
 border-radius: 3px;
 padding: 5px 8px;
@@ -63,7 +63,7 @@ box-shadow: 0 2px 5px #3D5E99;
 }
 
 .nav .tab:nth-of-type(1):hover {
-background: #eee;
+background: #D13838;
 }
 
 .wrapnav {
