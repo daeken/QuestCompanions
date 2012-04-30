@@ -1,6 +1,8 @@
 {% extends "base.html" %}
 {% block title %}New News{% endblock %}
 {% block includes %}
+<link rel="stylesheet" type="text/css" href="/static/css/forms.css" />
+<link rel="stylesheet" type="text/css" href="/static/css/buttons.css" />
 <style>
   label{ float:left;}
   input, textarea{ margin-bottom: 10px; padding: 5px}
@@ -10,6 +12,6 @@
 <form action="{{ handler.admin.post_news_create }}" method="POST">$CSRF$
 	<label> Headline:</label> <input type="text" name="headline"><br>
 	<label>Content:</label> <textarea name="story" cols="80" rows="20"></textarea><br>
-	<input type="submit" value="Save">
+	<button type="submit" value="Save">Save</button>
 </form>
 {% endblock %}

@@ -10,6 +10,7 @@ $(document).ready ->
 				alert 'Check the server and character name and try again'
 				errorClear()
 			else
+				mixpanel.track("WoW Character Added")
 				return_to = $('#return-to').val()
 				if return_to
 					window.location = return_to

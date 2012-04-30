@@ -28,7 +28,7 @@ $(document).ready ->
     $('#gold-amount-confirm').text gold
     $('#gold-price-confirm').text price
 
-    $('#card-number-confirm').text card_number
+    $('#card-number-confirm').text card_number.substr(-4, 4)
     $('#cvc-confirm').text cvc
     $('#exp-month-confirm').text expmonth
     $('#exp-year-confirm').text expyear
@@ -56,5 +56,6 @@ $(document).ready ->
           $('#gold-total').text gold
           $('#confirmation').hide 'fast'
           $('#completion').show 'fast'
+          mixpanel.track("User Purchased Gold", {"Amount": price})
         else
           alert error

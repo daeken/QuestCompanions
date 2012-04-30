@@ -4,6 +4,9 @@
 <script src="/scripts/landing.js"></script>
 {% endblock %}
 {% block content %}
+<script type="text/javascript">
+	mixpanel.track("Landing Page Loaded")
+</script>
     <div class="panel">
       <div id="loginForm" class="col left">
         <h2>Log in</h2>
@@ -12,7 +15,7 @@
           <br/>
           <input name="password" type="password" placeholder="Password">
           <br/>
-          <button name="submit">Log in</button>
+          <button name="submit" onClick="mixpanel.track('User Login')">Log in</button>
         </form>
       </div>
       <div id="loginInterest" class="col right">
