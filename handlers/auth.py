@@ -54,11 +54,11 @@ def post_login(username=None, password=None):
 
 	redirect(handler.index.get_index)
 
-@handler('register', authed=False)
+#@handler('register', authed=False)
 def get_register():
 	pass
 
-@handler(authed=False)
+#@handler(authed=False)
 def post_register(username=None, password=None):
 	if username == None or password == None:
 		return ''

@@ -113,7 +113,7 @@ def post_bid(id, amount, char):
 
 	job.bid(char, amount)
 
-	redirect(get_index.url(id))
+	redirect(get_index.url(id, alert='Thank you for your bid'))
 
 @handler
 def rpc_accept_bid(id):

@@ -3,8 +3,9 @@ $(document).ready ->
 		setTimeout (-> location.reload()), 30000
 
 	$('#bid-form').submit ->
-		max_pay = ~~$('#bid-form').data 'maxpay'
 		amount = ~~$('input[name="amount"]').val()
+		return false if not confirm 'Bid ' + amount + ' gold?'
+		max_pay = ~~$('#bid-form').data 'maxpay'
 		if amount < 5
 			alert('Minimum amount is 5 gold')
 			return false
