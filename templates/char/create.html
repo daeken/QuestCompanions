@@ -9,6 +9,9 @@
 <script src="/scripts/char_create.js"></script>
 {% endblock %}
 {% block content %}
+<script type="text/javascript">
+	mixpanel.track("Character Creation Page Loaded")
+</script>
 {% if return_to %}
   <input type="hidden" id="return-to" value="{{ return_to }}">
 {% endif %}
