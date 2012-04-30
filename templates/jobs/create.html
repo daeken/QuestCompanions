@@ -49,7 +49,7 @@ width: 300px;
         <label>Other details</label>
         <textarea name="details" id="details" maxlength="400"  data-hint="Enter any other information about the job you need."></textarea>
       </div>
-      <button type="submit" class="bWide">Post job!</button>
+      <button type="submit" class="bWide" onClick="mixpanel.track('Job Added', {'max_pay': $('.max_pay').val(), 'time': $('.time_reqd').val()})">Post job!</button>
     </form>
   </div>
   {% endif %}
