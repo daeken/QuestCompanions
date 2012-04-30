@@ -7,7 +7,7 @@
 {% block content %}
 <h2 id="job" data-id="{{ job.id }}">Timer</h2>
 <div id="first" class="timer-panel">
-	Press the start button once you and your Companion are together in your game.  Once you both click start, the job will begin.<br>
+	Press the start button once you and your Companion are together in your game.  Once you both click start, the job will begin. You have agreed to a total time of {% if h %}{{ h }} hours and {% endif %} {{ m }} minutes for this job.<br>
 	<br>
 	<button id="start">Start</button>
 </div>

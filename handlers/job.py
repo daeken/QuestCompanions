@@ -133,8 +133,9 @@ def get_timer(id):
 		abort(403)
 	elif job.completed:
 		redirect(get_index.url(id))
+	h, m = divmod(job.time_reqd, 60)
 
-	return dict(job=job, is_poster=job.user == session.user, payment=accepted.amount)
+	return dict(job=job, is_poster=job.user == session.user, payment=accepted.amount, h=h, m=m)
 
 def epoch(dt):
 	return time.mktime(dt.utctimetuple()) + dt.microsecond/1000000.
