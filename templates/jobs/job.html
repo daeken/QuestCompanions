@@ -45,7 +45,7 @@ Description: {{ job.details }}<br>
 						<option value="{{ char.id }}">{{ char.name }}</option>
 					{% endfor %}
 				</select></span><br>
-				Amount: <input type="text" name="amount" value="{% if min_bid == job.max_pay or min_bid - 1 < 5 %}{{ min_bid }}{% else %}{{ min_bid - 1 }}{% endif %}"><br>
+				Amount: <input type="text" name="amount" value="{% if min_bid == job.max_pay or min_bid - 1 < 5 %}{{ min_bid }}{% else %}{{ min_bid - 1 }}{% endif %}"> (Must be a whole number)<br>
 				<button type="submit" class="center bWide">Bid</button>
 			</form>
 		{% endif %}

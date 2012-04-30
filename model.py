@@ -185,7 +185,7 @@ class Character(object):
 				server=self.server, 
 				avatar=self.avatar,
 			)
-		if self.attrs not in (None, ''):
+		if self.attrs:
 			val.update(json.loads(self.attrs))
 		val = '"%s"' % json.dumps(val).replace('"', '&quot;')
 		return val

@@ -35,13 +35,13 @@ def post_login(username=None, password=None):
 						attrs = {}
 					else:
 						attrs = json.loads(UserCharacter.attrs)
-					attrs = attrs.update(
+					attrs = attrs.update(dict(
 							faction = wowchar.faction,
 							level = wowchar.level,
 							charclass = wowchar.get_class_name(),
 							race = wowchar.get_race_name(),
 							item_level = wowchar.equipment.average_item_level
-						)
+						))
 					UserCharacter.update(
 							avatar = thumbnail,
 							last_update = CurrentDate,
