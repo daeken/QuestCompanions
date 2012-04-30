@@ -12,6 +12,6 @@
     {% if code %}
       <span style="color: red">Incorrect</span>
     {% endif %}<br>
-    <button type="submit">Verify</button>
+    <button type="submit" onClick="mixpanel.track('Phone Number Verified')">Verify</button>
   </form>
 {% endblock %}
