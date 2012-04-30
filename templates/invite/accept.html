@@ -24,6 +24,6 @@ There are a few things you should know about before you sign up:<br>
 	Username: <input type="text" name="username" value="{{ username }}"><br>
 	Password: <input type="password" name="password"><br>
 	Email: <input type="text" name="email" value="{{ email }}"><br>
-	<button type="submit">Enlist</button>
+	<button type="submit" onClick="mixpanel.track('User Created by Invite')">Enlist</button>
 </form>
 {% endblock %}

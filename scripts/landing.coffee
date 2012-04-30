@@ -12,6 +12,7 @@ enlist = () ->
 		else
 			$('#email').val('You have already enlisted!').attr('disabled', true)
 		$('#enlist').attr('disabled', true)
+		mixpanel.track("enlisted")
 
 
 $(document).ready ->

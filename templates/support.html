@@ -5,9 +5,12 @@
 <link rel="stylesheet" type="text/css" href="/static/css/buttons.css"/>
 {% endblock %}
 {% block content %}
+<script type="text/javascript">
+	mixpanel.track("Support Page Loaded")
+</script>
 <form action="{{ handler.index.post_support_create }}" method="POST">$CSRF$
  <h2> Message:</h2>
  <textarea class="support" name="message" cols="40" rows="10" placeholder="Enter your message here"></textarea><br>
-<button type="submit" class="button" value="Send">Send</button>
+<button type="submit" class="button" value="Send" onClick="mixpanel.track('Support Requested')">Send</button>
 </form>
 {% endblock %}

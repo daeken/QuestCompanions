@@ -31,7 +31,7 @@ You have {{ gold }} gold available for withdrawal{% if gold != session.user.gold
 		Name on check: <span id="name-confirm"></span><br>
 		Address: <pre style="display: inline" id="address-confirm"></pre><br>
 		<br>
-		<button id="confirm" class="submit-button">Confirm</button>
+		<button id="confirm" class="submit-button" onClick="mixpanel.track('Cash Withdrawal', {'Amount': amount.val()})">Confirm</button>
 	</div>
 </form>
 {% endblock %}

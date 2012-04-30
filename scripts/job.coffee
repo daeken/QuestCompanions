@@ -25,3 +25,4 @@ $(document).ready ->
 		if confirm('Are you sure you want to cancel this job?  This cannot be undone.')
 			$rpc.job.cancel $('#job-title').data('id'), ->
 				location.reload()
+				mixpanel.track "User canceled Job"

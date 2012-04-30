@@ -4,6 +4,9 @@
 <link rel="stylesheet" type="text/css" href="/static/css/news.css"/>
 {% endblock %}
 {% block content %}
+<script type="text/javascript">
+	mixpanel.track("News Story Read")
+</script>
 <h2>{{ story.headline }}</h2>
 {{ story.story_markdown|safe }}
 {% endblock %}

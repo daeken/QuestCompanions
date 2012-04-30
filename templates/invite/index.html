@@ -23,6 +23,6 @@ $('.FBConnectButton').removeClass('FBConnectButton_Small').addClass('FBConnectBu
 </script>
 <br>
 <form action="{{ handler.invite.post_index }}" method="POST">$CSRF$
-  <label class="small">Email an invite:</label><input type="text" name="email"> <button type="submit">Invite</button>
+  <label class="small">Email an invite:</label><input type="text" name="email"> <button type="submit" onClick="mixpanel.track('User Sent Invite')">Invite</button>
 </form>
 {% endblock %}
