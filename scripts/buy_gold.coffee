@@ -56,5 +56,6 @@ $(document).ready ->
           $('#gold-total').text gold
           $('#confirmation').hide 'fast'
           $('#completion').show 'fast'
+          mixpanel.track("User Purchased Gold", {"Amount": price})
         else
           alert error
