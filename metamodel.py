@@ -3,10 +3,11 @@ from sqlalchemy import orm
 from sqlalchemy.types import AbstractType, Integer
 from sqlalchemy.orm import scoped_session, sessionmaker
 from sqlalchemy.orm.attributes import QueryableAttribute
+from flask import request
 
 class SessionProxy(object):
 	def __getattr__(self, name):
-		return getattr(_session, name)
+		return getattr(request._session, name)
 	
 	def __enter__(self):
 		pass
@@ -14,16 +15,19 @@ class SessionProxy(object):
 	def __exit__(self, type, value, traceback):
 		if type == None:
 			try:
-				_session.commit()
+				request._session.commit()
 			except:
-				_session.rollback()
+				request._session.rollback()
 				raise
 		else:
-			_session.rollback()
+			request._session.rollback()
 			raise
 
+def createLocalSession():
+	request._session = scoped_session(sessionmaker())
+	request._session.configure(bind=engine)
+
 transact = SessionProxy()
-_session = None
 metadata = sa.MetaData()
 
 __models = []
@@ -86,10 +90,8 @@ def Model(cls):
 engine = None
 
 def setup(db):
-	global engine, _session
-	_session = scoped_session(sessionmaker())
+	global engine
 	engine = sa.create_engine(db)
-	_session.configure(bind=engine)
 	metadata.bind = engine
 
 	initialized = False

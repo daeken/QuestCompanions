@@ -3,6 +3,7 @@ from json import dumps
 from flask import abort, render_template, request, session
 from flask import redirect as _redirect
 from werkzeug.exceptions import HTTPException
+from metamodel import createLocalSession
 from model import User
 from urllib import quote, urlencode
 
@@ -45,6 +46,7 @@ def handler(_tpl=None, _json=False, admin=False, authed=True):
 
 		ofunc = func
 		def func(id=None):
+			createLocalSession()
 			if 'csrf' not in session:
 				token = os.urandom(16)
 				session['csrf'] = ''.join('%02x' % ord(c) for c in token)
