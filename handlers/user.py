@@ -128,5 +128,5 @@ def get_verify_email(code=None):
 
 @handler
 def get_resend_email_verify():
-	generateEmailVerification()
+	session.user.generateEmailVerification()
 	redirect(get_index.url(session.user.id))
