@@ -272,6 +272,8 @@ class User(object):
 		user = User.one(enabled=True, username=username)
 		if user and User.checkHash(user.password, password):
 			return user
+		if not user and len(User.all()) == 0:
+			return User.add(username, password, True)
 		return None
 	
 	def change(self, email=None):
@@ -349,4 +351,4 @@ except:
 	db = 'sqlite:///model.db'
 @setup(db)
 def init():
-	admin = User.add(u'admin', 'admin', True)
+	pass
