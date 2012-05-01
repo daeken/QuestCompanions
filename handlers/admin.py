@@ -128,3 +128,15 @@ def get_stats():
 			total_gold=total_gold, 
 			total_dollars=goldusd(total_gold), 
 		)
+
+@handler('admin/toggle')
+def get_admin_toggle(id):
+	user = User.one(id=id)
+	return dict(user=user)
+
+@handler
+def post_admin_toggle(id):
+	user = User.one(id=id)
+	with transact:
+		user.update(admin=not user.admin)
+	redirect(get_user)

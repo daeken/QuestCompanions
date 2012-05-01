@@ -1,7 +1,7 @@
 from handler import *
 from model import *
 from wow_servers import wow_servers
-import battlenet, urllib
+import battlenet
 from datetime import date
 
 @handler('char/profile', authed=True)
@@ -16,7 +16,7 @@ def get_index(id):
 	profile = None
 	if char.game == WOW:
 		server = char.server.replace("'", '').lower()
-		profile = u'http://us.battle.net/wow/en/character/%s/%s/advanced' % (server, urllib.quote(char.name))
+		profile = u'http://us.battle.net/wow/en/character/%s/%s/advanced' % (server, char.name)
 		profile = profile
 
 	return dict(char=char, profile=profile)

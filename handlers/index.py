@@ -25,3 +25,8 @@ def get_index(alert=None, error=None):
 def get_faq():
 	faqs = FAQ.all()
 	return dict(faqs=faqs)
+
+@handler('faq_entry', authed=False)
+def get_faq(id):
+	faq = FAQ.one(id=id)
+	return dict(faq=faq)

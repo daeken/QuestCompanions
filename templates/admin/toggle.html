@@ -1,0 +1,12 @@
+{% extends "base.html" %}
+{% block title %}Toggle admin status{% endblock %}
+{% block includes %}
+{% endblock %}
+{% block content %}
+<h1>Toggle admin</h1>
+<form action="{{ handler.admin.post_admin_toggle.url(user.id) }}" method="POST">$CSRF$
+	Toggle admin status for user {{ user.username }}?<br>
+	<br>
+	<button type="submit">Go for it</button>
+</form>
+{% endblock %}
