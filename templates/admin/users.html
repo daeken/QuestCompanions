@@ -7,7 +7,7 @@
 <a href="{{ handler.admin.get_user_create }}">Create</a>
 <ul>
   {% for user in users %}
-	  <li><a href="{{ handler.user.get_index.url(user.id) }}">{{ user.username }}</a> -- <a href="{{ handler.admin.get_admin_toggle.url(user.id) }}">Toggle admin status</a></li>
+	  <li><a href="{{ handler.user.get_index.url(user.id) }}">{{ user.username }}</a> -- <a href="{{ handler.admin.get_admin_toggle.url(user.id) }}">Toggle admin status</a> or <a href="{{ handler.admin.get_reset.url(user.id) }}">Get password reset link</a></li>
   {% endfor %}
 </ul>
 {% endblock %}

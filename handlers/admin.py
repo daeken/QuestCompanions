@@ -1,6 +1,6 @@
 from handler import *
 from model import *
-import markdown2
+import hmac, markdown2
 
 @handler('admin/index', admin=True)
 def get_index():
@@ -142,3 +142,11 @@ def post_admin_toggle(id):
 	with transact:
 		user.update(admin=not user.admin)
 	redirect(get_user)
+
+@handler
+def get_reset(id):
+	user = User.one(id=id)
+	code = str(user.id)
+	code += hmac.new(Config.getString('secret_key') + user.password, code).hexdigest()[:8]
+
+	return handler.auth.get_reset.url(code=code)
