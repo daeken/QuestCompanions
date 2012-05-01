@@ -16,7 +16,8 @@
           <input name="password" type="password" placeholder="Password">
           <br/>
           <button name="submit" onClick="mixpanel.track('User Login')">Log in</button>
-        </form>
+        </form><br>
+        <small><a href="{{ handler.auth.get_forgot }}">Forgot your password?</a></small>
       </div>
       <div id="loginInterest" class="col right">
         <h2>Enlist</h2>

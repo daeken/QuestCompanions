@@ -1,0 +1,15 @@
+{% extends "loggedOut.html" %}
+{% block title %}Reset Password{% endblock %}
+{% block includes %}
+<script src="/scripts/landing.js"></script>
+{% endblock %}
+{% block content %}
+<h3>Reset password</h3>
+Sorry to hear that you've forgotten your password.  Enter your new password to complete the reset process.<br>
+<br>
+<form action="{{ handler.auth.post_reset }}" method="POST">$CSRF$
+	<input type="hidden" name="code" value="{{ code }}">
+	Password: <input type="password" name="password"><br>
+	<button type="submit">Reset Password</button>
+</form>
+{% endblock %}

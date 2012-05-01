@@ -1,6 +1,6 @@
 from handler import *
 from model import *
-import battlenet
+import battlenet, hmac
 from datetime import date
 import urllib2
 import json
@@ -100,4 +100,47 @@ def rpc_enlist(email):
 		return True
 	return False
 
+@handler('forgot', authed=False)
+def get_forgot():
+	pass
 
+@handler('forgot', authed=False)
+def post_forgot(email):
+	user = User.one(email=email)
+	if user:
+		code = str(user.id)
+		code += hmac.new(Config.getString('secret_key') + user.password, code).hexdigest()[:8]
+		handler.email(email, 'forgot_password', user=user, code=code)
+
+	return dict(alert='You will receive an email with further instructions.')
+
+def checkCode(code):
+	user, mac = code[:-8], code[-8:]
+	user = User.one(id=user)
+	if user == None:
+		return None
+	tmac = hmac.new(Config.getString('secret_key') + user.password, str(user.id)).hexdigest()[:8]
+	if tmac != mac:
+		return None
+	return user
+
+@handler('reset', authed=False)
+def get_reset(code):
+	if not checkCode(code):
+		return dict(error='Invalid reset token')
+	return dict(code=code)
+
+@handler('reset', authed=False)
+def post_reset(code, password):
+	user = checkCode(code)
+	if user == None:
+		return dict(error='Invalid reset token')
+	elif len(password) < 8:
+		return dict(error='Password must be 8 or more characters in length', code=code)
+
+	with transact:
+		user.update(
+			password=User.hash(password)
+		)
+
+	redirect(handler.index.get_index.url(alert='Password changed successfully!'))
