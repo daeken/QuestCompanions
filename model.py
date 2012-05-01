@@ -190,7 +190,7 @@ class Character(object):
 		if self.attrs:
 			attrs = json.loads(self.attrs)
 			if attrs:
-				val.update()
+				val.update(attrs)
 		val = '"%s"' % json.dumps(val).replace('"', '&quot;')
 		return val
 
