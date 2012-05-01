@@ -1,0 +1,12 @@
+{% extends "base.html" %}
+{% block title %}{{ faq.question }} -- FAQ{% endblock %}
+{% block includes %}
+<link rel="stylesheet" type="text/css" href="/static/css/news.css"/>
+{% endblock %}
+{% block content %}
+<script type="text/javascript">
+	mixpanel.track("FAQ loaded", {id: {{ faq.id }} })
+</script>
+  <h1>FAQ &ndash; {{ faq.question }}</h1>
+  {{ faq.answer_markdown|safe }}
+{% endblock %}
