@@ -27,6 +27,9 @@ def createLocalSession():
 	request._session = scoped_session(sessionmaker())
 	request._session.configure(bind=engine)
 
+def closeLocalSession():
+	request._session.remove()
+
 transact = SessionProxy()
 metadata = sa.MetaData()
 

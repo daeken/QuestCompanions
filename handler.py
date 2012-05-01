@@ -3,7 +3,7 @@ from json import dumps
 from flask import abort, render_template, request, session
 from flask import redirect as _redirect
 from werkzeug.exceptions import HTTPException
-from metamodel import createLocalSession
+from metamodel import createLocalSession, closeLocalSession
 from model import User
 from urllib import quote, urlencode
 
@@ -79,7 +79,7 @@ def handler(_tpl=None, _json=False, admin=False, authed=True):
 			except RedirectException, r:
 				return _redirect(r.url)
 			if json:
-				return dumps(ret)
+				ret = dumps(ret)
 			elif tpl != None:
 				if ret == None:
 					ret = {}
@@ -89,9 +89,10 @@ def handler(_tpl=None, _json=False, admin=False, authed=True):
 				ret['len'] = len
 				ret = render_template(tpl + '.html', **ret)
 				csrf = '<input type="hidden" name="csrf" value="%s">' % session['csrf']
-				return ret.replace('$CSRF$', csrf)
-			else:
-				return ret
+				ret = ret.replace('$CSRF$', csrf)
+
+			closeLocalSession()
+			return ret
 
 		func.func_name = '__%s__%s__' % (module, name)
 
