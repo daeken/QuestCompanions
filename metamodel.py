@@ -13,7 +13,11 @@ class SessionProxy(object):
 
 	def __exit__(self, type, value, traceback):
 		if type == None:
-			_session.commit()
+			try:
+				_session.commit()
+			except:
+				_session.rollback()
+				raise
 		else:
 			_session.rollback()
 			raise
