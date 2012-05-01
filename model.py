@@ -77,6 +77,7 @@ class Job(object):
 	max_pay = Integer
 	time_reqd = Integer
 	desc = Unicode(140)
+	details = Unicode
 	reqs = String
 
 	bids = Bid.relation(backref='job')
@@ -91,7 +92,7 @@ class Job(object):
 	gold_history = GoldHistory.relation(backref='job')
 
 	@staticmethod
-	def add(char, max_pay, time_reqd, desc, **kwargs):
+	def add(char, max_pay, time_reqd, desc, details, **kwargs):
 		with transact:
 			return Job.create(
 				user=char.user, 
@@ -101,6 +102,7 @@ class Job(object):
 				max_pay=max_pay, 
 				time_reqd=time_reqd,
 				desc=desc, 
+				details=details, 
 				reqs=json.dumps(kwargs), 
 				timer_flags=0, 
 				completed=False, 

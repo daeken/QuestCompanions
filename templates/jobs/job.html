@@ -16,8 +16,9 @@
 <h2 id="job-title" data-id="{{ job.id }}" data-accepted="{{ 'yes' if accepted else 'no' }}">{{ job.desc }}</h2>
 Posted by: {{ job.char.link()|safe }}<br>
 Game: {{ job.gamename() }}<br>
+Description: {{ job.desc }}<br>
 {% if job.details %}
-Description: {{ job.details }}<br>
+Other details: <pre style="display: inline">{{ job.details }}</pre><br>
 {% endif %}
 {% if accepted %}
 	Job auction has completed.<br>

@@ -33,7 +33,7 @@ $(document).ready ->
 			if confirm 'Are you sure you want to complete this job?  This cannot be undone.'
 				clearInterval timerInterval
 				clearInterval checkCompleteInterval
-                                mixpanel.track "User Completed Job"
+				mixpanel.track "User Completed Job"
 				$rpc.job.complete id, ->
 					$('#main').hide 'fast'
 					$('#feedback').show 'fast'
