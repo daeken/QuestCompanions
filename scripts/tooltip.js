@@ -56,7 +56,7 @@ var attrmap = {
   race: 'Race', 
   level: 'Level', 
   charclass: 'Class', 
-  item_level: 'Equipment Level'
+  item_level: 'Item Level'
 };
 
 function addCharTip(obj)
