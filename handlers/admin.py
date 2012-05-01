@@ -88,6 +88,7 @@ def goldusd(gold):
 @handler('admin/stats', admin=True)
 def get_stats():
 	user_count = len(User.all())
+	char_count = len(Character.all())
 	jobs_completed = len(Job.some(completed=True))
 	jobs_total = len(Job.all())
 	fees = sum(job.fee_paid for job in Job.some(completed=True))
@@ -115,6 +116,7 @@ def get_stats():
 
 	return dict(
 			user_count=user_count, 
+			char_count=char_count, 
 			jobs_completed=jobs_completed, 
 			jobs_total=jobs_total, 
 			fees=fees, 
