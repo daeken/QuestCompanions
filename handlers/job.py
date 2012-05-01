@@ -85,7 +85,7 @@ def dispatch_notifications(id):
 			email(char.user.email, 'new_job', charstr=charstr, job=job, plural=len(chars) > 1, server=chars[0].server)
 
 @handler
-def post_job_create(char, desc, time_reqd, max_pay):
+def post_job_create(char, desc, details, time_reqd, max_pay):
 	char = Character.one(id=char)
 	time_reqd = int(time_reqd)
 	max_pay = int(max_pay)
@@ -96,7 +96,7 @@ def post_job_create(char, desc, time_reqd, max_pay):
 	if char == None or char.user != session.user or len(desc) > 140 or time_reqd < 1 or max_pay < 10 or max_pay > session.user.gold - outstanding:
 		abort(403)
 
-	job = Job.add(char, max_pay, time_reqd, desc)
+	job = Job.add(char, max_pay, time_reqd, desc, details)
 
 	thread.start_new_thread(dispatch_notifications, (job.id, ))
 
