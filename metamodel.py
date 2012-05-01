@@ -91,7 +91,11 @@ engine = None
 
 def setup(db):
 	global engine
-	engine = sa.create_engine(db)
+	try:
+		file('prod', 'r')
+		engine = sa.create_engine(db, client_encoding='utf8')
+	except:
+		engine = sa.create_engine(db)
 	metadata.bind = engine
 
 	initialized = False
