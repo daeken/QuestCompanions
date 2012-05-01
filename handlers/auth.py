@@ -6,8 +6,8 @@ import urllib2
 import json
 
 @handler('login', authed=False)
-def get_index():
-	pass
+def get_index(alert=None, error=None):
+	return dict(alert=alert, error=error)
 
 @handler('login', authed=False)
 def post_login(username=None, password=None):
@@ -143,4 +143,4 @@ def post_reset(code, password):
 			password=User.hash(password)
 		)
 
-	redirect(handler.index.get_index.url(alert='Password changed successfully!'))
+	redirect(get_index.url(alert='Password changed successfully!'))
