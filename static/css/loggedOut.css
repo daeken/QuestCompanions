@@ -33,6 +33,7 @@ margin-top: 20px;
 font-size: 24pt;
 text-align: center;
 font-family: "Museo900", verdana, sans-serif;
+padding-bottom: 20px;
 }
 
 .body {
@@ -145,4 +146,10 @@ margin-right:0;
 
 .panel span {
 line-height: 24px;
+}
+
+.center {
+text-align: center;
+padding:10px;
+line-height: 26px;
 }
