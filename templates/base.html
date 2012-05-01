@@ -53,7 +53,9 @@
       <a class="tab" href="{{ item.href }}">{{ item.title }}</a>
     {% endfor %}
   	{% if session.user %}
-  		<a class="tab" href="{{ handler.user.get_index.url(session.user.id) }}">{{ session.user.username }}</a>
+      <a class="tab" href="{{ handler.index.get_index }}">Home</a>
+      <a class="tab" href="{{ handler.job.get_index }}">Jobs</a>
+      <a class="tab" href="{{ handler.user.get_index.url(session.user.id) }}">{{ session.user.username }}</a>
   		{% if session.user.admin %}
 	  		<a class="tab" href="{{ handler.admin.get_index }}">Admin</a>
 	  	{% endif %}
