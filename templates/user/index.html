@@ -12,9 +12,9 @@
     <div class="userPic">
       <img src="{{ user.pic if user.pic else '/static/img/notFound.png' }}">
     </div>
+      {% if user == session.user %}
     <div class="contact block">
       <h3>Your Contact Info</h3>
-      {% if user == session.user %}
         If you'd like to receive notifications when your characters are eligible for a new job, enter your information below.<br>
         <form action="{{ handler.user.post_index.url(user.id) }}" method="POST">$CSRF$
           <label class="small">Phone number:</label> <input type="tel" pattern="[\+]?[\(]?\d{1,5}[\)]?[\s|\-]?\d{1,3}[\s|\-]?\d{3}[\s|\-]?\d{3,4}" name="phone_number" value="{{ user.phone_number if user.phone_number else '' }}">
@@ -40,8 +40,8 @@
           <br>
           <small>Your privacy is of paramount importance to us and your information will never leave our system or be exposed to other users.</small>
         </form>
-      {% endif %}
     </div>
+      {% endif %}
   </div>
   <div class="col wide right">
     <h1>{{ user.username }}</h1>
