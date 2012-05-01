@@ -2,7 +2,11 @@ import stripe
 from handler import *
 from model import *
 
-testing = True
+try:
+	file('prod', 'r')
+	testing = False
+except:
+	testing = True
 if testing:
 	stripe.api_key = 'akA7Aw3aFIcAb8UstFLBWcMFO6QIFcKY' # test key
 else:
