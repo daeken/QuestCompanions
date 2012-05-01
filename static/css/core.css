@@ -164,7 +164,7 @@ display:none;
 .alertPop[class~='error']
 {
 background: rgba(150,0,0,0.7);
-color: #bbb;
+color: #fff;
 box-shadow: none;
 }
 
