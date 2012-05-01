@@ -21,14 +21,6 @@ def get_index(alert=None, error=None):
 		jobs=jobs
 	)
 
-@handler('support', authed=True)
-def get_support():
-	pass
-
-@handler('support_complete', authed=True)
-def post_support_create(message):
-	pass
-
 @handler('faq', authed=False)
 def get_faq():
 	faqs = FAQ.all()
