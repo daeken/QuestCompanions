@@ -4,8 +4,9 @@ font-weight: 900;
 
 .story {
 width: 240px;
-padding-bottom: 10px;
+padding-bottom: 4px;
 border-bottom: 1px dashed #bbb;
+margin-bottom: 20px;
 }
 
 .item:nth-last-of-type(1) .story { 
