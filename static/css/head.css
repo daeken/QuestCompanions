@@ -46,6 +46,9 @@ text-decoration: none;
 margin-left: -5px;
 border-left: 1px solid rgba(255,255,255,0.1);
 font-size: 14px;
+text-shadow: -1px -1px 0px rgba(0,0,0,0.3);
+//letter-spacing: 0;
+letter-spacing: 0.3px;
 }
 
 .nav .tab:hover {
