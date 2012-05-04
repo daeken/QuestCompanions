@@ -31,7 +31,7 @@ def post_login(username=None, password=None):
 				
 				thumbnail = 'https://us.battle.net/static-render/us/' + wowchar.thumbnail
 				with transact:
-					if UserCharacter.attrs in ('', None):
+					if UserCharacter.attrs in ('', None, 'null'):
 						attrs = {}
 					else:
 						attrs = json.loads(UserCharacter.attrs)
